@@ -6,3 +6,10 @@ export const createGameRoom = () => {
         test: "plz"
     }
 }
+
+export const enterGameRoom = (roomNumber) => {
+    return {
+        type: types.ENTER_GAME_ROOM,
+        roomNumber
+    }
+}

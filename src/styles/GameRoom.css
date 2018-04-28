@@ -1,0 +1,30 @@
+@value nav_height, subnav_height from "./layout.css";
+
+.GameRoom {
+    height: 100vh;
+}
+
+.Header {
+    height: subnav_height;
+    border: 1px solid black;
+}
+
+.Display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    height: calc(100vh - nav_height);
+}
+
+li {
+    border: 1px solid black;
+    padding: 8px 12px;
+    margin: 4px;
+}
+
+button {
+    border: none;
+}

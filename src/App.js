@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router';
+import { withRouter } from 'react-router-dom'
 
+import RouteWrapper from 'helpers/RouteWrapper';
+import Nav from 'components/Nav';
+import GameRoom from 'components/GameRoom';
 import GameRoomForm from 'components/GameRoomForm';
-import { createGameRoom } from 'actions';
+import { createGameRoom, enterGameRoom } from 'actions';
 
 class App extends Component {
     constructor(props) {
@@ -13,18 +18,30 @@ class App extends Component {
     render() {
         return (
             <div>
-                <GameRoomForm 
-                    createGameRoom={this.props.createGameRoom}
-                    enterRoom={this.props.enterRoom}
-                />
+                <Nav />
+                {/* <Switch> */}
+                
+                    <RouteWrapper exact path="/" 
+                        component={GameRoomForm} 
+                        createGameRoom={this.props.createGameRoom}
+                        enterRoom={this.props.enterRoom}
+                    />
+                    <RouteWrapper path="/hello" component={GameRoom} gameId="hello"/>
+                    <RouteWrapper path="/hello/world" component={GameRoom} gameId="helloworld"/>
+                    <RouteWrapper path="/gameroom/:test" component={GameRoom} gameId="4576" />
+                {/* </Switch> */}
+                
             </div>
         )
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+    console.log(state);
+    console.log(ownProps);
     return {
-        room: state.room
+        location: state.location,
+        roomNumber: state.roomNumber
     }
 }
 
@@ -34,15 +51,20 @@ const mapDispatchToProps = dispatch => {
             dispatch(createGameRoom());
         },
         enterRoom: state => {
-            alert("Game room entered! " + state.room);
+            dispatch(enterGameRoom(state.roomNumber))
         }
     }
 }
 
-const AppContainer = connect(
+const AppContainer = withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(App)
+)(App))
+
+// const AppContainer =connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(App)
 
 export default AppContainer;
 

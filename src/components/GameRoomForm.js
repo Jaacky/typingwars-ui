@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 
+import styles from 'styles/GameRoomForm';
+
 class GameRoomForm extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            room: ""
+            roomNumber: ""
         };
     }
 
     handleOnChange = event => {
-        this.setState({room: event.target.value})
+        this.setState({roomNumber: event.target.value})
     }
 
     handleCreateGameRoom = (event) => {
@@ -27,13 +29,13 @@ class GameRoomForm extends Component {
 
     render() {
         return (
-            <div>
+            <div className={styles.GameRoomForm}>
                 <form onSubmit={this.handleCreateGameRoom} >
                     <input type="submit" value="Create game room" />
                 </form>
-                <br/>
+                <span>/</span>
                 <form onSubmit={this.handleSubmit} >
-                    <input placeholder="Room" onChange={this.handleOnChange} value={this.state.room} />
+                    <input placeholder="Room Number" onChange={this.handleOnChange} value={this.state.roomNumber} />
                     <input type="submit" value="Enter" />
                 </form>
             </div>

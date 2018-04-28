@@ -3,6 +3,9 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 // const postcssModulesValues = require('postcss-modules-values');
 
 module.exports = {
+    output: {
+        publicPath: '/',
+    },
     resolve: {
         modules: ['node_modules', 'src'],
         extensions: ['.css', '.js', '.jsx']

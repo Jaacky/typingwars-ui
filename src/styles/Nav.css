@@ -1,0 +1,13 @@
+@value nav_height, side_padding from "./layout.css";
+
+.Nav {
+    height: nav_height;
+    display: flex;
+    align-items: center;
+    padding: 0px side_padding;
+}
+
+.Nav span {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+}
