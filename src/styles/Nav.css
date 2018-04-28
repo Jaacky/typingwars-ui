@@ -7,7 +7,12 @@
     padding: 0px side_padding;
 }
 
-.Nav span {
+.Nav p {
     text-transform: uppercase;
     font-size: 1.5rem;
+    font-family: 'Futura Thin';
+}
+
+.Nav p span {
+    /* font-size: 1.1rem; */
 }

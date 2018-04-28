@@ -26,7 +26,7 @@ function* createGameRoom(action) {
     // yield put({ type: types.CREATE_GAME_ROOM_SUCCESS, socket: socket })
     let gameId = '123GA'
     yield put(push('/gameroom/' + gameId));
-    yield put({ type: types.CREATE_GAME_ROOM_SUCCESS, gameId })
+    yield put({ type: types.CREATE_GAME_ROOM_SUCCESS, nickname: action.nickname, gameId })
 }
 
 function* watchCreateGameRoom() {
@@ -36,7 +36,7 @@ function* watchCreateGameRoom() {
 function *enterGameRoom(action) {
     let gameId = '123GA';
     yield put(push('/gameroom/' + gameId));
-    yield put({ type: types.ENTER_GAME_ROOM_SUCCESS, gameId })
+    yield put({ type: types.ENTER_GAME_ROOM_SUCCESS, nickname: action.nickname, gameId })
 }
 
 function* watchEnterGameRoom() {

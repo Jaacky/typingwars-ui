@@ -5,7 +5,7 @@ import styles from 'styles/Nav';
 const Nav = () => {
     return (
         <div className={styles.Nav}>
-            <span>Typing Wars</span>
+            <p>T<span>yping</span> W<span>ars</span></p>
         </div>
     )
 }

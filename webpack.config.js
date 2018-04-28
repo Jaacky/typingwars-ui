@@ -37,6 +37,20 @@ module.exports = {
                     }
                 ]
             },
+            // {
+            //     test: /\.(eot|svg|ttf|woff|woff2)$/,
+            //     loader: 'file?name=[name].[ext]'
+            // },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg|otf)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'fonts/'
+                    }
+                }]
+            },
             {
                 test: /\.html$/,
                 use: [

@@ -11,11 +11,11 @@ const game = (state = {}, action) => {
         //     let socket = createGameSocket();
         //     return [socket];
         case types.CREATE_GAME_ROOM_SUCCESS:
-            console.log("Successful game room creation reducer handling");
-            return { gameId: action.gameId, ...state };
+            // console.log("Successful game room creation reducer handling");
+            return { gameId: action.gameId, nickname: action.nickname, ...state };
         case types.ENTER_GAME_ROOM_SUCCESS:
-            console.log("Entered game room, reducer handling");
-            return { gameId : action.gameId, ...state };
+            // console.log("Entered game room, reducer handling", action);
+            return { gameId : action.gameId, nickname: action.nickname, ...state };
         default:
             return state;
     }

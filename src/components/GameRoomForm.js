@@ -7,8 +7,13 @@ class GameRoomForm extends Component {
         super(props);
 
         this.state = {
-            roomNumber: ""
+            roomNumber: "",
+            nickname: "",
         };
+    }
+
+    handleNicknameChange = event => {
+        this.setState({nickname: event.target.value})
     }
 
     handleOnChange = event => {
@@ -18,7 +23,7 @@ class GameRoomForm extends Component {
     handleCreateGameRoom = (event) => {
         event.preventDefault();
 
-        this.props.createGameRoom();
+        this.props.createGameRoom(this.state);
     }
 
     handleSubmit = (event) => {
@@ -30,6 +35,13 @@ class GameRoomForm extends Component {
     render() {
         return (
             <div className={styles.GameRoomForm}>
+                <div>
+                    <input type="text" placeholder="Nickname" 
+                        onChange={this.handleNicknameChange} 
+                        value={this.state.nickname}
+                    />
+                </div>
+                <span>/</span>
                 <form onSubmit={this.handleCreateGameRoom} >
                     <input type="submit" value="Create game room" />
                 </form>

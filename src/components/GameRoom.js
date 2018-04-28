@@ -12,7 +12,7 @@ const GameRoom = (props) => {
             </div>
             <div className={styles.Display}>
                 <ul>
-                    <li>You</li>
+                    <li>You, {props.nickname}</li>
                     <li>Player 2</li>
                     <li><button>Ready</button></li>
                 </ul>
