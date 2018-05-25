@@ -7,10 +7,10 @@ export const createGameRoom = (nickname) => {
     }
 }
 
-export const enterGameRoom = (nickname, roomNumber) => {
+export const enterGameRoom = (nickname, gameId) => {
     return {
         type: types.ENTER_GAME_ROOM,
         nickname,
-        roomNumber
+        gameId
     }
 }

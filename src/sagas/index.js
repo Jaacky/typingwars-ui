@@ -1,42 +1,48 @@
 import "regenerator-runtime/runtime"; // only for webpack dev server babel runtime https://github.com/redux-saga/redux-saga/issues/280
-import { call, put, takeEvery, all } from 'redux-saga/effects';
+import { take, call, put, takeEvery, all } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { push } from 'react-router-redux';
 
 import * as types from 'actions/types';
 
-import { createGameSocket } from 'sockets';
-
-// function* fetchPrice(action) {
-//     console.log("fetch price");
-//     let coin = "Ethereum";
-//     const data = yield fetch(`https://api.coinmarketcap.com/v1/ticker/${coin}/?convert=CAD`)
-//         .then(response => response.json());
-//     yield put({ type: 'FETCH_PRICE_SUCCESS', data: data[0] })
-// }
-
-// function* watchFetchPrice() {
-//     console.log("watch fetch price");
-//     yield takeEvery('FETCH_PRICE', fetchPrice);
-// }
+import { createGameRoomSocket, enterGameRoomSocket } from 'sockets';
 
 function* createGameRoom(action) {
     // console.log("Create game room saga");
     // let socket = createGameSocket();
     // yield put({ type: types.CREATE_GAME_ROOM_SUCCESS, socket: socket })
-    let gameId = '123GA'
-    yield put(push('/gameroom/' + gameId));
-    yield put({ type: types.CREATE_GAME_ROOM_SUCCESS, nickname: action.nickname, gameId })
+    // let gameId = '123GA'
+    let socket = yield call(createGameRoomSocket, action.nickname);
+
+    // yield put({ type: types.CREATE_GAME_ROOM_SUCCESS, nickname: action.nickname, gameId })
+    // yield put(push('/gameroom/' + gameId));
+    yield put(push('/gameroom'))
+    // console.log("After pushing location");
+    while (true) {
+        console.log("before yielding take socket channel");
+        const action = yield take(socket);
+        console.log("after yielding socket channel socket", action);
+        yield put(action);
+    }
 }
 
 function* watchCreateGameRoom() {
     yield takeEvery(types.CREATE_GAME_ROOM, createGameRoom);
 }
 
-function *enterGameRoom(action) {
-    let gameId = '123GA';
-    yield put(push('/gameroom/' + gameId));
-    yield put({ type: types.ENTER_GAME_ROOM_SUCCESS, nickname: action.nickname, gameId })
+function* enterGameRoom(action) {
+    // let gameId = '123GA';
+    // let socket = createGameSocket();
+    console.log("enter game room actino", action)
+    let socket = yield call(enterGameRoomSocket, {nickname: action.nickname, gameId: action.gameId})
+    yield put(push('/gameroom'))
+
+    while (true) {
+        const action = yield take(socket);
+        yield put(action);
+    }
+    // yield put({ type: types.ENTER_GAME_ROOM_SUCCESS, nickname: action.nickname, gameId });
+    // yield put(push('/gameroom/' + gameId));
 }
 
 function* watchEnterGameRoom() {

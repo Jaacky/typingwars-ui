@@ -16,12 +16,11 @@ class App extends Component {
     }
 
     render() {
-        console.log("app", this.props);
+        // console.log("app", this.props);
         return (
             <div>
                 <Nav />
-                {/* <Switch> */}
-                
+                <Switch>
                     <RouteWrapper exact path="/" 
                         component={GameRoomForm} 
                         createGameRoom={this.props.createGameRoom}
@@ -29,8 +28,8 @@ class App extends Component {
                     />
                     <RouteWrapper path="/hello" component={GameRoom} gameId="hello"/>
                     <RouteWrapper path="/hello/world" component={GameRoom} gameId="helloworld"/>
-                    <RouteWrapper path="/gameroom/:test" component={GameRoom} gameId="4576" nickname={this.props.nickname} />
-                {/* </Switch> */}
+                    <RouteWrapper path="/gameroom" component={GameRoom} gameId={this.props.gameId} nickname={this.props.nickname} />
+                </Switch>
                 
             </div>
         )
@@ -38,10 +37,9 @@ class App extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log("mapping state to props", state);
-    // console.log(ownProps);
     return {
         nickname: state.game.nickname,
+        gameId: state.game.gameId,
         location: state.router.location,
         roomNumber: state.game.roomNumber
     }
@@ -53,8 +51,9 @@ const mapDispatchToProps = dispatch => {
             dispatch(createGameRoom(state.nickname));
         },
         enterRoom: state => {
-            console.log("action", enterGameRoom(state.nickname, state.roomNumber));
-            dispatch(enterGameRoom(state.nickname, state.roomNumber))
+            console.log(state);
+            // console.log("action", enterGameRoom(state.nickname, state.roomNumber));
+            dispatch(enterGameRoom(state.nickname, state.gameId))
         }
     }
 }
