@@ -4,6 +4,7 @@ import { delay } from 'redux-saga';
 import { push } from 'react-router-redux';
 
 import * as types from 'actions/types';
+import * as actions from 'actions';
 
 import { createGameRoomSocket, enterGameRoomSocket } from 'sockets';
 
@@ -16,7 +17,7 @@ function* createGameRoom(action) {
 
     // yield put({ type: types.CREATE_GAME_ROOM_SUCCESS, nickname: action.nickname, gameId })
     // yield put(push('/gameroom/' + gameId));
-    yield put(push('/gameroom'))
+    // yield put(push('/gameroom'))
     // console.log("After pushing location");
     while (true) {
         console.log("before yielding take socket channel");
@@ -49,6 +50,21 @@ function* watchEnterGameRoom() {
     yield takeEvery(types.ENTER_GAME_ROOM, enterGameRoom);
 }
 
+function* redirectToGameRoom(action) {
+    console.log("Redirecting to game room", action);
+    console.log("Action redirect to emit", actions.enteredRoom(action.data.roomID, action.data.playerID, action.data.players));
+    yield put(actions.enteredRoom(action.data.roomID, action.data.playerID, action.data.players));
+    yield put(push('/gameroom'));
+}
+
+function* watchSuccessfulGameRoomCreation() {
+    yield takeEvery(types.CREATE_GAME_ROOM_SUCCESS, redirectToGameRoom);
+}
+
+function* watchSuccessfulGameRoomEnter() {
+    yield takeEvery(types.ENTER_GAME_ROOM_SUCCESS, redirectToGameRoom);
+}
+
 // function* createGameRoomSocket(action) {
 //     console.log("Create game room saga");
 //     const socket = yield createGameRoomSocket();
@@ -65,6 +81,8 @@ export default function* rootSaga() {
     yield all([
         watchCreateGameRoom(),
         watchEnterGameRoom(),
+        watchSuccessfulGameRoomCreation(),
+        watchSuccessfulGameRoomEnter(),
         // watchCreateGameRoomSocket(),
     ])
 };
