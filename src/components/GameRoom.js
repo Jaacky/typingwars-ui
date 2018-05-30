@@ -13,24 +13,31 @@ class GameRoom extends Component {
         };
     }
 
+    handleReadyToggle = () => {
+        this.setState({ready: !this.state.ready});
+    }
+
     render() {
-        console.log("Game room this.props", this.props);
+        console.log("Game room this.props", this.props, this.state.ready);
         let players, p1, p2;
         if (!this.props.playerID || !this.props.players) {
             console.log("Redirecting to home from game room", this.props);
             return (
                 <Redirect to="/" />
             )
-        } else  {
-            players = this.props.players;
-            p1 = players[0]
-            if (players.length > 1) {
-                p2 = players[1]
-            } else {
-                p2 = { nickname: "Waiting for player..." }
-            }
         }
-        
+
+        players = this.props.players;
+        p1 = players[0]
+        if (players.length > 1) {
+            p2 = players[1]
+        } else {
+            p2 = { nickname: "Waiting for player..." }
+        }
+
+        let isClientP1 = this.props.playerID == p1.id,
+            isClientP2 = this.props.playerID == p2.id;
+
         return (
             <div className={styles.GameRoom}>
                 <div className={styles.Header}>
@@ -38,9 +45,13 @@ class GameRoom extends Component {
                 </div>
                 <div className={styles.Display}>
                     <ul>
-                        <li>{p1.nickname} {this.props.playerID == p1.id ? '(You)': ''}</li>
-                        <li>{p2.nickname} {this.props.playerID == p2.id ? '(You)': ''}</li>
-                        <li><button>Ready</button></li>
+                        <li className={ isClientP1 && this.state.ready ? styles.readyPlayer : '' }>
+                            {p1.nickname} { isClientP1 ? '(You)': ''}
+                        </li>
+                        <li className={ isClientP2 && this.state.ready ? styles.readyPlayer : '' }>
+                            {p2.nickname} { isClientP2 ? '(You)': ''}
+                        </li>
+                        <button className={this.state.ready ? styles.readyButton : ''} onClick={this.handleReadyToggle}>Ready</button>
                     </ul>
                 </div>
                 {/* <GameMap /> */}

@@ -1,4 +1,4 @@
-@value nav_height, subnav_height from "./layout.css";
+@value nav_height, subnav_height, element_padding from "./layout.css";
 
 .GameRoom {
     height: 100vh;
@@ -21,10 +21,20 @@
 
 li {
     border: 1px solid black;
-    padding: 8px 12px;
+    padding: element_padding;
     margin: 4px;
 }
 
 button {
-    border: none;
+    border: 1px solid black;
+    padding: element_padding;
+    cursor: pointer;
+}
+
+.readyPlayer {
+    background-color: yellowgreen;
+}
+
+.readyButton {
+    border: 2px solid black;
 }
