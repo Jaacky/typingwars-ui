@@ -1,6 +1,6 @@
 import "regenerator-runtime/runtime"; // only for webpack dev server babel runtime https://github.com/redux-saga/redux-saga/issues/280
-import { take, call, put, takeEvery, takeLatest, all } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import { take, call, put, takeEvery, takeLatest, all, race } from 'redux-saga/effects';
+import { eventChannel } from 'redux-saga';
 import { push } from 'react-router-redux';
 
 import * as types from 'actions/types';
@@ -8,18 +8,88 @@ import * as actions from 'actions';
 
 import { createGameRoomSocket, enterGameRoomSocket } from 'sockets';
 
-function* createGameRoom(action) {
-    let socket = yield call(createGameRoomSocket, action.nickname);
+// function* createGameRoom(action) {
+//     let socket = yield call(createGameRoomSocket, action.nickname);
+//     while (true) {
+//         console.log("before yielding take socket channel");
+//         const action = yield take(socket);
+//         console.log("after yielding socket channel socket", action);
+//         yield put(action);
+//     }
+// }
+
+// function* watchCreateGameRoom() {
+//     yield takeEvery(types.CREATE_GAME_ROOM, createGameRoom);
+// }
+
+function watchIncomingMessages(socket) {
+    return eventChannel(emit => {
+        socket.onmessage = function(event) {
+            console.log("on message", event);
+            let res = JSON.parse(event.data);
+            console.log(res);
+            return emit({ type: res.MessageType, data: res.Data });
+        }
+
+        socket.onclose = function(event) {
+            alert("ws connection closed");
+        };
+
+        // Unsubscribe function - should close socket
+        return () => {
+            socket.close();
+            console.log('Socket off');
+        };
+    });
+}
+
+function* propagteIncomingMessages(socketChannel) {
     while (true) {
         console.log("before yielding take socket channel");
-        const action = yield take(socket);
+        const action = yield take(socketChannel);
         console.log("after yielding socket channel socket", action);
         yield put(action);
     }
 }
 
-function* watchCreateGameRoom() {
-    yield takeEvery(types.CREATE_GAME_ROOM, createGameRoom);
+function* sendOutgoingMessages(socket) {
+    while (true) {
+        const action = yield take(types.MESSAGE_TO_SERVER);
+        socket.send(action);
+    }
+}
+
+function* createGameRoomHandler() {
+    while (true) {
+        const action = yield take(types.CREATE_GAME_ROOM);
+        const socket = new WebSocket("ws://localhost:8080/ws");
+
+        socket.onopen = (event) => {
+            console.log("create game socket connection USING CHANNEL established", event);
+            let msg = {
+                MessageType: types.CREATE_GAME_ROOM,
+                Data: {
+                    nickname: action.nickname
+                }
+            };
+            socket.send(JSON.stringify(msg));
+        }
+
+        const socketChannel = yield call(watchIncomingMessages, socket);
+
+        const { cancel } = yield race({
+            task: all([
+                call(propagteIncomingMessages, socketChannel),
+                call(sendOutgoingMessages, socket)
+            ]),
+            cancel: take("STOP_WEBSOCKET")
+        });
+
+        if (cancel) {
+            // console.log('channel cancelled');
+            socketChannel.close();
+        }
+    }
 }
 
 function* enterGameRoom(action) {
@@ -61,7 +131,8 @@ function* watchPlayerReady() {
 
 export default function* rootSaga() {
     yield all([
-        watchCreateGameRoom(),
+        // watchCreateGameRoom(),
+        createGameRoomHandler(),
         watchEnterGameRoom(),
         watchSuccessfulGameRoomCreation(),
         watchSuccessfulGameRoomEnter(),
