@@ -41,10 +41,11 @@ const game = (state = {}, action) => {
             playerID = action.playerID;
             players = action.players;
 
-            return { gameId, playerID, players, ...state };
+            return { ...state, gameId, playerID, players };
         case types.NEW_PLAYER_JOINED:
-            console.log("New player joined reducer handling");
-            return { players: [], ...state };        
+            console.log("New player joined reducer handling", action);
+            players = action.data.players;
+            return { ...state, players };        
         // case 'socket_message':
         //     console.log("ACTION SOCKET_MESSAGE TYPE SENT");
         //     return state;

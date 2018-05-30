@@ -29,7 +29,7 @@ const GameRoom = (props) => {
             </div>
             <div className={styles.Display}>
                 <ul>
-                    <li>{p1.nickname} {props.playerID == p1.id ? '(You)': ''} </li>
+                    <li>{p1.nickname} {props.playerID == p1.id ? '(You)': ''}</li>
                     <li>{p2.nickname} {props.playerID == p2.id ? '(You)': ''}</li>
                     <li><button>Ready</button></li>
                 </ul>
