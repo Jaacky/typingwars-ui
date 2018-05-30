@@ -8,7 +8,7 @@ import RouteWrapper from 'helpers/RouteWrapper';
 import Nav from 'components/Nav';
 import GameRoom from 'components/GameRoom';
 import GameRoomForm from 'components/GameRoomForm';
-import { createGameRoom, enterGameRoom } from 'actions';
+import { createGameRoom, enterGameRoom , playerReadyAction } from 'actions';
 
 class App extends Component {
     constructor(props) {
@@ -25,7 +25,12 @@ class App extends Component {
                         createGameRoom={this.props.createGameRoom}
                         enterRoom={this.props.enterRoom}
                     />
-                    <RouteWrapper path="/gameroom" component={GameRoom} gameId={this.props.gameId} playerID={this.props.playerID} players={this.props.players} />
+                    <RouteWrapper path="/gameroom" component={GameRoom} 
+                        gameId={this.props.gameId} 
+                        playerID={this.props.playerID} 
+                        players={this.props.players} 
+                        playerReady={this.props.playerReady}
+                    />
                 </Switch>
             </div>
         )
@@ -50,7 +55,10 @@ const mapDispatchToProps = dispatch => {
         },
         enterRoom: state => {
             dispatch(enterGameRoom(state.nickname, state.gameId))
-        }
+        },
+        playerReady: readyFlag => {
+            dispatch(playerReadyAction(readyFlag))
+        },
     }
 }
 

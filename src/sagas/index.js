@@ -1,5 +1,5 @@
 import "regenerator-runtime/runtime"; // only for webpack dev server babel runtime https://github.com/redux-saga/redux-saga/issues/280
-import { take, call, put, takeEvery, all } from 'redux-saga/effects';
+import { take, call, put, takeEvery, takeLatest, all } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { push } from 'react-router-redux';
 
@@ -51,11 +51,21 @@ function* watchSuccessfulGameRoomEnter() {
     yield takeEvery(types.ENTER_GAME_ROOM_SUCCESS, redirectToGameRoom);
 }
 
+function* playerReady(action) {
+    console.log("Player ready toggle", action.readyFlag);
+}
+
+function* watchPlayerReady() {
+    yield takeLatest(types.PLAYER_READY, playerReady);
+}
+
 export default function* rootSaga() {
     yield all([
         watchCreateGameRoom(),
         watchEnterGameRoom(),
         watchSuccessfulGameRoomCreation(),
         watchSuccessfulGameRoomEnter(),
+        watchPlayerReady(),
+
     ])
 };

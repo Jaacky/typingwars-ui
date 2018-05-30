@@ -14,7 +14,9 @@ class GameRoom extends Component {
     }
 
     handleReadyToggle = () => {
-        this.setState({ready: !this.state.ready});
+        let readyFlag = !this.state.ready;
+        this.setState({ready: readyFlag});
+        this.props.playerReady(readyFlag);
     }
 
     render() {
@@ -32,7 +34,7 @@ class GameRoom extends Component {
         if (players.length > 1) {
             p2 = players[1]
         } else {
-            p2 = { nickname: "Waiting for player..." }
+            p2 = { nickname: "Waiting for another player..." }
         }
 
         let isClientP1 = this.props.playerID == p1.id,
@@ -45,13 +47,13 @@ class GameRoom extends Component {
                 </div>
                 <div className={styles.Display}>
                     <ul>
-                        <li className={ isClientP1 && this.state.ready ? styles.readyPlayer : '' }>
+                        <li className={`${styles.Player} ${isClientP1 && this.state.ready ? styles.readyPlayer : ''}`}>
                             {p1.nickname} { isClientP1 ? '(You)': ''}
                         </li>
-                        <li className={ isClientP2 && this.state.ready ? styles.readyPlayer : '' }>
+                        <li className={`${styles.Player} ${isClientP2 && this.state.ready ? styles.readyPlayer : ''}`}>
                             {p2.nickname} { isClientP2 ? '(You)': ''}
                         </li>
-                        <button className={this.state.ready ? styles.readyButton : ''} onClick={this.handleReadyToggle}>Ready</button>
+                        <button className={`${styles.Ready} ${this.state.ready ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
                     </ul>
                 </div>
                 {/* <GameMap /> */}

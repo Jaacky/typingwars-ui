@@ -23,3 +23,10 @@ export const enteredRoom = (roomID, playerID, players) => {
         players
     }
 }
+
+export const playerReadyAction = (readyFlag) => {
+    return {
+        type: types.PLAYER_READY,
+        readyFlag
+    }
+}
