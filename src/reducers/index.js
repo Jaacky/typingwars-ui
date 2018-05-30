@@ -18,23 +18,6 @@ import { createGameSocket } from 'sockets';
 const game = (state = {}, action) => {
     let gameId, playerID, players;
     switch (action.type) {
-        // case types.CREATE_GAME_ROOM:
-        //     let socket = createGameSocket();
-        //     return [socket];
-        // case types.CREATE_GAME_ROOM_SUCCESS:
-        //     console.log("Successful game room creation reducer handling", action);
-        //     gameId = action.data.roomID;
-        //     nickname = action.data.nickname;
-        //     players = action.data.players;
-
-        //     return { gameId, nickname, players, ...state };
-        // case types.ENTER_GAME_ROOM_SUCCESS:
-        //     console.log("Entered game room, reducer handling", action);
-        //     gameId = action.data.roomID;
-        //     nickname = action.data.nickname;
-        //     players = action.data.players;
-
-        //     return { gameId, nickname, players, ...state };
         case types.ENTERED_ROOM:
             console.log("Entered game room, reducer handling", action);
             gameId = action.roomID;

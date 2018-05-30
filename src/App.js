@@ -16,7 +16,6 @@ class App extends Component {
     }
 
     render() {
-        // console.log("app", this.props);
         return (
             <div>
                 <Nav />
@@ -26,11 +25,8 @@ class App extends Component {
                         createGameRoom={this.props.createGameRoom}
                         enterRoom={this.props.enterRoom}
                     />
-                    <RouteWrapper path="/hello" component={GameRoom} gameId="hello"/>
-                    <RouteWrapper path="/hello/world" component={GameRoom} gameId="helloworld"/>
                     <RouteWrapper path="/gameroom" component={GameRoom} gameId={this.props.gameId} playerID={this.props.playerID} players={this.props.players} />
                 </Switch>
-                
             </div>
         )
     }
@@ -39,7 +35,6 @@ class App extends Component {
 const mapStateToProps = (state, ownProps) => {
     console.log("State change", state);
     return {
-        // nickname: state.game.nickname,
         gameId: state.game.gameId,
         playerID: state.game.playerID,
         players: state.game.players,
@@ -54,8 +49,6 @@ const mapDispatchToProps = dispatch => {
             dispatch(createGameRoom(state.nickname));
         },
         enterRoom: state => {
-            console.log(state);
-            // console.log("action", enterGameRoom(state.nickname, state.roomNumber));
             dispatch(enterGameRoom(state.nickname, state.gameId))
         }
     }
