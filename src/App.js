@@ -57,6 +57,7 @@ const mapDispatchToProps = dispatch => {
             dispatch(enterGameRoom(state.nickname, state.gameId))
         },
         playerReady: readyFlag => {
+            console.log("Player ready action dispatched!", playerReadyAction(readyFlag));
             dispatch(playerReadyAction(readyFlag))
         },
     }

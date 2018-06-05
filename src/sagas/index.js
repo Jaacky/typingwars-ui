@@ -55,8 +55,16 @@ function* propagteIncomingMessages(socketChannel) {
 function* sendOutgoingMessages(socket) {
     while (true) {
         const action = yield take(types.MESSAGE_TO_SERVER);
-        socket.send(action);
+        console.log("Sending out going messages", createServerMessage(action.data.type, action.data.data));
+        socket.send(JSON.stringify(createServerMessage(action.data.type, action.data.data)));
     }
+}
+
+const createServerMessage = (type, data) => {
+    return {
+        MessageType: type,
+        Data: data
+    };
 }
 
 function* createGameRoomHandler() {
@@ -66,13 +74,8 @@ function* createGameRoomHandler() {
 
         socket.onopen = (event) => {
             console.log("create game socket connection USING CHANNEL established", event);
-            let msg = {
-                MessageType: types.CREATE_GAME_ROOM,
-                Data: {
-                    nickname: action.nickname
-                }
-            };
-            socket.send(JSON.stringify(msg));
+            let payload = { nickname: action.nickname };
+            socket.send(JSON.stringify(createServerMessage(types.CREATE_GAME_ROOM, payload)));
         }
 
         const socketChannel = yield call(watchIncomingMessages, socket);

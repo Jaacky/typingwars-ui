@@ -25,8 +25,16 @@ export const enteredRoom = (roomID, playerID, players) => {
 }
 
 export const playerReadyAction = (readyFlag) => {
-    return {
+    return messageToServerWrapper({
         type: types.PLAYER_READY,
-        readyFlag
+        data: { readyFlag }
+    })
+        
+}
+
+const messageToServerWrapper = (message) => {
+    return {
+        type: types.MESSAGE_TO_SERVER,
+        data: message
     }
 }
