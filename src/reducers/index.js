@@ -16,19 +16,32 @@ import { createGameSocket } from 'sockets';
 */
 
 const game = (state = {}, action) => {
-    let gameId, playerID, players;
+    let gameId, playerID, players, readyStatus;
     switch (action.type) {
         case types.ENTERED_ROOM:
             console.log("Entered game room, reducer handling", action);
             gameId = action.roomID;
             playerID = action.playerID;
             players = action.players;
-
-            return { ...state, gameId, playerID, players };
+            readyStatus = players.reduce((status, player) => {
+                console.log("oplayer id:", typeof(player.id));
+                status[player.id] = false;
+                return status;
+            }, {});
+            return { ...state, gameId, playerID, players, readyStatus };
         case types.NEW_PLAYER_JOINED:
             console.log("New player joined reducer handling", action);
             players = action.data.players;
-            return { ...state, players };        
+            readyStatus = players.reduce((status, player) => {
+                status[player.id] = false;
+                return status;
+            }, {});
+            return { ...state, players, readyStatus };
+        case types.OTHER_PLAYERS_READY:
+            console.log("OTHER PLAYER READY reducer");
+            let readyStatus = { ...state.readyStatus };
+            readyStatus[action.data.playerID] = action.data.readyFlag;
+            return {...state, readyStatus }
         // case 'socket_message':
         //     console.log("ACTION SOCKET_MESSAGE TYPE SENT");
         //     return state;

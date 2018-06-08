@@ -30,6 +30,7 @@ class App extends Component {
                         playerID={this.props.playerID} 
                         players={this.props.players} 
                         playerReady={this.props.playerReady}
+                        readyStatus={this.props.readyStatus}
                     />
                 </Switch>
             </div>
@@ -43,6 +44,7 @@ const mapStateToProps = (state, ownProps) => {
         gameId: state.game.gameId,
         playerID: state.game.playerID,
         players: state.game.players,
+        readyStatus: state.game.readyStatus,
         location: state.router.location,
         roomNumber: state.game.roomNumber
     }

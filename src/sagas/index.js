@@ -121,13 +121,14 @@ function* watchSuccessfulGameRoomEnter() {
     yield takeEvery(types.ENTER_GAME_ROOM_SUCCESS, redirectToGameRoom);
 }
 
-function* playerReady(action) {
-    console.log("Player ready toggle", action.readyFlag);
-}
+// function* otherPlayersReady(action) {
+//     console.log("Other player ready toggle", action);
 
-function* watchPlayerReady() {
-    yield takeLatest(types.PLAYER_READY, playerReady);
-}
+// }
+
+// function* watchOtherPlayersReady() {
+//     yield takeLatest(types.OTHER_PLAYERS_READY, otherPlayersReady);
+// }
 
 export default function* rootSaga() {
     yield all([
@@ -135,7 +136,6 @@ export default function* rootSaga() {
         enterGameRoomHandler(),
         watchSuccessfulGameRoomCreation(),
         watchSuccessfulGameRoomEnter(),
-        watchPlayerReady(),
-
+        // watchOtherPlayersReady(),
     ])
 };
