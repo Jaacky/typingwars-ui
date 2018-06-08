@@ -8,19 +8,7 @@ import * as actions from 'actions';
 
 import { createGameRoomSocket, enterGameRoomSocket } from 'sockets';
 
-// function* createGameRoom(action) {
-//     let socket = yield call(createGameRoomSocket, action.nickname);
-//     while (true) {
-//         console.log("before yielding take socket channel");
-//         const action = yield take(socket);
-//         console.log("after yielding socket channel socket", action);
-//         yield put(action);
-//     }
-// }
-
-// function* watchCreateGameRoom() {
-//     yield takeEvery(types.CREATE_GAME_ROOM, createGameRoom);
-// }
+const websocketPath = "ws://localhost:8080/ws";
 
 function watchIncomingMessages(socket) {
     return eventChannel(emit => {
@@ -70,7 +58,7 @@ const createServerMessage = (type, data) => {
 function* createGameRoomHandler() {
     while (true) {
         const action = yield take(types.CREATE_GAME_ROOM);
-        const socket = new WebSocket("ws://localhost:8080/ws");
+        const socket = new WebSocket(websocketPath);
 
         socket.onopen = (event) => {
             console.log("create game socket connection USING CHANNEL established", event);
@@ -95,19 +83,28 @@ function* createGameRoomHandler() {
     }
 }
 
-function* enterGameRoom(action) {
-    console.log("enter game room actino", action)
-    let socket = yield call(enterGameRoomSocket, {nickname: action.nickname, gameId: action.gameId})
-    yield put(push('/gameroom'))
-
+function* enterGameRoomHandler() {
     while (true) {
-        const action = yield take(socket);
-        yield put(action);
-    }
-}
+        const action = yield take(types.ENTER_GAME_ROOM);
+        const socket = new WebSocket(websocketPath);
 
-function* watchEnterGameRoom() {
-    yield takeEvery(types.ENTER_GAME_ROOM, enterGameRoom);
+        socket.onopen = (event) => {
+            console.log("Enter game using channel");
+            let payload = { nickname: action.nickname, gameId: action.gameId };
+            socket.send(JSON.stringify(createServerMessage(types.ENTER_GAME_ROOM, payload)));
+        }
+
+        const socketChannel = yield call(watchIncomingMessages, socket);
+
+        const { cancel } = yield race({
+            task: all([
+                call(propagteIncomingMessages, socketChannel),
+                call(sendOutgoingMessages, socket)
+            ]),
+            cancel: take("STOP_WEBSOCKET")
+        });
+
+    }
 }
 
 function* redirectToGameRoom(action) {
@@ -134,9 +131,8 @@ function* watchPlayerReady() {
 
 export default function* rootSaga() {
     yield all([
-        // watchCreateGameRoom(),
         createGameRoomHandler(),
-        watchEnterGameRoom(),
+        enterGameRoomHandler(),
         watchSuccessfulGameRoomCreation(),
         watchSuccessfulGameRoomEnter(),
         watchPlayerReady(),
