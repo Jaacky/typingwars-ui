@@ -32,18 +32,9 @@ class GameRoom extends Component {
         console.log("this.props.readyStatus", this.props.readyStatus, this.props.playerID);
 
         players = this.props.players;
-        p1 = players[0]
-        if (players.length > 1) {
-            p2 = players[1]
-        } else {
-            p2 = { nickname: "Waiting for another player..." }
-        }
-
-        let isClientP1 = this.props.playerID == p1.id,
-            isClientP2 = this.props.playerID == p2.id;
 
         let playersDisplay = players.map((player) => {
-            console.log("Generating player display: ", player, )
+            console.log("Generating player display: ", player)
             return (
             <li className={`
                 ${styles.Player}
@@ -53,6 +44,14 @@ class GameRoom extends Component {
             </li>
             )
         })
+        
+        if (playersDisplay.length < this.props.roomSize) {
+            while (playersDisplay.length < this.props.roomSize) {
+                playersDisplay.push(
+                    <li className={styles.Player}>Waiting for another player...</li>
+                )
+            }
+        }
         console.log("playersDisplay: ", playersDisplay);
 
         return (
@@ -62,13 +61,6 @@ class GameRoom extends Component {
                 </div>
                 <div className={styles.Display}>
                     <ul>
-                        <li className={`${styles.Player} ${isClientP1 && this.state.ready ? styles.readyPlayer : ''}`}>
-                            {p1.nickname} { isClientP1 ? '(You)': ''}
-                        </li>
-                        <li className={`${styles.Player} ${isClientP2 && this.state.ready ? styles.readyPlayer : ''}`}>
-                            {p2.nickname} { isClientP2 ? '(You)': ''}
-                        </li>
-                        ---
                         {playersDisplay}
                         <button className={`${styles.Ready} ${this.state.ready ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
                     </ul>

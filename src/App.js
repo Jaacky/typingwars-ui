@@ -10,6 +10,8 @@ import GameRoom from 'components/GameRoom';
 import GameRoomForm from 'components/GameRoomForm';
 import { createGameRoom, enterGameRoom , playerReadyAction } from 'actions';
 
+const MAX_NUM_PLAYERS = 2;
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -31,6 +33,7 @@ class App extends Component {
                         players={this.props.players} 
                         playerReady={this.props.playerReady}
                         readyStatus={this.props.readyStatus}
+                        roomSize={MAX_NUM_PLAYERS}
                     />
                 </Switch>
             </div>
