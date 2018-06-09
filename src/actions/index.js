@@ -38,3 +38,9 @@ const messageToServerWrapper = (message) => {
         data: message
     }
 }
+
+export const socketClosed = () => {
+    return {
+        type: types.SOCKET_CLOSED
+    }
+}

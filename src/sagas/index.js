@@ -20,7 +20,8 @@ function watchIncomingMessages(socket) {
         }
 
         socket.onclose = function(event) {
-            alert("ws connection closed");
+            console.log("ws connection closed");
+            return emit(actions.socketClosed());
         };
 
         // Unsubscribe function - should close socket
@@ -73,12 +74,13 @@ function* createGameRoomHandler() {
                 call(propagteIncomingMessages, socketChannel),
                 call(sendOutgoingMessages, socket)
             ]),
-            cancel: take("STOP_WEBSOCKET")
+            cancel: take(types.SOCKET_CLOSED)
         });
 
         if (cancel) {
-            // console.log('channel cancelled');
+            console.log('channel cancelled');
             socketChannel.close();
+            yield put(push('/'));
         }
     }
 }
@@ -101,8 +103,14 @@ function* enterGameRoomHandler() {
                 call(propagteIncomingMessages, socketChannel),
                 call(sendOutgoingMessages, socket)
             ]),
-            cancel: take("STOP_WEBSOCKET")
+            cancel: take(types.SOCKET_CLOSED)
         });
+
+        if (cancel) {
+            console.log('channel cancelled');
+            socketChannel.close();
+            yield put(push('/'));
+        }
 
     }
 }
