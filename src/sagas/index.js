@@ -117,7 +117,8 @@ function* enterGameRoomHandler() {
 
 function* redirectToGameRoom(action) {
     console.log("Redirecting to game room", action);
-    yield put(actions.enteredRoom(action.data.roomID, action.data.playerID, action.data.players));
+    // yield put(actions.enteredRoom(action.data.roomID, action.data.playerID, action.data.players));
+    yield put(actions.enteredRoom(action.data));
     yield put(push('/gameroom'));
 }
 

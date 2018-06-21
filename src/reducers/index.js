@@ -23,24 +23,27 @@ const game = (state = {}, action) => {
             gameId = action.roomID;
             playerID = action.playerID;
             players = action.players;
-            readyStatus = players.reduce((status, player) => {
-                console.log("oplayer id:", typeof(player.id));
-                status[player.id] = false;
-                return status;
-            }, {});
+            // readyStatus = players.reduce((status, player) => {
+            //     console.log("oplayer id:", typeof(player.id));
+            //     status[player.id] = false;
+            //     return status;
+            // }, {});
+            readyStatus = action.readyStatus
             return { ...state, gameId, playerID, players, readyStatus };
         case types.NEW_PLAYER_JOINED:
             console.log("New player joined reducer handling", action);
             players = action.data.players;
-            readyStatus = players.reduce((status, player) => {
-                status[player.id] = false;
-                return status;
-            }, {});
+            // readyStatus = players.reduce((status, player) => {
+            //     status[player.id] = false;
+            //     return status;
+            // }, {});
+            readyStatus = action.data.readyStatus
             return { ...state, players, readyStatus };
         case types.OTHER_PLAYERS_READY:
             console.log("OTHER PLAYER READY reducer");
-            let readyStatus = { ...state.readyStatus };
-            readyStatus[action.data.playerID] = action.data.readyFlag;
+            readyStatus = action.readyStatus
+            // let readyStatus = { ...state.readyStatus };
+            // readyStatus[action.data.playerID] = action.data.readyFlag;
             return {...state, readyStatus }
         // case 'socket_message':
         //     console.log("ACTION SOCKET_MESSAGE TYPE SENT");

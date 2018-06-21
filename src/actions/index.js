@@ -15,12 +15,19 @@ export const enterGameRoom = (nickname, gameId) => {
     }
 }
 
-export const enteredRoom = (roomID, playerID, players) => {
+// export const enteredRoom = (roomID, playerID, players) => {
+//     return {
+//         type: types.ENTERED_ROOM,
+//         roomID,
+//         playerID,
+//         players
+//     }
+// }
+
+export const enteredRoom = (data) => {
     return {
-        type: types.ENTERED_ROOM,
-        roomID,
-        playerID,
-        players
+        type: types.ENTERED_ROOM,  
+        ...data
     }
 }
 
