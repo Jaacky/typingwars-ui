@@ -33,7 +33,7 @@ class GameRoom extends Component {
             return (
             <li className={`
                 ${styles.Player}
-                ${this.props.readyStatus[player.id] ? styles.readyPlayer : ''}
+                ${this.props.readyStatus[player.id] ? styles.PlayerReady : ''}
             `}>
                 {player.nickname} {this.props.playerID === player.id ? '(You)' : ''}
             </li>
@@ -56,7 +56,12 @@ class GameRoom extends Component {
                 <div className={styles.Display}>
                     <ul>
                         {playersDisplay}
-                        <button className={`${styles.Ready} ${this.props.readyStatus[this.props.playerID] ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
+                        <li>
+                            <button className={`${styles.Ready} ${this.props.readyStatus[this.props.playerID] ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
+                        </li>
+                        <li>
+                            <button className={styles.Ready} disabled>Start</button>
+                        </li>
                     </ul>
                 </div>
                 {/* <GameMap /> */}

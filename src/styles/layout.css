@@ -5,3 +5,7 @@
 @value side_padding: 8px;
 
 @value element_padding: 8px 12px;
+
+@value shadow_border: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+
+@value shadow_border_hover: 0 2px 6px 0 hsla(0, 0%, 0%, 0.5);

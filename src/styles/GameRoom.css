@@ -1,4 +1,4 @@
-@value nav_height, subnav_height, element_padding from "./layout.css";
+@value nav_height, subnav_height, element_padding, shadow_border from "./layout.css";
 
 .GameRoom {
     height: 100vh;
@@ -26,30 +26,19 @@
 } */
 
 .Player {
-    box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+    box-shadow: shadow_border;
     padding: element_padding;
     padding: 18px 12px;
     margin: 8px;
 }
 
 .Ready {
-    border: none;
-    box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
     padding: element_padding;
-    cursor: pointer;
     /* background-color: lightgoldenrodyellow; */
     background-color: lightseagreen;
     margin-top: 8px;
 }
 
-.Ready:hover {
-    box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.5);
-}
-
-.readyPlayer {
+.PlayerReady {
     background-color: yellowgreen;
-}
-
-.readyButton {
-    /* border: 2px solid black; */
 }
