@@ -7,20 +7,15 @@ import styles from 'styles/GameRoom';
 class GameRoom extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            ready: false,
-        };
     }
 
     handleReadyToggle = () => {
-        let readyFlag = !this.state.ready;   
-        this.setState({ready: readyFlag});
+        let readyFlag = !this.props.readyStatus[this.props.playerID];
         this.props.playerReady(readyFlag);
     }
 
     render() {
-        console.log("Game room this.props", this.props, this.state.ready);
+        console.log("Game room this.props", this.props);
         let players, p1, p2;
         if (!this.props.playerID || !this.props.players) {
             console.log("Redirecting to home from game room", this.props);
@@ -52,7 +47,6 @@ class GameRoom extends Component {
                 )
             }
         }
-        console.log("playersDisplay: ", playersDisplay);
 
         return (
             <div className={styles.GameRoom}>
@@ -62,7 +56,7 @@ class GameRoom extends Component {
                 <div className={styles.Display}>
                     <ul>
                         {playersDisplay}
-                        <button className={`${styles.Ready} ${this.state.ready ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
+                        <button className={`${styles.Ready} ${this.props.readyStatus[this.props.playerID] ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
                     </ul>
                 </div>
                 {/* <GameMap /> */}

@@ -28,15 +28,22 @@
 .Player {
     box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
     padding: element_padding;
-    margin: 6px;
+    padding: 18px 12px;
+    margin: 8px;
 }
 
 .Ready {
+    border: none;
     box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
     padding: element_padding;
     cursor: pointer;
-    background-color: lightgoldenrodyellow;
-    margin-top: 6px;
+    /* background-color: lightgoldenrodyellow; */
+    background-color: lightseagreen;
+    margin-top: 8px;
+}
+
+.Ready:hover {
+    box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.5);
 }
 
 .readyPlayer {
