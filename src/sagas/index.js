@@ -6,8 +6,6 @@ import { push } from 'react-router-redux';
 import * as types from 'actions/types';
 import * as actions from 'actions';
 
-import { createGameRoomSocket, enterGameRoomSocket } from 'sockets';
-
 const websocketPath = "ws://localhost:8080/ws";
 
 function watchIncomingMessages(socket) {

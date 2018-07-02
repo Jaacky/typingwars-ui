@@ -37,6 +37,10 @@ const game = (state = {}, action) => {
             // let readyStatus = { ...state.readyStatus };
             // readyStatus[action.data.playerID] = action.data.readyFlag;
             return {...state, readyStatus, startFlag }
+        case types.GAME_BEGIN:
+            console.log("GAME BEGIN MSG");
+            
+            return {...state,}
         default:
             return state;
     }

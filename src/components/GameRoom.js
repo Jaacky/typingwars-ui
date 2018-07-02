@@ -60,7 +60,7 @@ class GameRoom extends Component {
                             <button className={`${styles.Ready} ${this.props.readyStatus[this.props.playerID] ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
                         </li>
                         <li>
-                            <button className={styles.Ready} disabled={!this.props.startFlag}>Start</button>
+                            <button className={styles.Ready} onClick={this.props.startGame} disabled={!this.props.startFlag}>Start</button>
                         </li>
                     </ul>
                 </div>

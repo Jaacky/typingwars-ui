@@ -36,7 +36,13 @@ export const playerReadyAction = (readyFlag) => {
         type: types.PLAYER_READY,
         data: { readyFlag }
     })
-        
+}
+
+export const startGameAction = () => {
+    console.log("start game action firing")
+    return messageToServerWrapper({
+        type: types.START_GAME
+    })
 }
 
 const messageToServerWrapper = (message) => {

@@ -8,7 +8,7 @@ import RouteWrapper from 'helpers/RouteWrapper';
 import Nav from 'components/Nav';
 import GameRoom from 'components/GameRoom';
 import GameRoomForm from 'components/GameRoomForm';
-import { createGameRoom, enterGameRoom , playerReadyAction } from 'actions';
+import { createGameRoom, enterGameRoom , playerReadyAction, startGameAction } from 'actions';
 
 const MAX_NUM_PLAYERS = 2;
 
@@ -34,6 +34,7 @@ class App extends Component {
                         playerReady={this.props.playerReady}
                         readyStatus={this.props.readyStatus}
                         startFlag={this.props.startFlag}
+                        startGame={this.props.startGame}
                         roomSize={MAX_NUM_PLAYERS}
                     />
                 </Switch>
@@ -66,6 +67,9 @@ const mapDispatchToProps = dispatch => {
         playerReady: readyFlag => {
             console.log("Player ready action dispatched!", playerReadyAction(readyFlag));
             dispatch(playerReadyAction(readyFlag))
+        },
+        startGame: () => {
+            dispatch(startGameAction())
         },
     }
 }

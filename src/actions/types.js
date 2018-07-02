@@ -13,4 +13,7 @@ export const NEW_PLAYER_JOINED = 'NEW_PLAYER_JOINED';
 export const PLAYER_READY = 'PLAYER_READY';
 export const OTHER_PLAYERS_READY = 'OTHER_PLAYERS_READY';
 
+export const START_GAME = 'START_GAME';
+export const GAME_BEGIN = 'GAME_BEGIN';
+
 export const MESSAGE_TO_SERVER = 'MESSAGE_TO_SERVER';
