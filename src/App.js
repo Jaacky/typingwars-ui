@@ -35,6 +35,7 @@ class App extends Component {
                         readyStatus={this.props.readyStatus}
                         startFlag={this.props.startFlag}
                         startGame={this.props.startGame}
+                        gameStatus={this.props.gameStatus}
                         roomSize={MAX_NUM_PLAYERS}
                     />
                 </Switch>
@@ -51,6 +52,7 @@ const mapStateToProps = (state, ownProps) => {
         players: state.game.players,
         readyStatus: state.game.readyStatus,
         startFlag: state.game.startFlag,
+        gameStatus: state.game.gameStatus,
         location: state.router.location,
         roomNumber: state.game.roomNumber
     }

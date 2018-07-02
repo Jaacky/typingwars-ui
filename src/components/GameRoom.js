@@ -48,22 +48,26 @@ class GameRoom extends Component {
             }
         }
 
+        let display = this.props.gameStatus
+            ? <div className={styles.Display}>Game Map</div>
+            : <div className={styles.Display}>
+                <ul>
+                    {playersDisplay}
+                    <li>
+                        <button className={`${styles.Ready} ${this.props.readyStatus[this.props.playerID] ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
+                    </li>
+                    <li>
+                        <button className={styles.Ready} onClick={this.props.startGame} disabled={!this.props.startFlag}>Start</button>
+                    </li>
+                </ul>
+            </div>
+
         return (
             <div className={styles.GameRoom}>
                 <div className={styles.Header}>
                     <h1>Game room - {this.props.gameId}</h1>
                 </div>
-                <div className={styles.Display}>
-                    <ul>
-                        {playersDisplay}
-                        <li>
-                            <button className={`${styles.Ready} ${this.props.readyStatus[this.props.playerID] ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
-                        </li>
-                        <li>
-                            <button className={styles.Ready} onClick={this.props.startGame} disabled={!this.props.startFlag}>Start</button>
-                        </li>
-                    </ul>
-                </div>
+                {display}
                 {/* <GameMap /> */}
             </div>
         )
