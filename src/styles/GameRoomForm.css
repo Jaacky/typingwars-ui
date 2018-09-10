@@ -6,7 +6,8 @@
     align-items: center;
     justify-content: center;
     height: calc(100vh - nav_height);
-    width: 100vw;
+    /* width: 100vw; */
+    width: 100%;
 }
 
 .GameRoomForm > form, .GameRoomForm > div {

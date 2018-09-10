@@ -1,3 +1,9 @@
 .GameMap {
     height: calc(100vh - 50px);
+    width: 100%;
+    border: 1px solid black;
+}
+
+.GameMap svg {
+    border: 1px solid red;
 }

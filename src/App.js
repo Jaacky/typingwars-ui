@@ -12,6 +12,11 @@ import { createGameRoom, enterGameRoom , playerReadyAction, startGameAction } fr
 
 const MAX_NUM_PLAYERS = 2;
 
+// testing purposes
+import GameMap from 'components/GameMap';
+import styles from 'styles/GameRoom';
+// end testing purposes
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -36,9 +41,17 @@ class App extends Component {
                         startFlag={this.props.startFlag}
                         startGame={this.props.startGame}
                         gameStatus={this.props.gameStatus}
+                        bases={this.props.bases}
                         roomSize={MAX_NUM_PLAYERS}
                     />
                 </Switch>
+                {/* testing purposes */}
+                <div className={styles.Display}>
+                    <GameMap
+                        bases={this.props.bases}
+                    />
+                </div>
+                {/* end testing purposes */}
             </div>
         )
     }
@@ -54,7 +67,8 @@ const mapStateToProps = (state, ownProps) => {
         startFlag: state.game.startFlag,
         gameStatus: state.game.gameStatus,
         location: state.router.location,
-        roomNumber: state.game.roomNumber
+        roomNumber: state.game.roomNumber,
+        bases: state.game.bases
     }
 }
 

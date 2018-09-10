@@ -49,7 +49,12 @@ class GameRoom extends Component {
         }
 
         let display = this.props.gameStatus
-            ? <div className={styles.Display}>Game Map</div>
+            ? 
+                <div className={styles.Display}>
+                    <GameMap
+                        bases={this.props.bases}
+                    />
+                </div>
             : <div className={styles.Display}>
                 <ul>
                     {playersDisplay}

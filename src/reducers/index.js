@@ -17,6 +17,7 @@ import { createGameSocket } from 'sockets';
 
 const game = (state = {}, action) => {
     let gameId, playerID, players, readyStatus, startFlag, gameStatus;
+    let bases;
     switch (action.type) {
         case types.ENTERED_ROOM:
             console.log("Entered game room, reducer handling", action);
@@ -38,9 +39,10 @@ const game = (state = {}, action) => {
             // readyStatus[action.data.playerID] = action.data.readyFlag;
             return {...state, readyStatus, startFlag }
         case types.GAME_BEGIN:
-            console.log("GAME BEGIN MSG");
+            console.log("GAME BEGIN MSG", action.data);
             gameStatus = true;
-            return {...state, gameStatus}
+            bases = action.data.Bases;
+            return {...state, gameStatus, bases}
         default:
             return state;
     }
