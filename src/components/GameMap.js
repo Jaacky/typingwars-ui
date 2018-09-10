@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Base from 'components/svg/Base';
+
 import styles from 'styles/GameMap';
 
 const GameMap = (props) => {
@@ -10,7 +12,7 @@ const GameMap = (props) => {
 
     const adjustRatioWidth = width / 100;
     const adjustRatioHeight = height / 100;
-    console.log(5 * adjustRatioWidth);
+    console.log("gamemap: ", adjustRatioWidth, adjustRatioHeight);
     const viewBox = [0, 0, width, height];
     return (
         <div className={styles.GameMap}>
@@ -19,9 +21,10 @@ const GameMap = (props) => {
                 preserveAspectRatio="xMaxYMax none"
                 viewBox={viewBox}
             >
-                <circle cx={5 * adjustRatioWidth} cy={50 * adjustRatioHeight} r={5} />
-                <circle cx={95 * adjustRatioWidth} cy={50 * adjustRatioHeight} r={50} />
-                <path d="M 20 20 C 20 110, 110 110, 110 20" stroke="black" fill="transparent"/>
+                <Base adjustRatioWidth={adjustRatioWidth} adjustRatioHeight={adjustRatioHeight} x={5} y={50}/>
+                <Base adjustRatioWidth={adjustRatioWidth} adjustRatioHeight={adjustRatioHeight} x={95} y={50}/>
+            
+                {/* <path d="M 20 20 C 20 110, 110 110, 110 20" stroke="black" fill="transparent"/> */}
             </svg>
         </div>
     )
