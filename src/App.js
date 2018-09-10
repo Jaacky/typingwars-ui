@@ -8,7 +8,8 @@ import RouteWrapper from 'helpers/RouteWrapper';
 import Nav from 'components/Nav';
 import GameRoom from 'components/GameRoom';
 import GameRoomForm from 'components/GameRoomForm';
-import { createGameRoom, enterGameRoom , playerReadyAction, startGameAction } from 'actions';
+import { createGameRoom, enterGameRoom , playerReadyAction, startGameAction, sendGameEventAction } from 'actions';
+import * as types from 'actions/types';
 
 const MAX_NUM_PLAYERS = 2;
 
@@ -21,8 +22,52 @@ class App extends Component {
     constructor(props) {
         super(props);
     }
-
+    
     render() {
+        // this.props.gameStatus = true;
+        let _this = this;
+        if (true) {
+            document.addEventListener('keyup', function(event) {
+                if (event.defaultPrevented) {
+                    return;
+                }
+                let key = event.key || event.keyCode;
+                let letterRegex = RegExp(/[a-z]/i);
+
+                if (key.length == 1 && letterRegex.test(key)) {
+                    console.log("Letter!", key);
+                    _this.props.sendGameEvent({
+                        type: types.KEY_PRESS,
+                        key: key
+                    })
+                }
+                event.preventDefault();
+
+                // switch (event.key) {
+                //     case "Down": // IE specific value
+                //     case "ArrowDown":
+                //         // Do something for "down arrow" key press.
+                //     case "Up": // IE specific value
+                //     case "ArrowUp":
+                //         // Do something for "up arrow" key press.
+                //     case "Left": // IE specific value
+                //     case "ArrowLeft":
+                //         // Do something for "left arrow" key press.
+                //     case "Right": // IE specific value
+                //     case "ArrowRight":
+                //         // Do something for "right arrow" key press.
+                //     case "Enter":
+                //         // Do something for "enter" or "return" key press.
+                //     case "Escape":
+                //         // Do something for "esc" key press.
+                //         break;
+                    
+                //     default:
+                //         return; // Quit when this doesn't handle the key event.
+                // }
+            });
+        }
+
         return (
             <div>
                 <Nav />
@@ -85,7 +130,11 @@ const mapDispatchToProps = dispatch => {
             dispatch(playerReadyAction(readyFlag))
         },
         startGame: () => {
-            dispatch(startGameAction())
+            dispatch(startGameAction());
+        },
+        sendGameEvent: (action) => {
+            console.log("dispatcher", action);
+            dispatch(sendGameEventAction(action));
         },
     }
 }

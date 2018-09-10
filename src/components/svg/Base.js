@@ -12,10 +12,7 @@ const Base = (props) => {
             <path
                 d={path} fill="transparent" stroke="black" strokeWidth="8" strokeLinejoin="round"
             />  
-            <text
-                x={x} y={y}
-                textAnchor="middle" 
-            >
+            <text x={x} y={y} textAnchor="middle">
                 <tspan>{props.hp}</tspan>
                 <tspan x={x} y={y + 15}>{props.user}</tspan>
             </text>

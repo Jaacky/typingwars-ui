@@ -45,6 +45,14 @@ export const startGameAction = () => {
     })
 }
 
+export const sendGameEventAction = (action) => {
+    console.log("action", action);
+    return messageToServerWrapper({
+        type: types.GAME_ACTION,
+        data: action
+    })
+}
+
 const messageToServerWrapper = (message) => {
     return {
         type: types.MESSAGE_TO_SERVER,

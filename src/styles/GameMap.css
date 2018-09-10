@@ -6,4 +6,16 @@
 
 .GameMap svg {
     border: 1px solid red;
+    background-color: azure;
+}
+
+.Unit {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    /* fill: white;
+    text-shadow: 0 0 3px black; */
+}
+
+.Typed {
+    fill: red;
 }
