@@ -15,7 +15,7 @@ export const OTHER_PLAYERS_READY = 'OTHER_PLAYERS_READY';
 
 export const START_GAME = 'START_GAME';
 export const GAME_BEGIN = 'GAME_BEGIN';
-export const GAME_ACTION = 'GAME_ACTION';
+export const GAME_EVENT = 'GAME_EVENT';
 export const KEY_PRESS = 'KEY_PRESS';
 
 export const MESSAGE_TO_SERVER = 'MESSAGE_TO_SERVER';
