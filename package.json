@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "history": "^4.7.2",
+    "protobufjs": "^6.8.8",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
