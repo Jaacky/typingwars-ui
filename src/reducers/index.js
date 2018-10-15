@@ -16,16 +16,16 @@ import { createGameSocket } from 'sockets';
 */
 
 const game = (state = {}, action) => {
-    let gameId, playerID, players, readyStatus, startFlag, gameStatus;
+    let roomId, clientId, players, readyStatus, startFlag, gameStatus;
     let bases;
     switch (action.type) {
         case types.ENTERED_ROOM:
             console.log("Entered game room, reducer handling", action);
-            gameId = action.roomID;
-            playerID = action.playerID;
+            roomId = action.roomId;
+            clientId = action.clientId;
             players = action.players;
             readyStatus = action.readyStatus
-            return { ...state, gameId, playerID, players, readyStatus };
+            return { ...state, roomId, clientId, players, readyStatus };
         case types.NEW_PLAYER_JOINED: // Action propagated directly from socket - hence need to access data field in action
             console.log("New player joined reducer handling", action);
             players = action.data.players;
@@ -47,22 +47,6 @@ const game = (state = {}, action) => {
             return state;
     }
 };
-
-// const socketMessages = (state = {}, action) => {
-//     switch(action.type) {
-//         case types.SOCKET_MESSAGE:
-//             msg = action.message
-//             switch(msg.MessageType) {
-//                 case types.CREATE_GAME_ROOM_SUCCESS:
-//                     console.log("Created game room success socket message");
-//                     return { gameId: msg.Data.id, ...state };
-//                 default:
-//                     return state
-//             }
-//         default:
-//             return state;
-//     }
-// }
 
 const reducers = combineReducers({
     game,

@@ -1,28 +1,19 @@
 import * as types from './types';
 
-export const createGameRoom = (nickname) => {
+export const createGameRoom = (username) => {
     return {
         type: types.CREATE_GAME_ROOM,
-        nickname,
+        username,
     }
 }
 
-export const enterGameRoom = (nickname, gameId) => {
+export const enterGameRoom = (username, roomId) => {
     return {
         type: types.ENTER_GAME_ROOM,
-        nickname,
-        gameId
+        username,
+        roomId
     }
 }
-
-// export const enteredRoom = (roomID, playerID, players) => {
-//     return {
-//         type: types.ENTERED_ROOM,
-//         roomID,
-//         playerID,
-//         players
-//     }
-// }
 
 export const enteredRoom = (data) => {
     return {

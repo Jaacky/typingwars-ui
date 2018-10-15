@@ -10,32 +10,45 @@ class GameRoom extends Component {
     }
 
     handleReadyToggle = () => {
-        let readyFlag = !this.props.readyStatus[this.props.playerID];
+        let readyFlag = !this.props.readyStatus[this.props.clientId];
         this.props.playerReady(readyFlag);
     }
 
     render() {
         console.log("Game room this.props", this.props);
         let players, p1, p2;
-        if (!this.props.playerID || !this.props.players) {
+        if (!this.props.clientId || !this.props.players) {
             console.log("Redirecting to home from game room", this.props);
             return (
                 <Redirect to="/" />
             )
         }
 
-        console.log("this.props.readyStatus", this.props.readyStatus, this.props.playerID);
+        console.log("this.props.readyStatus", this.props.readyStatus, this.props.clientId);
 
         players = this.props.players;
 
-        let playersDisplay = players.map((player) => {
+        // let playersDisplay = players.map((player) => {
+        //     console.log("Generating player display: ", player)
+        //     return (
+        //     <li className={`
+        //         ${styles.Player}
+        //         ${this.props.readyStatus[player.id] ? styles.PlayerReady : ''}
+        //     `}>
+        //         {player.username} {this.props.clientId === player.id ? '(You)' : ''}
+        //     </li>
+        //     )
+        // })
+
+        let playersDisplay = Object.keys(players).map((clientId) => {
+            let player = players[clientId];
             console.log("Generating player display: ", player)
             return (
             <li className={`
                 ${styles.Player}
                 ${this.props.readyStatus[player.id] ? styles.PlayerReady : ''}
             `}>
-                {player.nickname} {this.props.playerID === player.id ? '(You)' : ''}
+                {player.username} {this.props.clientId === player.id ? '(You)' : ''}
             </li>
             )
         })
@@ -59,7 +72,7 @@ class GameRoom extends Component {
                 <ul>
                     {playersDisplay}
                     <li>
-                        <button className={`${styles.Ready} ${this.props.readyStatus[this.props.playerID] ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
+                        <button className={`${styles.Ready} ${this.props.readyStatus[this.props.clientId] ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
                     </li>
                     <li>
                         <button className={styles.Ready} onClick={this.props.startGame} disabled={!this.props.startFlag}>Start</button>
@@ -70,7 +83,7 @@ class GameRoom extends Component {
         return (
             <div className={styles.GameRoom}>
                 <div className={styles.Header}>
-                    <h1>Game room - {this.props.gameId}</h1>
+                    <h1>Game room - {this.props.roomId}</h1>
                 </div>
                 {display}
                 {/* <GameMap /> */}

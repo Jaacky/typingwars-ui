@@ -1,5 +1,7 @@
 export const WS_MSG_RECIEVED = 'WS_MSG_RECEIVED';
 
+export const JOIN_GAME_ACK = "joinGameAck";
+
 export const ENTER_GAME_ROOM = 'ENTER_GAME_ROOM';
 export const ENTER_GAME_ROOM_SUCCESS = 'ENTER_GAME_ROOM_SUCCESS';
 

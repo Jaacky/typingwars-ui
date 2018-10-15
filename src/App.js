@@ -72,14 +72,13 @@ class App extends Component {
             <div>
                 <Nav />
                 <Switch>
-                    <RouteWrapper exact path="/" 
-                        component={GameRoomForm} 
+                    <RouteWrapper exact path="/" component={GameRoomForm} 
                         createGameRoom={this.props.createGameRoom}
                         enterRoom={this.props.enterRoom}
                     />
                     <RouteWrapper path="/gameroom" component={GameRoom} 
-                        gameId={this.props.gameId} 
-                        playerID={this.props.playerID} 
+                        roomId={this.props.roomId} 
+                        clientId={this.props.clientId} 
                         players={this.props.players} 
                         playerReady={this.props.playerReady}
                         readyStatus={this.props.readyStatus}
@@ -105,8 +104,8 @@ class App extends Component {
 const mapStateToProps = (state, ownProps) => {
     console.log("State change", state);
     return {
-        gameId: state.game.gameId,
-        playerID: state.game.playerID,
+        roomId: state.game.roomId,
+        clientId: state.game.clientId,
         players: state.game.players,
         readyStatus: state.game.readyStatus,
         startFlag: state.game.startFlag,
@@ -120,10 +119,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
     return {
         createGameRoom: state => {
-            dispatch(createGameRoom(state.nickname));
+            dispatch(createGameRoom(state.username));
         },
         enterRoom: state => {
-            dispatch(enterGameRoom(state.nickname, state.gameId))
+            dispatch(enterGameRoom(state.username, state.roomId))
         },
         playerReady: readyFlag => {
             console.log("Player ready action dispatched!", playerReadyAction(readyFlag));

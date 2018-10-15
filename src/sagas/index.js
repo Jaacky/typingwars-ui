@@ -2,19 +2,20 @@ import "regenerator-runtime/runtime"; // only for webpack dev server babel runti
 import { take, call, put, takeEvery, takeLatest, all, race } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 import { push } from 'react-router-redux';
+import Protobuf from 'protobufjs';
 
+import pb from '../pb/typingwars.pb';
 import * as types from 'actions/types';
 import * as actions from 'actions';
 
-const websocketPath = "ws://localhost:8080/ws";
+const websocketPath = "ws://localhost:8080/connect"; 
 
 function watchIncomingMessages(socket) {
     return eventChannel(emit => {
         socket.onmessage = function(event) {
             console.log("on message", event);
-            let res = JSON.parse(event.data);
-            console.log(res);
-            return emit({ type: res.MessageType, data: res.Data });
+            // console.log(Object.keys(pb.typingwars));
+            receiveWebSocketMessage(emit, event);
         }
 
         socket.onclose = function(event) {
@@ -28,6 +29,23 @@ function watchIncomingMessages(socket) {
             console.log('Socket off');
         };
     });
+}
+
+function receiveWebSocketMessage(emit, event) {
+    let fileReader = new FileReader();
+
+    fileReader.onload = function() {
+        // onload gets called after file reader done reading
+        // stores read content in this.result
+        handleProtobufMessage(emit, this.result);
+    }
+
+    fileReader.readAsArrayBuffer(event.data);
+}
+
+function handleProtobufMessage(emit, protobufMessage) {
+    const msg = pb.typingwars.UserMessage.decode(new Uint8Array(protobufMessage));
+    emit({ type: msg.content, data: msg[msg.content] });
 }
 
 function* propagteIncomingMessages(socketChannel) {
@@ -60,9 +78,12 @@ function* createGameRoomHandler() {
         const socket = new WebSocket(websocketPath);
 
         socket.onopen = (event) => {
+            let createGameRequest = pb.typingwars.CreateGameRequest.create({"username": action.username});
+
+            let msg = pb.typingwars.UserMessage.create({"createGameRequest": createGameRequest});
+            let encoded = pb.typingwars.UserMessage.encode(msg);
+            socket.send(encoded.finish());
             console.log("create game socket connection USING CHANNEL established", event);
-            let payload = { nickname: action.nickname };
-            socket.send(JSON.stringify(createServerMessage(types.CREATE_GAME_ROOM, payload)));
         }
 
         const socketChannel = yield call(watchIncomingMessages, socket);
@@ -90,7 +111,7 @@ function* enterGameRoomHandler() {
 
         socket.onopen = (event) => {
             console.log("Enter game using channel");
-            let payload = { nickname: action.nickname, gameId: action.gameId };
+            let payload = { username: action.username, roomId: action.roomId };
             socket.send(JSON.stringify(createServerMessage(types.ENTER_GAME_ROOM, payload)));
         }
 
@@ -120,13 +141,17 @@ function* redirectToGameRoom(action) {
     yield put(push('/gameroom'));
 }
 
-function* watchSuccessfulGameRoomCreation() {
-    yield takeEvery(types.CREATE_GAME_ROOM_SUCCESS, redirectToGameRoom);
+function* watchJoinGameAck() {
+    yield takeEvery(types.JOIN_GAME_ACK, redirectToGameRoom)
 }
 
-function* watchSuccessfulGameRoomEnter() {
-    yield takeEvery(types.ENTER_GAME_ROOM_SUCCESS, redirectToGameRoom);
-}
+// function* watchSuccessfulGameRoomCreation() {
+//     yield takeEvery(types.CREATE_GAME_ROOM_SUCCESS, redirectToGameRoom);
+// }
+
+// function* watchSuccessfulGameRoomEnter() {
+//     yield takeEvery(types.ENTER_GAME_ROOM_SUCCESS, redirectToGameRoom);
+// }
 
 // function* otherPlayersReady(action) {
 //     console.log("Other player ready toggle", action);
@@ -141,8 +166,9 @@ export default function* rootSaga() {
     yield all([
         createGameRoomHandler(),
         enterGameRoomHandler(),
-        watchSuccessfulGameRoomCreation(),
-        watchSuccessfulGameRoomEnter(),
+        watchJoinGameAck(),
+        // watchSuccessfulGameRoomCreation(),
+        // watchSuccessfulGameRoomEnter(),
         // watchOtherPlayersReady(),
     ])
 };
