@@ -1,9 +1,12 @@
 export const WS_MSG_RECIEVED = 'WS_MSG_RECEIVED';
 
-export const JOIN_GAME_ACK = "joinGameAck";
+export const JOIN_ROOM_ACK_MESSAGE = "joinRoomAck";
+export const UPDATE_ROOM_MESSAGE = "updateRoom";
 
-export const ENTER_GAME_ROOM = 'ENTER_GAME_ROOM';
-export const ENTER_GAME_ROOM_SUCCESS = 'ENTER_GAME_ROOM_SUCCESS';
+export const UPDATE_ROOM = 'UPDATE_ROOM';
+
+export const ENTER_ROOM = 'ENTER_ROOM';
+export const ENTER_ROOM_SUCCESS = 'ENTER_ROOM_SUCCESS';
 
 export const CREATE_GAME_ROOM = 'CREATE_GAME_ROOM';
 export const CREATE_GAME_ROOM_SUCCESS = 'CREATE_GAME_ROOM_SUCCESS';

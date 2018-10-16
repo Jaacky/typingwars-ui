@@ -23,10 +23,10 @@ class GameRoomForm extends Component {
     handleCreateGameRoom = (event) => {
         event.preventDefault();
 
-        this.props.createGameRoom(this.state);
+        this.props.createRoom(this.state);
     }
 
-    handleSubmit = (event) => {
+    handleEnterGameRoom = (event) => {
         event.preventDefault();
 
         this.props.enterRoom(this.state);
@@ -46,7 +46,7 @@ class GameRoomForm extends Component {
                     <input type="submit" value="Create game room" />
                 </form>
                 <span>/</span>
-                <form onSubmit={this.handleSubmit} >
+                <form onSubmit={this.handleEnterGameRoom} >
                     <input placeholder="Room ID" onChange={this.handleOnChange} value={this.state.roomId} />
                     <input type="submit" value="Enter" />
                 </form>

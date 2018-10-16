@@ -16,7 +16,10 @@ class GameRoom extends Component {
 
     render() {
         console.log("Game room this.props", this.props);
-        let players, p1, p2;
+        if (this.props.loading) {
+            return <h1>Loading</h1>
+        }
+        let players;
         if (!this.props.clientId || !this.props.players) {
             console.log("Redirecting to home from game room", this.props);
             return (
@@ -27,18 +30,6 @@ class GameRoom extends Component {
         console.log("this.props.readyStatus", this.props.readyStatus, this.props.clientId);
 
         players = this.props.players;
-
-        // let playersDisplay = players.map((player) => {
-        //     console.log("Generating player display: ", player)
-        //     return (
-        //     <li className={`
-        //         ${styles.Player}
-        //         ${this.props.readyStatus[player.id] ? styles.PlayerReady : ''}
-        //     `}>
-        //         {player.username} {this.props.clientId === player.id ? '(You)' : ''}
-        //     </li>
-        //     )
-        // })
 
         let playersDisplay = Object.keys(players).map((clientId) => {
             let player = players[clientId];

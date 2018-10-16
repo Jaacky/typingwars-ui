@@ -8,7 +8,7 @@ import RouteWrapper from 'helpers/RouteWrapper';
 import Nav from 'components/Nav';
 import GameRoom from 'components/GameRoom';
 import GameRoomForm from 'components/GameRoomForm';
-import { createGameRoom, enterGameRoom , playerReadyAction, startGameAction, sendGameEventAction } from 'actions';
+import { createRoom, enterRoom , playerReadyAction, startGameAction, sendGameEventAction } from 'actions';
 import * as types from 'actions/types';
 
 const MAX_NUM_PLAYERS = 2;
@@ -73,10 +73,11 @@ class App extends Component {
                 <Nav />
                 <Switch>
                     <RouteWrapper exact path="/" component={GameRoomForm} 
-                        createGameRoom={this.props.createGameRoom}
+                        createRoom={this.props.createRoom}
                         enterRoom={this.props.enterRoom}
                     />
-                    <RouteWrapper path="/gameroom" component={GameRoom} 
+                    <RouteWrapper path="/gameroom" component={GameRoom}
+                        loading={this.props.loading}
                         roomId={this.props.roomId} 
                         clientId={this.props.clientId} 
                         players={this.props.players} 
@@ -104,6 +105,7 @@ class App extends Component {
 const mapStateToProps = (state, ownProps) => {
     console.log("State change", state);
     return {
+        loading: state.game.loading,
         roomId: state.game.roomId,
         clientId: state.game.clientId,
         players: state.game.players,
@@ -118,11 +120,11 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        createGameRoom: state => {
-            dispatch(createGameRoom(state.username));
+        createRoom: state => {
+            dispatch(createRoom(state.username));
         },
         enterRoom: state => {
-            dispatch(enterGameRoom(state.username, state.roomId))
+            dispatch(enterRoom(state.username, state.roomId))
         },
         playerReady: readyFlag => {
             console.log("Player ready action dispatched!", playerReadyAction(readyFlag));

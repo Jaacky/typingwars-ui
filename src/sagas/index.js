@@ -13,7 +13,7 @@ const websocketPath = "ws://localhost:8080/connect";
 function watchIncomingMessages(socket) {
     return eventChannel(emit => {
         socket.onmessage = function(event) {
-            console.log("on message", event);
+            // console.log("on message", event);
             // console.log(Object.keys(pb.typingwars));
             receiveWebSocketMessage(emit, event);
         }
@@ -45,6 +45,7 @@ function receiveWebSocketMessage(emit, event) {
 
 function handleProtobufMessage(emit, protobufMessage) {
     const msg = pb.typingwars.UserMessage.decode(new Uint8Array(protobufMessage));
+    console.log("received pb message", msg);
     emit({ type: msg.content, data: msg[msg.content] });
 }
 
@@ -72,15 +73,15 @@ const createServerMessage = (type, data) => {
     };
 }
 
-function* createGameRoomHandler() {
+function* createRoomHandler() {
     while (true) {
         const action = yield take(types.CREATE_GAME_ROOM);
         const socket = new WebSocket(websocketPath);
 
         socket.onopen = (event) => {
-            let createGameRequest = pb.typingwars.CreateGameRequest.create({"username": action.username});
+            let createRoomRequest = pb.typingwars.CreateRoomRequest.create({"username": action.username});
 
-            let msg = pb.typingwars.UserMessage.create({"createGameRequest": createGameRequest});
+            let msg = pb.typingwars.UserMessage.create({"createRoomRequest": createRoomRequest});
             let encoded = pb.typingwars.UserMessage.encode(msg);
             socket.send(encoded.finish());
             console.log("create game socket connection USING CHANNEL established", event);
@@ -104,15 +105,18 @@ function* createGameRoomHandler() {
     }
 }
 
-function* enterGameRoomHandler() {
+function* joinRoomHandler() {
     while (true) {
-        const action = yield take(types.ENTER_GAME_ROOM);
+        const action = yield take(types.ENTER_ROOM);
         const socket = new WebSocket(websocketPath);
 
         socket.onopen = (event) => {
-            console.log("Enter game using channel");
-            let payload = { username: action.username, roomId: action.roomId };
-            socket.send(JSON.stringify(createServerMessage(types.ENTER_GAME_ROOM, payload)));
+            let joinRoomRequest = pb.typingwars.JoinRoomRequest.create({"roomId": action.roomId, "username": action.username});
+
+            let msg = pb.typingwars.UserMessage.create({"joinRoomRequest": joinRoomRequest});
+            let encoded = pb.typingwars.UserMessage.encode(msg);
+            socket.send(encoded.finish());
+            console.log("join game socket connection USING CHANNEL established", event);
         }
 
         const socketChannel = yield call(watchIncomingMessages, socket);
@@ -134,23 +138,31 @@ function* enterGameRoomHandler() {
     }
 }
 
-function* redirectToGameRoom(action) {
-    console.log("Redirecting to game room", action);
+function* redirectToRoom(action) {
+    console.log("Redirecting to room", action);
     // yield put(actions.enteredRoom(action.data.roomID, action.data.playerID, action.data.players));
     yield put(actions.enteredRoom(action.data));
     yield put(push('/gameroom'));
 }
 
-function* watchJoinGameAck() {
-    yield takeEvery(types.JOIN_GAME_ACK, redirectToGameRoom)
+function* watchJoinRoomAck() {
+    yield takeEvery(types.JOIN_ROOM_ACK_MESSAGE, redirectToRoom)
+}
+
+function* updateRoom(action) {
+    yield put(actions.updateRoom(action.data));
+}
+
+function* watchUpdateRoom() {
+    yield takeEvery(types.UPDATE_ROOM_MESSAGE, updateRoom);
 }
 
 // function* watchSuccessfulGameRoomCreation() {
-//     yield takeEvery(types.CREATE_GAME_ROOM_SUCCESS, redirectToGameRoom);
+//     yield takeEvery(types.CREATE_GAME_ROOM_SUCCESS, redirectToRoom);
 // }
 
 // function* watchSuccessfulGameRoomEnter() {
-//     yield takeEvery(types.ENTER_GAME_ROOM_SUCCESS, redirectToGameRoom);
+//     yield takeEvery(types.ENTER_ROOM_SUCCESS, redirectToRoom);
 // }
 
 // function* otherPlayersReady(action) {
@@ -164,9 +176,10 @@ function* watchJoinGameAck() {
 
 export default function* rootSaga() {
     yield all([
-        createGameRoomHandler(),
-        enterGameRoomHandler(),
-        watchJoinGameAck(),
+        createRoomHandler(),
+        joinRoomHandler(),
+        watchJoinRoomAck(),
+        watchUpdateRoom(),
         // watchSuccessfulGameRoomCreation(),
         // watchSuccessfulGameRoomEnter(),
         // watchOtherPlayersReady(),
