@@ -83,6 +83,7 @@ class App extends Component {
                         players={this.props.players} 
                         playerReady={this.props.playerReady}
                         readyStatus={this.props.readyStatus}
+                        playerStatuses={this.props.playerStatuses}
                         startFlag={this.props.startFlag}
                         startGame={this.props.startGame}
                         gameStatus={this.props.gameStatus}
@@ -110,6 +111,7 @@ const mapStateToProps = (state, ownProps) => {
         clientId: state.game.clientId,
         players: state.game.players,
         readyStatus: state.game.readyStatus,
+        playerStatuses: state.game.playerStatuses,
         startFlag: state.game.startFlag,
         gameStatus: state.game.gameStatus,
         location: state.router.location,

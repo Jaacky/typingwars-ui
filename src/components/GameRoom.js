@@ -10,7 +10,7 @@ class GameRoom extends Component {
     }
 
     handleReadyToggle = () => {
-        let readyFlag = !this.props.readyStatus[this.props.clientId];
+        let readyFlag = !this.props.playerStatuses[this.props.clientId].ready;
         this.props.playerReady(readyFlag);
     }
 
@@ -27,8 +27,13 @@ class GameRoom extends Component {
             )
         }
 
-        console.log("this.props.readyStatus", this.props.readyStatus, this.props.clientId);
-
+        console.log("this.props.playerStatuses", this.props.playerStatuses, this.props.clientId);
+        console.log("this.props.playerStatues[this.props.clientId]", this.props.playerStatuses[this.props.clientId])
+        if (this.props.playerStatuses[this.props.clientId].ready) {
+            console.log("YA READY")
+        } else {
+            console.log("NA NO RDY")
+        }
         players = this.props.players;
 
         let playersDisplay = Object.keys(players).map((clientId) => {
@@ -37,7 +42,7 @@ class GameRoom extends Component {
             return (
             <li className={`
                 ${styles.Player}
-                ${this.props.readyStatus[player.id] ? styles.PlayerReady : ''}
+                ${this.props.playerStatuses[player.id].ready ? styles.PlayerReady : ''}
             `}>
                 {player.username} {this.props.clientId === player.id ? '(You)' : ''}
             </li>
@@ -63,7 +68,7 @@ class GameRoom extends Component {
                 <ul>
                     {playersDisplay}
                     <li>
-                        <button className={`${styles.Ready} ${this.props.readyStatus[this.props.clientId] ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
+                        <button className={`${styles.Ready} ${this.props.playerStatuses[this.props.clientId].ready ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
                     </li>
                     <li>
                         <button className={styles.Ready} onClick={this.props.startGame} disabled={!this.props.startFlag}>Start</button>

@@ -18,6 +18,8 @@ import { createGameSocket } from 'sockets';
 const game = (state = {}, action) => {
     let loading;
     let roomId, clientId, players, readyStatus, startFlag, gameStatus;
+    // readyStatus should be useless
+    let playerStatuses;
     let bases;
     switch (action.type) {
         case types.ENTERED_ROOM:
@@ -30,8 +32,9 @@ const game = (state = {}, action) => {
             loading = action.loading;
             roomId = action.roomId;
             players = action.players;
-            readyStatus = action.readyStatus
-            return { ...state, loading, roomId, players, readyStatus };
+            // readyStatus = action.readyStatus
+            playerStatuses = action.playerStatuses
+            return { ...state, loading, roomId, players, playerStatuses };
         case types.NEW_PLAYER_JOINED: // Action propagated directly from socket - hence need to access data field in action
             console.log("New player joined reducer handling", action);
             players = action.data.players;

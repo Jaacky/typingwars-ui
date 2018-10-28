@@ -1206,6 +1206,216 @@ $root.typingwars = (function() {
         return JoinRoomAck;
     })();
 
+    typingwars.PlayerStatus = (function() {
+
+        /**
+         * Properties of a PlayerStatus.
+         * @memberof typingwars
+         * @interface IPlayerStatus
+         * @property {boolean|null} [ready] PlayerStatus ready
+         * @property {number|null} [index] PlayerStatus index
+         */
+
+        /**
+         * Constructs a new PlayerStatus.
+         * @memberof typingwars
+         * @classdesc Represents a PlayerStatus.
+         * @implements IPlayerStatus
+         * @constructor
+         * @param {typingwars.IPlayerStatus=} [properties] Properties to set
+         */
+        function PlayerStatus(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * PlayerStatus ready.
+         * @member {boolean} ready
+         * @memberof typingwars.PlayerStatus
+         * @instance
+         */
+        PlayerStatus.prototype.ready = false;
+
+        /**
+         * PlayerStatus index.
+         * @member {number} index
+         * @memberof typingwars.PlayerStatus
+         * @instance
+         */
+        PlayerStatus.prototype.index = 0;
+
+        /**
+         * Creates a new PlayerStatus instance using the specified properties.
+         * @function create
+         * @memberof typingwars.PlayerStatus
+         * @static
+         * @param {typingwars.IPlayerStatus=} [properties] Properties to set
+         * @returns {typingwars.PlayerStatus} PlayerStatus instance
+         */
+        PlayerStatus.create = function create(properties) {
+            return new PlayerStatus(properties);
+        };
+
+        /**
+         * Encodes the specified PlayerStatus message. Does not implicitly {@link typingwars.PlayerStatus.verify|verify} messages.
+         * @function encode
+         * @memberof typingwars.PlayerStatus
+         * @static
+         * @param {typingwars.IPlayerStatus} message PlayerStatus message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PlayerStatus.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.ready != null && message.hasOwnProperty("ready"))
+                writer.uint32(/* id 1, wireType 0 =*/8).bool(message.ready);
+            if (message.index != null && message.hasOwnProperty("index"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.index);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified PlayerStatus message, length delimited. Does not implicitly {@link typingwars.PlayerStatus.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof typingwars.PlayerStatus
+         * @static
+         * @param {typingwars.IPlayerStatus} message PlayerStatus message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        PlayerStatus.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a PlayerStatus message from the specified reader or buffer.
+         * @function decode
+         * @memberof typingwars.PlayerStatus
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {typingwars.PlayerStatus} PlayerStatus
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PlayerStatus.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.PlayerStatus();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.ready = reader.bool();
+                    break;
+                case 2:
+                    message.index = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a PlayerStatus message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof typingwars.PlayerStatus
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {typingwars.PlayerStatus} PlayerStatus
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        PlayerStatus.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a PlayerStatus message.
+         * @function verify
+         * @memberof typingwars.PlayerStatus
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        PlayerStatus.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.ready != null && message.hasOwnProperty("ready"))
+                if (typeof message.ready !== "boolean")
+                    return "ready: boolean expected";
+            if (message.index != null && message.hasOwnProperty("index"))
+                if (!$util.isInteger(message.index))
+                    return "index: integer expected";
+            return null;
+        };
+
+        /**
+         * Creates a PlayerStatus message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof typingwars.PlayerStatus
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {typingwars.PlayerStatus} PlayerStatus
+         */
+        PlayerStatus.fromObject = function fromObject(object) {
+            if (object instanceof $root.typingwars.PlayerStatus)
+                return object;
+            var message = new $root.typingwars.PlayerStatus();
+            if (object.ready != null)
+                message.ready = Boolean(object.ready);
+            if (object.index != null)
+                message.index = object.index | 0;
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a PlayerStatus message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof typingwars.PlayerStatus
+         * @static
+         * @param {typingwars.PlayerStatus} message PlayerStatus
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        PlayerStatus.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.ready = false;
+                object.index = 0;
+            }
+            if (message.ready != null && message.hasOwnProperty("ready"))
+                object.ready = message.ready;
+            if (message.index != null && message.hasOwnProperty("index"))
+                object.index = message.index;
+            return object;
+        };
+
+        /**
+         * Converts this PlayerStatus to JSON.
+         * @function toJSON
+         * @memberof typingwars.PlayerStatus
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        PlayerStatus.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return PlayerStatus;
+    })();
+
     typingwars.UpdateRoom = (function() {
 
         /**
@@ -1214,7 +1424,7 @@ $root.typingwars = (function() {
          * @interface IUpdateRoom
          * @property {string|null} [roomId] UpdateRoom roomId
          * @property {Object.<string,typingwars.IPlayer>|null} [players] UpdateRoom players
-         * @property {Object.<string,boolean>|null} [readyStatus] UpdateRoom readyStatus
+         * @property {Object.<string,typingwars.IPlayerStatus>|null} [playerStatuses] UpdateRoom playerStatuses
          */
 
         /**
@@ -1227,7 +1437,7 @@ $root.typingwars = (function() {
          */
         function UpdateRoom(properties) {
             this.players = {};
-            this.readyStatus = {};
+            this.playerStatuses = {};
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -1251,12 +1461,12 @@ $root.typingwars = (function() {
         UpdateRoom.prototype.players = $util.emptyObject;
 
         /**
-         * UpdateRoom readyStatus.
-         * @member {Object.<string,boolean>} readyStatus
+         * UpdateRoom playerStatuses.
+         * @member {Object.<string,typingwars.IPlayerStatus>} playerStatuses
          * @memberof typingwars.UpdateRoom
          * @instance
          */
-        UpdateRoom.prototype.readyStatus = $util.emptyObject;
+        UpdateRoom.prototype.playerStatuses = $util.emptyObject;
 
         /**
          * Creates a new UpdateRoom instance using the specified properties.
@@ -1289,9 +1499,11 @@ $root.typingwars = (function() {
                     writer.uint32(/* id 2, wireType 2 =*/18).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]);
                     $root.typingwars.Player.encode(message.players[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim().ldelim();
                 }
-            if (message.readyStatus != null && message.hasOwnProperty("readyStatus"))
-                for (var keys = Object.keys(message.readyStatus), i = 0; i < keys.length; ++i)
-                    writer.uint32(/* id 3, wireType 2 =*/26).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]).uint32(/* id 2, wireType 0 =*/16).bool(message.readyStatus[keys[i]]).ldelim();
+            if (message.playerStatuses != null && message.hasOwnProperty("playerStatuses"))
+                for (var keys = Object.keys(message.playerStatuses), i = 0; i < keys.length; ++i) {
+                    writer.uint32(/* id 3, wireType 2 =*/26).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]);
+                    $root.typingwars.PlayerStatus.encode(message.playerStatuses[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim().ldelim();
+                }
             return writer;
         };
 
@@ -1339,11 +1551,11 @@ $root.typingwars = (function() {
                     break;
                 case 3:
                     reader.skip().pos++;
-                    if (message.readyStatus === $util.emptyObject)
-                        message.readyStatus = {};
+                    if (message.playerStatuses === $util.emptyObject)
+                        message.playerStatuses = {};
                     key = reader.string();
                     reader.pos++;
-                    message.readyStatus[key] = reader.bool();
+                    message.playerStatuses[key] = $root.typingwars.PlayerStatus.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1393,13 +1605,15 @@ $root.typingwars = (function() {
                         return "players." + error;
                 }
             }
-            if (message.readyStatus != null && message.hasOwnProperty("readyStatus")) {
-                if (!$util.isObject(message.readyStatus))
-                    return "readyStatus: object expected";
-                var key = Object.keys(message.readyStatus);
-                for (var i = 0; i < key.length; ++i)
-                    if (typeof message.readyStatus[key[i]] !== "boolean")
-                        return "readyStatus: boolean{k:string} expected";
+            if (message.playerStatuses != null && message.hasOwnProperty("playerStatuses")) {
+                if (!$util.isObject(message.playerStatuses))
+                    return "playerStatuses: object expected";
+                var key = Object.keys(message.playerStatuses);
+                for (var i = 0; i < key.length; ++i) {
+                    var error = $root.typingwars.PlayerStatus.verify(message.playerStatuses[key[i]]);
+                    if (error)
+                        return "playerStatuses." + error;
+                }
             }
             return null;
         };
@@ -1428,12 +1642,15 @@ $root.typingwars = (function() {
                     message.players[keys[i]] = $root.typingwars.Player.fromObject(object.players[keys[i]]);
                 }
             }
-            if (object.readyStatus) {
-                if (typeof object.readyStatus !== "object")
-                    throw TypeError(".typingwars.UpdateRoom.readyStatus: object expected");
-                message.readyStatus = {};
-                for (var keys = Object.keys(object.readyStatus), i = 0; i < keys.length; ++i)
-                    message.readyStatus[keys[i]] = Boolean(object.readyStatus[keys[i]]);
+            if (object.playerStatuses) {
+                if (typeof object.playerStatuses !== "object")
+                    throw TypeError(".typingwars.UpdateRoom.playerStatuses: object expected");
+                message.playerStatuses = {};
+                for (var keys = Object.keys(object.playerStatuses), i = 0; i < keys.length; ++i) {
+                    if (typeof object.playerStatuses[keys[i]] !== "object")
+                        throw TypeError(".typingwars.UpdateRoom.playerStatuses: object expected");
+                    message.playerStatuses[keys[i]] = $root.typingwars.PlayerStatus.fromObject(object.playerStatuses[keys[i]]);
+                }
             }
             return message;
         };
@@ -1453,7 +1670,7 @@ $root.typingwars = (function() {
             var object = {};
             if (options.objects || options.defaults) {
                 object.players = {};
-                object.readyStatus = {};
+                object.playerStatuses = {};
             }
             if (options.defaults)
                 object.roomId = "";
@@ -1465,10 +1682,10 @@ $root.typingwars = (function() {
                 for (var j = 0; j < keys2.length; ++j)
                     object.players[keys2[j]] = $root.typingwars.Player.toObject(message.players[keys2[j]], options);
             }
-            if (message.readyStatus && (keys2 = Object.keys(message.readyStatus)).length) {
-                object.readyStatus = {};
+            if (message.playerStatuses && (keys2 = Object.keys(message.playerStatuses)).length) {
+                object.playerStatuses = {};
                 for (var j = 0; j < keys2.length; ++j)
-                    object.readyStatus[keys2[j]] = message.readyStatus[keys2[j]];
+                    object.playerStatuses[keys2[j]] = $root.typingwars.PlayerStatus.toObject(message.playerStatuses[keys2[j]], options);
             }
             return object;
         };
