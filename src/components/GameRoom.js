@@ -36,19 +36,7 @@ class GameRoom extends Component {
         }
         players = this.props.players;
 
-        let playersDisplay = Object.keys(players).map((clientId) => {
-            let player = players[clientId];
-            console.log("Generating player display: ", player)
-            return (
-            <li className={`
-                ${styles.Player}
-                ${this.props.playerStatuses[player.id].ready ? styles.PlayerReady : ''}
-            `}>
-                {player.username} {this.props.clientId === player.id ? '(You)' : ''}
-            </li>
-            )
-        })
-        
+        let playersDisplay = []
         if (playersDisplay.length < this.props.roomSize) {
             while (playersDisplay.length < this.props.roomSize) {
                 playersDisplay.push(
@@ -56,6 +44,21 @@ class GameRoom extends Component {
                 )
             }
         }
+
+        // Update playersDisplay list
+        Object.keys(players).map((clientId) => {
+            let player = players[clientId];
+            let playerStatus = this.props.playerStatuses[player.id];
+            console.log("Generating player display: ", player)
+            playersDisplay[playerStatus.index] = (
+            <li className={`
+                ${styles.Player}
+                ${playerStatus.ready ? styles.PlayerReady : ''}
+            `}>
+                {player.username} {this.props.clientId === player.id ? '(You)' : ''}
+            </li>
+            )
+        })
 
         let display = this.props.gameStatus
             ? 
