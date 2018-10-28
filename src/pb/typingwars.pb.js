@@ -1487,6 +1487,193 @@ $root.typingwars = (function() {
         return UpdateRoom;
     })();
 
+    typingwars.UpdatePlayerReady = (function() {
+
+        /**
+         * Properties of an UpdatePlayerReady.
+         * @memberof typingwars
+         * @interface IUpdatePlayerReady
+         * @property {boolean|null} [readyStatus] UpdatePlayerReady readyStatus
+         */
+
+        /**
+         * Constructs a new UpdatePlayerReady.
+         * @memberof typingwars
+         * @classdesc Represents an UpdatePlayerReady.
+         * @implements IUpdatePlayerReady
+         * @constructor
+         * @param {typingwars.IUpdatePlayerReady=} [properties] Properties to set
+         */
+        function UpdatePlayerReady(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * UpdatePlayerReady readyStatus.
+         * @member {boolean} readyStatus
+         * @memberof typingwars.UpdatePlayerReady
+         * @instance
+         */
+        UpdatePlayerReady.prototype.readyStatus = false;
+
+        /**
+         * Creates a new UpdatePlayerReady instance using the specified properties.
+         * @function create
+         * @memberof typingwars.UpdatePlayerReady
+         * @static
+         * @param {typingwars.IUpdatePlayerReady=} [properties] Properties to set
+         * @returns {typingwars.UpdatePlayerReady} UpdatePlayerReady instance
+         */
+        UpdatePlayerReady.create = function create(properties) {
+            return new UpdatePlayerReady(properties);
+        };
+
+        /**
+         * Encodes the specified UpdatePlayerReady message. Does not implicitly {@link typingwars.UpdatePlayerReady.verify|verify} messages.
+         * @function encode
+         * @memberof typingwars.UpdatePlayerReady
+         * @static
+         * @param {typingwars.IUpdatePlayerReady} message UpdatePlayerReady message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UpdatePlayerReady.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.readyStatus != null && message.hasOwnProperty("readyStatus"))
+                writer.uint32(/* id 2, wireType 0 =*/16).bool(message.readyStatus);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified UpdatePlayerReady message, length delimited. Does not implicitly {@link typingwars.UpdatePlayerReady.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof typingwars.UpdatePlayerReady
+         * @static
+         * @param {typingwars.IUpdatePlayerReady} message UpdatePlayerReady message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        UpdatePlayerReady.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an UpdatePlayerReady message from the specified reader or buffer.
+         * @function decode
+         * @memberof typingwars.UpdatePlayerReady
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {typingwars.UpdatePlayerReady} UpdatePlayerReady
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UpdatePlayerReady.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.UpdatePlayerReady();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 2:
+                    message.readyStatus = reader.bool();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an UpdatePlayerReady message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof typingwars.UpdatePlayerReady
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {typingwars.UpdatePlayerReady} UpdatePlayerReady
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        UpdatePlayerReady.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an UpdatePlayerReady message.
+         * @function verify
+         * @memberof typingwars.UpdatePlayerReady
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        UpdatePlayerReady.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.readyStatus != null && message.hasOwnProperty("readyStatus"))
+                if (typeof message.readyStatus !== "boolean")
+                    return "readyStatus: boolean expected";
+            return null;
+        };
+
+        /**
+         * Creates an UpdatePlayerReady message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof typingwars.UpdatePlayerReady
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {typingwars.UpdatePlayerReady} UpdatePlayerReady
+         */
+        UpdatePlayerReady.fromObject = function fromObject(object) {
+            if (object instanceof $root.typingwars.UpdatePlayerReady)
+                return object;
+            var message = new $root.typingwars.UpdatePlayerReady();
+            if (object.readyStatus != null)
+                message.readyStatus = Boolean(object.readyStatus);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an UpdatePlayerReady message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof typingwars.UpdatePlayerReady
+         * @static
+         * @param {typingwars.UpdatePlayerReady} message UpdatePlayerReady
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        UpdatePlayerReady.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.readyStatus = false;
+            if (message.readyStatus != null && message.hasOwnProperty("readyStatus"))
+                object.readyStatus = message.readyStatus;
+            return object;
+        };
+
+        /**
+         * Converts this UpdatePlayerReady to JSON.
+         * @function toJSON
+         * @memberof typingwars.UpdatePlayerReady
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        UpdatePlayerReady.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return UpdatePlayerReady;
+    })();
+
     typingwars.UserMessage = (function() {
 
         /**
@@ -1499,6 +1686,7 @@ $root.typingwars = (function() {
          * @property {typingwars.IJoinRoomRequest|null} [joinRoomRequest] UserMessage joinRoomRequest
          * @property {typingwars.IJoinRoomAck|null} [joinRoomAck] UserMessage joinRoomAck
          * @property {typingwars.IUpdateRoom|null} [updateRoom] UserMessage updateRoom
+         * @property {typingwars.IUpdatePlayerReady|null} [updatePlayerReady] UserMessage updatePlayerReady
          */
 
         /**
@@ -1564,17 +1752,25 @@ $root.typingwars = (function() {
          */
         UserMessage.prototype.updateRoom = null;
 
+        /**
+         * UserMessage updatePlayerReady.
+         * @member {typingwars.IUpdatePlayerReady|null|undefined} updatePlayerReady
+         * @memberof typingwars.UserMessage
+         * @instance
+         */
+        UserMessage.prototype.updatePlayerReady = null;
+
         // OneOf field names bound to virtual getters and setters
         var $oneOfFields;
 
         /**
          * UserMessage content.
-         * @member {"userAction"|"registerPlayer"|"createRoomRequest"|"joinRoomRequest"|"joinRoomAck"|"updateRoom"|undefined} content
+         * @member {"userAction"|"registerPlayer"|"createRoomRequest"|"joinRoomRequest"|"joinRoomAck"|"updateRoom"|"updatePlayerReady"|undefined} content
          * @memberof typingwars.UserMessage
          * @instance
          */
         Object.defineProperty(UserMessage.prototype, "content", {
-            get: $util.oneOfGetter($oneOfFields = ["userAction", "registerPlayer", "createRoomRequest", "joinRoomRequest", "joinRoomAck", "updateRoom"]),
+            get: $util.oneOfGetter($oneOfFields = ["userAction", "registerPlayer", "createRoomRequest", "joinRoomRequest", "joinRoomAck", "updateRoom", "updatePlayerReady"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -1614,6 +1810,8 @@ $root.typingwars = (function() {
                 $root.typingwars.JoinRoomAck.encode(message.joinRoomAck, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
             if (message.updateRoom != null && message.hasOwnProperty("updateRoom"))
                 $root.typingwars.UpdateRoom.encode(message.updateRoom, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+            if (message.updatePlayerReady != null && message.hasOwnProperty("updatePlayerReady"))
+                $root.typingwars.UpdatePlayerReady.encode(message.updatePlayerReady, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
             return writer;
         };
 
@@ -1665,6 +1863,9 @@ $root.typingwars = (function() {
                     break;
                 case 6:
                     message.updateRoom = $root.typingwars.UpdateRoom.decode(reader, reader.uint32());
+                    break;
+                case 7:
+                    message.updatePlayerReady = $root.typingwars.UpdatePlayerReady.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1760,6 +1961,16 @@ $root.typingwars = (function() {
                         return "updateRoom." + error;
                 }
             }
+            if (message.updatePlayerReady != null && message.hasOwnProperty("updatePlayerReady")) {
+                if (properties.content === 1)
+                    return "content: multiple values";
+                properties.content = 1;
+                {
+                    var error = $root.typingwars.UpdatePlayerReady.verify(message.updatePlayerReady);
+                    if (error)
+                        return "updatePlayerReady." + error;
+                }
+            }
             return null;
         };
 
@@ -1804,6 +2015,11 @@ $root.typingwars = (function() {
                 if (typeof object.updateRoom !== "object")
                     throw TypeError(".typingwars.UserMessage.updateRoom: object expected");
                 message.updateRoom = $root.typingwars.UpdateRoom.fromObject(object.updateRoom);
+            }
+            if (object.updatePlayerReady != null) {
+                if (typeof object.updatePlayerReady !== "object")
+                    throw TypeError(".typingwars.UserMessage.updatePlayerReady: object expected");
+                message.updatePlayerReady = $root.typingwars.UpdatePlayerReady.fromObject(object.updatePlayerReady);
             }
             return message;
         };
@@ -1850,6 +2066,11 @@ $root.typingwars = (function() {
                 object.updateRoom = $root.typingwars.UpdateRoom.toObject(message.updateRoom, options);
                 if (options.oneofs)
                     object.content = "updateRoom";
+            }
+            if (message.updatePlayerReady != null && message.hasOwnProperty("updatePlayerReady")) {
+                object.updatePlayerReady = $root.typingwars.UpdatePlayerReady.toObject(message.updatePlayerReady, options);
+                if (options.oneofs)
+                    object.content = "updatePlayerReady";
             }
             return object;
         };

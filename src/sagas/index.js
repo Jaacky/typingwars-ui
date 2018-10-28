@@ -62,15 +62,32 @@ function* sendOutgoingMessages(socket) {
     while (true) {
         const action = yield take(types.MESSAGE_TO_SERVER);
         console.log("Sending out going messages", createServerMessage(action.data.type, action.data.data));
-        socket.send(JSON.stringify(createServerMessage(action.data.type, action.data.data)));
+        // socket.send(JSON.stringify(createServerMessage(action.data.type, action.data.data)));
+        socket.send(createServerMessage(action.data.type, action.data.data));
     }
 }
 
 const createServerMessage = (type, data) => {
-    return {
-        MessageType: type,
-        Data: data
-    };
+    let encoded;
+    switch(type) {
+        case types.PLAYER_READY:
+            console.log("Player ready msg to server");
+            let updatePlayerReady = pb.typingwars.UpdatePlayerReady.create({
+                "readyStatus": data.readyFlag
+            })
+
+            let msg = pb.typingwars.UserMessage.create({
+                "updatePlayerReady": updatePlayerReady
+            });
+
+            encoded = pb.typingwars.UserMessage.encode(msg)
+            break;
+    }
+    return encoded.finish();
+    // return {
+    //     MessageType: type,
+    //     Data: data
+    // };
 }
 
 function* createRoomHandler() {

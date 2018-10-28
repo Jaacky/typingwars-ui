@@ -36,10 +36,10 @@ class App extends Component {
 
                 if (key.length == 1 && letterRegex.test(key)) {
                     console.log("Letter!", key);
-                    _this.props.sendGameEvent({
-                        type: types.KEY_PRESS,
-                        key: key
-                    })
+                    // _this.props.sendGameEvent({
+                    //     type: types.KEY_PRESS,
+                    //     key: key
+                    // })
                 }
                 event.preventDefault();
 
