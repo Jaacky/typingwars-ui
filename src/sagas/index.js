@@ -68,7 +68,7 @@ function* sendOutgoingMessages(socket) {
 }
 
 const createServerMessage = (type, data) => {
-    let encoded;
+    let encoded, msg;
     switch(type) {
         case types.PLAYER_READY:
             console.log("Player ready msg to server");
@@ -76,10 +76,17 @@ const createServerMessage = (type, data) => {
                 "readyStatus": data.readyFlag
             })
 
-            let msg = pb.typingwars.UserMessage.create({
+            msg = pb.typingwars.UserMessage.create({
                 "updatePlayerReady": updatePlayerReady
             });
 
+            encoded = pb.typingwars.UserMessage.encode(msg)
+            break;
+        case types.START_GAME:
+            console.log("Start game request to server");
+            msg = pb.typingwars.UserMessage.create({
+                "startGameRequest": pb.typingwars.StartGameRequest.create({})
+            })
             encoded = pb.typingwars.UserMessage.encode(msg)
             break;
     }
@@ -174,6 +181,14 @@ function* watchUpdateRoom() {
     yield takeEvery(types.UPDATE_ROOM_MESSAGE, updateRoom);
 }
 
+function* startGame(action) {
+    yield put(actions.startGame(action.data));
+}
+
+function* watchStartGameAck() {
+    yield takeEvery(types.START_GAME_ACK_MESSAGE, startGame);
+}
+
 // function* watchSuccessfulGameRoomCreation() {
 //     yield takeEvery(types.CREATE_GAME_ROOM_SUCCESS, redirectToRoom);
 // }
@@ -197,6 +212,7 @@ export default function* rootSaga() {
         joinRoomHandler(),
         watchJoinRoomAck(),
         watchUpdateRoom(),
+        watchStartGameAck(),
         // watchSuccessfulGameRoomCreation(),
         // watchSuccessfulGameRoomEnter(),
         // watchOtherPlayersReady(),

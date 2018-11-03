@@ -31,6 +31,14 @@ export const updateRoom = (data) => {
     }
 }
 
+export const startGame = (data) => {
+    console.log("Start game action");
+    return {
+        type: types.START_GAME,
+        ...data
+    }
+}
+
 export const playerReadyAction = (readyFlag) => {
     return messageToServerWrapper({
         type: types.PLAYER_READY,

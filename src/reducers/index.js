@@ -34,7 +34,12 @@ const game = (state = {}, action) => {
             players = action.players;
             // readyStatus = action.readyStatus
             playerStatuses = action.playerStatuses
-            return { ...state, loading, roomId, players, playerStatuses };
+            startFlag = action.startFlag
+            return { ...state, loading, roomId, players, playerStatuses, startFlag };
+        case types.START_GAME:
+            console.log("Start game ack");
+            gameStatus = true;
+            return { ...state, gameStatus }
         case types.NEW_PLAYER_JOINED: // Action propagated directly from socket - hence need to access data field in action
             console.log("New player joined reducer handling", action);
             players = action.data.players;

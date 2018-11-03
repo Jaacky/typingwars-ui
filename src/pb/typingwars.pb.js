@@ -1425,6 +1425,7 @@ $root.typingwars = (function() {
          * @property {string|null} [roomId] UpdateRoom roomId
          * @property {Object.<string,typingwars.IPlayer>|null} [players] UpdateRoom players
          * @property {Object.<string,typingwars.IPlayerStatus>|null} [playerStatuses] UpdateRoom playerStatuses
+         * @property {boolean|null} [startFlag] UpdateRoom startFlag
          */
 
         /**
@@ -1469,6 +1470,14 @@ $root.typingwars = (function() {
         UpdateRoom.prototype.playerStatuses = $util.emptyObject;
 
         /**
+         * UpdateRoom startFlag.
+         * @member {boolean} startFlag
+         * @memberof typingwars.UpdateRoom
+         * @instance
+         */
+        UpdateRoom.prototype.startFlag = false;
+
+        /**
          * Creates a new UpdateRoom instance using the specified properties.
          * @function create
          * @memberof typingwars.UpdateRoom
@@ -1504,6 +1513,8 @@ $root.typingwars = (function() {
                     writer.uint32(/* id 3, wireType 2 =*/26).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]);
                     $root.typingwars.PlayerStatus.encode(message.playerStatuses[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim().ldelim();
                 }
+            if (message.startFlag != null && message.hasOwnProperty("startFlag"))
+                writer.uint32(/* id 4, wireType 0 =*/32).bool(message.startFlag);
             return writer;
         };
 
@@ -1556,6 +1567,9 @@ $root.typingwars = (function() {
                     key = reader.string();
                     reader.pos++;
                     message.playerStatuses[key] = $root.typingwars.PlayerStatus.decode(reader, reader.uint32());
+                    break;
+                case 4:
+                    message.startFlag = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1615,6 +1629,9 @@ $root.typingwars = (function() {
                         return "playerStatuses." + error;
                 }
             }
+            if (message.startFlag != null && message.hasOwnProperty("startFlag"))
+                if (typeof message.startFlag !== "boolean")
+                    return "startFlag: boolean expected";
             return null;
         };
 
@@ -1652,6 +1669,8 @@ $root.typingwars = (function() {
                     message.playerStatuses[keys[i]] = $root.typingwars.PlayerStatus.fromObject(object.playerStatuses[keys[i]]);
                 }
             }
+            if (object.startFlag != null)
+                message.startFlag = Boolean(object.startFlag);
             return message;
         };
 
@@ -1672,8 +1691,10 @@ $root.typingwars = (function() {
                 object.players = {};
                 object.playerStatuses = {};
             }
-            if (options.defaults)
+            if (options.defaults) {
                 object.roomId = "";
+                object.startFlag = false;
+            }
             if (message.roomId != null && message.hasOwnProperty("roomId"))
                 object.roomId = message.roomId;
             var keys2;
@@ -1687,6 +1708,8 @@ $root.typingwars = (function() {
                 for (var j = 0; j < keys2.length; ++j)
                     object.playerStatuses[keys2[j]] = $root.typingwars.PlayerStatus.toObject(message.playerStatuses[keys2[j]], options);
             }
+            if (message.startFlag != null && message.hasOwnProperty("startFlag"))
+                object.startFlag = message.startFlag;
             return object;
         };
 
@@ -1891,6 +1914,326 @@ $root.typingwars = (function() {
         return UpdatePlayerReady;
     })();
 
+    typingwars.StartGameRequest = (function() {
+
+        /**
+         * Properties of a StartGameRequest.
+         * @memberof typingwars
+         * @interface IStartGameRequest
+         */
+
+        /**
+         * Constructs a new StartGameRequest.
+         * @memberof typingwars
+         * @classdesc Represents a StartGameRequest.
+         * @implements IStartGameRequest
+         * @constructor
+         * @param {typingwars.IStartGameRequest=} [properties] Properties to set
+         */
+        function StartGameRequest(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new StartGameRequest instance using the specified properties.
+         * @function create
+         * @memberof typingwars.StartGameRequest
+         * @static
+         * @param {typingwars.IStartGameRequest=} [properties] Properties to set
+         * @returns {typingwars.StartGameRequest} StartGameRequest instance
+         */
+        StartGameRequest.create = function create(properties) {
+            return new StartGameRequest(properties);
+        };
+
+        /**
+         * Encodes the specified StartGameRequest message. Does not implicitly {@link typingwars.StartGameRequest.verify|verify} messages.
+         * @function encode
+         * @memberof typingwars.StartGameRequest
+         * @static
+         * @param {typingwars.IStartGameRequest} message StartGameRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        StartGameRequest.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified StartGameRequest message, length delimited. Does not implicitly {@link typingwars.StartGameRequest.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof typingwars.StartGameRequest
+         * @static
+         * @param {typingwars.IStartGameRequest} message StartGameRequest message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        StartGameRequest.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a StartGameRequest message from the specified reader or buffer.
+         * @function decode
+         * @memberof typingwars.StartGameRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {typingwars.StartGameRequest} StartGameRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        StartGameRequest.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.StartGameRequest();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a StartGameRequest message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof typingwars.StartGameRequest
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {typingwars.StartGameRequest} StartGameRequest
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        StartGameRequest.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a StartGameRequest message.
+         * @function verify
+         * @memberof typingwars.StartGameRequest
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        StartGameRequest.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a StartGameRequest message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof typingwars.StartGameRequest
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {typingwars.StartGameRequest} StartGameRequest
+         */
+        StartGameRequest.fromObject = function fromObject(object) {
+            if (object instanceof $root.typingwars.StartGameRequest)
+                return object;
+            return new $root.typingwars.StartGameRequest();
+        };
+
+        /**
+         * Creates a plain object from a StartGameRequest message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof typingwars.StartGameRequest
+         * @static
+         * @param {typingwars.StartGameRequest} message StartGameRequest
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        StartGameRequest.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this StartGameRequest to JSON.
+         * @function toJSON
+         * @memberof typingwars.StartGameRequest
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        StartGameRequest.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return StartGameRequest;
+    })();
+
+    typingwars.StartGameAck = (function() {
+
+        /**
+         * Properties of a StartGameAck.
+         * @memberof typingwars
+         * @interface IStartGameAck
+         */
+
+        /**
+         * Constructs a new StartGameAck.
+         * @memberof typingwars
+         * @classdesc Represents a StartGameAck.
+         * @implements IStartGameAck
+         * @constructor
+         * @param {typingwars.IStartGameAck=} [properties] Properties to set
+         */
+        function StartGameAck(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Creates a new StartGameAck instance using the specified properties.
+         * @function create
+         * @memberof typingwars.StartGameAck
+         * @static
+         * @param {typingwars.IStartGameAck=} [properties] Properties to set
+         * @returns {typingwars.StartGameAck} StartGameAck instance
+         */
+        StartGameAck.create = function create(properties) {
+            return new StartGameAck(properties);
+        };
+
+        /**
+         * Encodes the specified StartGameAck message. Does not implicitly {@link typingwars.StartGameAck.verify|verify} messages.
+         * @function encode
+         * @memberof typingwars.StartGameAck
+         * @static
+         * @param {typingwars.IStartGameAck} message StartGameAck message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        StartGameAck.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified StartGameAck message, length delimited. Does not implicitly {@link typingwars.StartGameAck.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof typingwars.StartGameAck
+         * @static
+         * @param {typingwars.IStartGameAck} message StartGameAck message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        StartGameAck.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a StartGameAck message from the specified reader or buffer.
+         * @function decode
+         * @memberof typingwars.StartGameAck
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {typingwars.StartGameAck} StartGameAck
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        StartGameAck.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.StartGameAck();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a StartGameAck message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof typingwars.StartGameAck
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {typingwars.StartGameAck} StartGameAck
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        StartGameAck.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a StartGameAck message.
+         * @function verify
+         * @memberof typingwars.StartGameAck
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        StartGameAck.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            return null;
+        };
+
+        /**
+         * Creates a StartGameAck message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof typingwars.StartGameAck
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {typingwars.StartGameAck} StartGameAck
+         */
+        StartGameAck.fromObject = function fromObject(object) {
+            if (object instanceof $root.typingwars.StartGameAck)
+                return object;
+            return new $root.typingwars.StartGameAck();
+        };
+
+        /**
+         * Creates a plain object from a StartGameAck message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof typingwars.StartGameAck
+         * @static
+         * @param {typingwars.StartGameAck} message StartGameAck
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        StartGameAck.toObject = function toObject() {
+            return {};
+        };
+
+        /**
+         * Converts this StartGameAck to JSON.
+         * @function toJSON
+         * @memberof typingwars.StartGameAck
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        StartGameAck.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return StartGameAck;
+    })();
+
     typingwars.UserMessage = (function() {
 
         /**
@@ -1904,6 +2247,8 @@ $root.typingwars = (function() {
          * @property {typingwars.IJoinRoomAck|null} [joinRoomAck] UserMessage joinRoomAck
          * @property {typingwars.IUpdateRoom|null} [updateRoom] UserMessage updateRoom
          * @property {typingwars.IUpdatePlayerReady|null} [updatePlayerReady] UserMessage updatePlayerReady
+         * @property {typingwars.IStartGameRequest|null} [startGameRequest] UserMessage startGameRequest
+         * @property {typingwars.IStartGameAck|null} [startGameAck] UserMessage startGameAck
          */
 
         /**
@@ -1977,17 +2322,33 @@ $root.typingwars = (function() {
          */
         UserMessage.prototype.updatePlayerReady = null;
 
+        /**
+         * UserMessage startGameRequest.
+         * @member {typingwars.IStartGameRequest|null|undefined} startGameRequest
+         * @memberof typingwars.UserMessage
+         * @instance
+         */
+        UserMessage.prototype.startGameRequest = null;
+
+        /**
+         * UserMessage startGameAck.
+         * @member {typingwars.IStartGameAck|null|undefined} startGameAck
+         * @memberof typingwars.UserMessage
+         * @instance
+         */
+        UserMessage.prototype.startGameAck = null;
+
         // OneOf field names bound to virtual getters and setters
         var $oneOfFields;
 
         /**
          * UserMessage content.
-         * @member {"userAction"|"registerPlayer"|"createRoomRequest"|"joinRoomRequest"|"joinRoomAck"|"updateRoom"|"updatePlayerReady"|undefined} content
+         * @member {"userAction"|"registerPlayer"|"createRoomRequest"|"joinRoomRequest"|"joinRoomAck"|"updateRoom"|"updatePlayerReady"|"startGameRequest"|"startGameAck"|undefined} content
          * @memberof typingwars.UserMessage
          * @instance
          */
         Object.defineProperty(UserMessage.prototype, "content", {
-            get: $util.oneOfGetter($oneOfFields = ["userAction", "registerPlayer", "createRoomRequest", "joinRoomRequest", "joinRoomAck", "updateRoom", "updatePlayerReady"]),
+            get: $util.oneOfGetter($oneOfFields = ["userAction", "registerPlayer", "createRoomRequest", "joinRoomRequest", "joinRoomAck", "updateRoom", "updatePlayerReady", "startGameRequest", "startGameAck"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -2029,6 +2390,10 @@ $root.typingwars = (function() {
                 $root.typingwars.UpdateRoom.encode(message.updateRoom, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
             if (message.updatePlayerReady != null && message.hasOwnProperty("updatePlayerReady"))
                 $root.typingwars.UpdatePlayerReady.encode(message.updatePlayerReady, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+            if (message.startGameRequest != null && message.hasOwnProperty("startGameRequest"))
+                $root.typingwars.StartGameRequest.encode(message.startGameRequest, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+            if (message.startGameAck != null && message.hasOwnProperty("startGameAck"))
+                $root.typingwars.StartGameAck.encode(message.startGameAck, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
             return writer;
         };
 
@@ -2083,6 +2448,12 @@ $root.typingwars = (function() {
                     break;
                 case 7:
                     message.updatePlayerReady = $root.typingwars.UpdatePlayerReady.decode(reader, reader.uint32());
+                    break;
+                case 8:
+                    message.startGameRequest = $root.typingwars.StartGameRequest.decode(reader, reader.uint32());
+                    break;
+                case 9:
+                    message.startGameAck = $root.typingwars.StartGameAck.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2188,6 +2559,26 @@ $root.typingwars = (function() {
                         return "updatePlayerReady." + error;
                 }
             }
+            if (message.startGameRequest != null && message.hasOwnProperty("startGameRequest")) {
+                if (properties.content === 1)
+                    return "content: multiple values";
+                properties.content = 1;
+                {
+                    var error = $root.typingwars.StartGameRequest.verify(message.startGameRequest);
+                    if (error)
+                        return "startGameRequest." + error;
+                }
+            }
+            if (message.startGameAck != null && message.hasOwnProperty("startGameAck")) {
+                if (properties.content === 1)
+                    return "content: multiple values";
+                properties.content = 1;
+                {
+                    var error = $root.typingwars.StartGameAck.verify(message.startGameAck);
+                    if (error)
+                        return "startGameAck." + error;
+                }
+            }
             return null;
         };
 
@@ -2237,6 +2628,16 @@ $root.typingwars = (function() {
                 if (typeof object.updatePlayerReady !== "object")
                     throw TypeError(".typingwars.UserMessage.updatePlayerReady: object expected");
                 message.updatePlayerReady = $root.typingwars.UpdatePlayerReady.fromObject(object.updatePlayerReady);
+            }
+            if (object.startGameRequest != null) {
+                if (typeof object.startGameRequest !== "object")
+                    throw TypeError(".typingwars.UserMessage.startGameRequest: object expected");
+                message.startGameRequest = $root.typingwars.StartGameRequest.fromObject(object.startGameRequest);
+            }
+            if (object.startGameAck != null) {
+                if (typeof object.startGameAck !== "object")
+                    throw TypeError(".typingwars.UserMessage.startGameAck: object expected");
+                message.startGameAck = $root.typingwars.StartGameAck.fromObject(object.startGameAck);
             }
             return message;
         };
@@ -2288,6 +2689,16 @@ $root.typingwars = (function() {
                 object.updatePlayerReady = $root.typingwars.UpdatePlayerReady.toObject(message.updatePlayerReady, options);
                 if (options.oneofs)
                     object.content = "updatePlayerReady";
+            }
+            if (message.startGameRequest != null && message.hasOwnProperty("startGameRequest")) {
+                object.startGameRequest = $root.typingwars.StartGameRequest.toObject(message.startGameRequest, options);
+                if (options.oneofs)
+                    object.content = "startGameRequest";
+            }
+            if (message.startGameAck != null && message.hasOwnProperty("startGameAck")) {
+                object.startGameAck = $root.typingwars.StartGameAck.toObject(message.startGameAck, options);
+                if (options.oneofs)
+                    object.content = "startGameAck";
             }
             return object;
         };
