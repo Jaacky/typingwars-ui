@@ -19,9 +19,13 @@ const game = (state = {}, action) => {
     let loading;
     let roomId, clientId, players, readyStatus, startFlag, gameStatus;
     // readyStatus should be useless
-    let playerStatuses;
+    let playerStatuses, space;
     let bases;
     switch (action.type) {
+        case types.SPACE_UPDATE:
+            console.log("Space reducer received", action);
+            space = action.space;
+            return {...state, space }
         case types.ENTERED_ROOM:
             console.log("Entered game room, reducer handling", action);
             clientId = action.clientId;

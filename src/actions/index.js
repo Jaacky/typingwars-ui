@@ -39,6 +39,13 @@ export const startGame = (data) => {
     }
 }
 
+export const updateSpace = (data) => {
+    return {
+        type: types.SPACE_UPDATE,
+        space: data
+    }
+}
+
 export const playerReadyAction = (readyFlag) => {
     return messageToServerWrapper({
         type: types.PLAYER_READY,

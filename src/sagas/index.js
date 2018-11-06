@@ -189,6 +189,14 @@ function* watchStartGameAck() {
     yield takeEvery(types.START_GAME_ACK_MESSAGE, startGame);
 }
 
+function* updateSpace(action) {
+    yield put(actions.updateSpace(action.data));
+}
+
+function* watchSpace() {
+    yield takeEvery(types.SPACE_MESSAGE, updateSpace);
+}
+
 // function* watchSuccessfulGameRoomCreation() {
 //     yield takeEvery(types.CREATE_GAME_ROOM_SUCCESS, redirectToRoom);
 // }
@@ -213,6 +221,7 @@ export default function* rootSaga() {
         watchJoinRoomAck(),
         watchUpdateRoom(),
         watchStartGameAck(),
+        watchSpace(),
         // watchSuccessfulGameRoomCreation(),
         // watchSuccessfulGameRoomEnter(),
         // watchOtherPlayersReady(),

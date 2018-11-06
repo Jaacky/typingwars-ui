@@ -1,9 +1,11 @@
 export const WS_MSG_RECIEVED = 'WS_MSG_RECEIVED';
 
+export const SPACE_MESSAGE = "space";
 export const JOIN_ROOM_ACK_MESSAGE = "joinRoomAck";
 export const UPDATE_ROOM_MESSAGE = "updateRoom";
 export const START_GAME_ACK_MESSAGE = "startGameAck";
 
+export const SPACE_UPDATE = "SPACE_UPDATE";
 export const UPDATE_ROOM = 'UPDATE_ROOM';
 
 export const ENTER_ROOM = 'ENTER_ROOM';

@@ -2234,12 +2234,1064 @@ $root.typingwars = (function() {
         return StartGameAck;
     })();
 
+    typingwars.Point = (function() {
+
+        /**
+         * Properties of a Point.
+         * @memberof typingwars
+         * @interface IPoint
+         * @property {number|null} [x] Point x
+         * @property {number|null} [y] Point y
+         */
+
+        /**
+         * Constructs a new Point.
+         * @memberof typingwars
+         * @classdesc Represents a Point.
+         * @implements IPoint
+         * @constructor
+         * @param {typingwars.IPoint=} [properties] Properties to set
+         */
+        function Point(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Point x.
+         * @member {number} x
+         * @memberof typingwars.Point
+         * @instance
+         */
+        Point.prototype.x = 0;
+
+        /**
+         * Point y.
+         * @member {number} y
+         * @memberof typingwars.Point
+         * @instance
+         */
+        Point.prototype.y = 0;
+
+        /**
+         * Creates a new Point instance using the specified properties.
+         * @function create
+         * @memberof typingwars.Point
+         * @static
+         * @param {typingwars.IPoint=} [properties] Properties to set
+         * @returns {typingwars.Point} Point instance
+         */
+        Point.create = function create(properties) {
+            return new Point(properties);
+        };
+
+        /**
+         * Encodes the specified Point message. Does not implicitly {@link typingwars.Point.verify|verify} messages.
+         * @function encode
+         * @memberof typingwars.Point
+         * @static
+         * @param {typingwars.IPoint} message Point message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Point.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.x != null && message.hasOwnProperty("x"))
+                writer.uint32(/* id 1, wireType 5 =*/13).float(message.x);
+            if (message.y != null && message.hasOwnProperty("y"))
+                writer.uint32(/* id 2, wireType 5 =*/21).float(message.y);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Point message, length delimited. Does not implicitly {@link typingwars.Point.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof typingwars.Point
+         * @static
+         * @param {typingwars.IPoint} message Point message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Point.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Point message from the specified reader or buffer.
+         * @function decode
+         * @memberof typingwars.Point
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {typingwars.Point} Point
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Point.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.Point();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.x = reader.float();
+                    break;
+                case 2:
+                    message.y = reader.float();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Point message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof typingwars.Point
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {typingwars.Point} Point
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Point.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Point message.
+         * @function verify
+         * @memberof typingwars.Point
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Point.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.x != null && message.hasOwnProperty("x"))
+                if (typeof message.x !== "number")
+                    return "x: number expected";
+            if (message.y != null && message.hasOwnProperty("y"))
+                if (typeof message.y !== "number")
+                    return "y: number expected";
+            return null;
+        };
+
+        /**
+         * Creates a Point message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof typingwars.Point
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {typingwars.Point} Point
+         */
+        Point.fromObject = function fromObject(object) {
+            if (object instanceof $root.typingwars.Point)
+                return object;
+            var message = new $root.typingwars.Point();
+            if (object.x != null)
+                message.x = Number(object.x);
+            if (object.y != null)
+                message.y = Number(object.y);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Point message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof typingwars.Point
+         * @static
+         * @param {typingwars.Point} message Point
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Point.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.x = 0;
+                object.y = 0;
+            }
+            if (message.x != null && message.hasOwnProperty("x"))
+                object.x = options.json && !isFinite(message.x) ? String(message.x) : message.x;
+            if (message.y != null && message.hasOwnProperty("y"))
+                object.y = options.json && !isFinite(message.y) ? String(message.y) : message.y;
+            return object;
+        };
+
+        /**
+         * Converts this Point to JSON.
+         * @function toJSON
+         * @memberof typingwars.Point
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Point.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Point;
+    })();
+
+    typingwars.Base = (function() {
+
+        /**
+         * Properties of a Base.
+         * @memberof typingwars
+         * @interface IBase
+         * @property {string|null} [owner] Base owner
+         * @property {number|null} [hp] Base hp
+         * @property {string|null} [colour] Base colour
+         * @property {typingwars.IPoint|null} [position] Base position
+         */
+
+        /**
+         * Constructs a new Base.
+         * @memberof typingwars
+         * @classdesc Represents a Base.
+         * @implements IBase
+         * @constructor
+         * @param {typingwars.IBase=} [properties] Properties to set
+         */
+        function Base(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Base owner.
+         * @member {string} owner
+         * @memberof typingwars.Base
+         * @instance
+         */
+        Base.prototype.owner = "";
+
+        /**
+         * Base hp.
+         * @member {number} hp
+         * @memberof typingwars.Base
+         * @instance
+         */
+        Base.prototype.hp = 0;
+
+        /**
+         * Base colour.
+         * @member {string} colour
+         * @memberof typingwars.Base
+         * @instance
+         */
+        Base.prototype.colour = "";
+
+        /**
+         * Base position.
+         * @member {typingwars.IPoint|null|undefined} position
+         * @memberof typingwars.Base
+         * @instance
+         */
+        Base.prototype.position = null;
+
+        /**
+         * Creates a new Base instance using the specified properties.
+         * @function create
+         * @memberof typingwars.Base
+         * @static
+         * @param {typingwars.IBase=} [properties] Properties to set
+         * @returns {typingwars.Base} Base instance
+         */
+        Base.create = function create(properties) {
+            return new Base(properties);
+        };
+
+        /**
+         * Encodes the specified Base message. Does not implicitly {@link typingwars.Base.verify|verify} messages.
+         * @function encode
+         * @memberof typingwars.Base
+         * @static
+         * @param {typingwars.IBase} message Base message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Base.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.owner != null && message.hasOwnProperty("owner"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.owner);
+            if (message.hp != null && message.hasOwnProperty("hp"))
+                writer.uint32(/* id 2, wireType 0 =*/16).int32(message.hp);
+            if (message.colour != null && message.hasOwnProperty("colour"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.colour);
+            if (message.position != null && message.hasOwnProperty("position"))
+                $root.typingwars.Point.encode(message.position, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Base message, length delimited. Does not implicitly {@link typingwars.Base.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof typingwars.Base
+         * @static
+         * @param {typingwars.IBase} message Base message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Base.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Base message from the specified reader or buffer.
+         * @function decode
+         * @memberof typingwars.Base
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {typingwars.Base} Base
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Base.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.Base();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.owner = reader.string();
+                    break;
+                case 2:
+                    message.hp = reader.int32();
+                    break;
+                case 3:
+                    message.colour = reader.string();
+                    break;
+                case 4:
+                    message.position = $root.typingwars.Point.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Base message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof typingwars.Base
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {typingwars.Base} Base
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Base.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Base message.
+         * @function verify
+         * @memberof typingwars.Base
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Base.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.owner != null && message.hasOwnProperty("owner"))
+                if (!$util.isString(message.owner))
+                    return "owner: string expected";
+            if (message.hp != null && message.hasOwnProperty("hp"))
+                if (!$util.isInteger(message.hp))
+                    return "hp: integer expected";
+            if (message.colour != null && message.hasOwnProperty("colour"))
+                if (!$util.isString(message.colour))
+                    return "colour: string expected";
+            if (message.position != null && message.hasOwnProperty("position")) {
+                var error = $root.typingwars.Point.verify(message.position);
+                if (error)
+                    return "position." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a Base message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof typingwars.Base
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {typingwars.Base} Base
+         */
+        Base.fromObject = function fromObject(object) {
+            if (object instanceof $root.typingwars.Base)
+                return object;
+            var message = new $root.typingwars.Base();
+            if (object.owner != null)
+                message.owner = String(object.owner);
+            if (object.hp != null)
+                message.hp = object.hp | 0;
+            if (object.colour != null)
+                message.colour = String(object.colour);
+            if (object.position != null) {
+                if (typeof object.position !== "object")
+                    throw TypeError(".typingwars.Base.position: object expected");
+                message.position = $root.typingwars.Point.fromObject(object.position);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Base message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof typingwars.Base
+         * @static
+         * @param {typingwars.Base} message Base
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Base.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.owner = "";
+                object.hp = 0;
+                object.colour = "";
+                object.position = null;
+            }
+            if (message.owner != null && message.hasOwnProperty("owner"))
+                object.owner = message.owner;
+            if (message.hp != null && message.hasOwnProperty("hp"))
+                object.hp = message.hp;
+            if (message.colour != null && message.hasOwnProperty("colour"))
+                object.colour = message.colour;
+            if (message.position != null && message.hasOwnProperty("position"))
+                object.position = $root.typingwars.Point.toObject(message.position, options);
+            return object;
+        };
+
+        /**
+         * Converts this Base to JSON.
+         * @function toJSON
+         * @memberof typingwars.Base
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Base.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Base;
+    })();
+
+    typingwars.Unit = (function() {
+
+        /**
+         * Properties of an Unit.
+         * @memberof typingwars
+         * @interface IUnit
+         * @property {string|null} [owner] Unit owner
+         * @property {string|null} [word] Unit word
+         * @property {number|null} [typed] Unit typed
+         * @property {number|null} [speed] Unit speed
+         * @property {typingwars.IPoint|null} [position] Unit position
+         * @property {number|null} [size] Unit size
+         * @property {typingwars.IBase|null} [target] Unit target
+         */
+
+        /**
+         * Constructs a new Unit.
+         * @memberof typingwars
+         * @classdesc Represents an Unit.
+         * @implements IUnit
+         * @constructor
+         * @param {typingwars.IUnit=} [properties] Properties to set
+         */
+        function Unit(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Unit owner.
+         * @member {string} owner
+         * @memberof typingwars.Unit
+         * @instance
+         */
+        Unit.prototype.owner = "";
+
+        /**
+         * Unit word.
+         * @member {string} word
+         * @memberof typingwars.Unit
+         * @instance
+         */
+        Unit.prototype.word = "";
+
+        /**
+         * Unit typed.
+         * @member {number} typed
+         * @memberof typingwars.Unit
+         * @instance
+         */
+        Unit.prototype.typed = 0;
+
+        /**
+         * Unit speed.
+         * @member {number} speed
+         * @memberof typingwars.Unit
+         * @instance
+         */
+        Unit.prototype.speed = 0;
+
+        /**
+         * Unit position.
+         * @member {typingwars.IPoint|null|undefined} position
+         * @memberof typingwars.Unit
+         * @instance
+         */
+        Unit.prototype.position = null;
+
+        /**
+         * Unit size.
+         * @member {number} size
+         * @memberof typingwars.Unit
+         * @instance
+         */
+        Unit.prototype.size = 0;
+
+        /**
+         * Unit target.
+         * @member {typingwars.IBase|null|undefined} target
+         * @memberof typingwars.Unit
+         * @instance
+         */
+        Unit.prototype.target = null;
+
+        /**
+         * Creates a new Unit instance using the specified properties.
+         * @function create
+         * @memberof typingwars.Unit
+         * @static
+         * @param {typingwars.IUnit=} [properties] Properties to set
+         * @returns {typingwars.Unit} Unit instance
+         */
+        Unit.create = function create(properties) {
+            return new Unit(properties);
+        };
+
+        /**
+         * Encodes the specified Unit message. Does not implicitly {@link typingwars.Unit.verify|verify} messages.
+         * @function encode
+         * @memberof typingwars.Unit
+         * @static
+         * @param {typingwars.IUnit} message Unit message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Unit.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.owner != null && message.hasOwnProperty("owner"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.owner);
+            if (message.word != null && message.hasOwnProperty("word"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.word);
+            if (message.typed != null && message.hasOwnProperty("typed"))
+                writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.typed);
+            if (message.speed != null && message.hasOwnProperty("speed"))
+                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.speed);
+            if (message.position != null && message.hasOwnProperty("position"))
+                $root.typingwars.Point.encode(message.position, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+            if (message.size != null && message.hasOwnProperty("size"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.size);
+            if (message.target != null && message.hasOwnProperty("target"))
+                $root.typingwars.Base.encode(message.target, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Unit message, length delimited. Does not implicitly {@link typingwars.Unit.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof typingwars.Unit
+         * @static
+         * @param {typingwars.IUnit} message Unit message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Unit.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an Unit message from the specified reader or buffer.
+         * @function decode
+         * @memberof typingwars.Unit
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {typingwars.Unit} Unit
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Unit.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.Unit();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.owner = reader.string();
+                    break;
+                case 2:
+                    message.word = reader.string();
+                    break;
+                case 3:
+                    message.typed = reader.uint32();
+                    break;
+                case 4:
+                    message.speed = reader.uint32();
+                    break;
+                case 5:
+                    message.position = $root.typingwars.Point.decode(reader, reader.uint32());
+                    break;
+                case 6:
+                    message.size = reader.uint32();
+                    break;
+                case 7:
+                    message.target = $root.typingwars.Base.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an Unit message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof typingwars.Unit
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {typingwars.Unit} Unit
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Unit.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an Unit message.
+         * @function verify
+         * @memberof typingwars.Unit
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Unit.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.owner != null && message.hasOwnProperty("owner"))
+                if (!$util.isString(message.owner))
+                    return "owner: string expected";
+            if (message.word != null && message.hasOwnProperty("word"))
+                if (!$util.isString(message.word))
+                    return "word: string expected";
+            if (message.typed != null && message.hasOwnProperty("typed"))
+                if (!$util.isInteger(message.typed))
+                    return "typed: integer expected";
+            if (message.speed != null && message.hasOwnProperty("speed"))
+                if (!$util.isInteger(message.speed))
+                    return "speed: integer expected";
+            if (message.position != null && message.hasOwnProperty("position")) {
+                var error = $root.typingwars.Point.verify(message.position);
+                if (error)
+                    return "position." + error;
+            }
+            if (message.size != null && message.hasOwnProperty("size"))
+                if (!$util.isInteger(message.size))
+                    return "size: integer expected";
+            if (message.target != null && message.hasOwnProperty("target")) {
+                var error = $root.typingwars.Base.verify(message.target);
+                if (error)
+                    return "target." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates an Unit message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof typingwars.Unit
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {typingwars.Unit} Unit
+         */
+        Unit.fromObject = function fromObject(object) {
+            if (object instanceof $root.typingwars.Unit)
+                return object;
+            var message = new $root.typingwars.Unit();
+            if (object.owner != null)
+                message.owner = String(object.owner);
+            if (object.word != null)
+                message.word = String(object.word);
+            if (object.typed != null)
+                message.typed = object.typed >>> 0;
+            if (object.speed != null)
+                message.speed = object.speed >>> 0;
+            if (object.position != null) {
+                if (typeof object.position !== "object")
+                    throw TypeError(".typingwars.Unit.position: object expected");
+                message.position = $root.typingwars.Point.fromObject(object.position);
+            }
+            if (object.size != null)
+                message.size = object.size >>> 0;
+            if (object.target != null) {
+                if (typeof object.target !== "object")
+                    throw TypeError(".typingwars.Unit.target: object expected");
+                message.target = $root.typingwars.Base.fromObject(object.target);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an Unit message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof typingwars.Unit
+         * @static
+         * @param {typingwars.Unit} message Unit
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Unit.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.owner = "";
+                object.word = "";
+                object.typed = 0;
+                object.speed = 0;
+                object.position = null;
+                object.size = 0;
+                object.target = null;
+            }
+            if (message.owner != null && message.hasOwnProperty("owner"))
+                object.owner = message.owner;
+            if (message.word != null && message.hasOwnProperty("word"))
+                object.word = message.word;
+            if (message.typed != null && message.hasOwnProperty("typed"))
+                object.typed = message.typed;
+            if (message.speed != null && message.hasOwnProperty("speed"))
+                object.speed = message.speed;
+            if (message.position != null && message.hasOwnProperty("position"))
+                object.position = $root.typingwars.Point.toObject(message.position, options);
+            if (message.size != null && message.hasOwnProperty("size"))
+                object.size = message.size;
+            if (message.target != null && message.hasOwnProperty("target"))
+                object.target = $root.typingwars.Base.toObject(message.target, options);
+            return object;
+        };
+
+        /**
+         * Converts this Unit to JSON.
+         * @function toJSON
+         * @memberof typingwars.Unit
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Unit.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Unit;
+    })();
+
+    typingwars.Space = (function() {
+
+        /**
+         * Properties of a Space.
+         * @memberof typingwars
+         * @interface ISpace
+         * @property {Array.<typingwars.IBase>|null} [bases] Space bases
+         * @property {Array.<typingwars.IUnit>|null} [units] Space units
+         */
+
+        /**
+         * Constructs a new Space.
+         * @memberof typingwars
+         * @classdesc Represents a Space.
+         * @implements ISpace
+         * @constructor
+         * @param {typingwars.ISpace=} [properties] Properties to set
+         */
+        function Space(properties) {
+            this.bases = [];
+            this.units = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Space bases.
+         * @member {Array.<typingwars.IBase>} bases
+         * @memberof typingwars.Space
+         * @instance
+         */
+        Space.prototype.bases = $util.emptyArray;
+
+        /**
+         * Space units.
+         * @member {Array.<typingwars.IUnit>} units
+         * @memberof typingwars.Space
+         * @instance
+         */
+        Space.prototype.units = $util.emptyArray;
+
+        /**
+         * Creates a new Space instance using the specified properties.
+         * @function create
+         * @memberof typingwars.Space
+         * @static
+         * @param {typingwars.ISpace=} [properties] Properties to set
+         * @returns {typingwars.Space} Space instance
+         */
+        Space.create = function create(properties) {
+            return new Space(properties);
+        };
+
+        /**
+         * Encodes the specified Space message. Does not implicitly {@link typingwars.Space.verify|verify} messages.
+         * @function encode
+         * @memberof typingwars.Space
+         * @static
+         * @param {typingwars.ISpace} message Space message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Space.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.bases != null && message.bases.length)
+                for (var i = 0; i < message.bases.length; ++i)
+                    $root.typingwars.Base.encode(message.bases[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.units != null && message.units.length)
+                for (var i = 0; i < message.units.length; ++i)
+                    $root.typingwars.Unit.encode(message.units[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Space message, length delimited. Does not implicitly {@link typingwars.Space.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof typingwars.Space
+         * @static
+         * @param {typingwars.ISpace} message Space message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Space.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Space message from the specified reader or buffer.
+         * @function decode
+         * @memberof typingwars.Space
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {typingwars.Space} Space
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Space.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.Space();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    if (!(message.bases && message.bases.length))
+                        message.bases = [];
+                    message.bases.push($root.typingwars.Base.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    if (!(message.units && message.units.length))
+                        message.units = [];
+                    message.units.push($root.typingwars.Unit.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Space message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof typingwars.Space
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {typingwars.Space} Space
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Space.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Space message.
+         * @function verify
+         * @memberof typingwars.Space
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Space.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.bases != null && message.hasOwnProperty("bases")) {
+                if (!Array.isArray(message.bases))
+                    return "bases: array expected";
+                for (var i = 0; i < message.bases.length; ++i) {
+                    var error = $root.typingwars.Base.verify(message.bases[i]);
+                    if (error)
+                        return "bases." + error;
+                }
+            }
+            if (message.units != null && message.hasOwnProperty("units")) {
+                if (!Array.isArray(message.units))
+                    return "units: array expected";
+                for (var i = 0; i < message.units.length; ++i) {
+                    var error = $root.typingwars.Unit.verify(message.units[i]);
+                    if (error)
+                        return "units." + error;
+                }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a Space message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof typingwars.Space
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {typingwars.Space} Space
+         */
+        Space.fromObject = function fromObject(object) {
+            if (object instanceof $root.typingwars.Space)
+                return object;
+            var message = new $root.typingwars.Space();
+            if (object.bases) {
+                if (!Array.isArray(object.bases))
+                    throw TypeError(".typingwars.Space.bases: array expected");
+                message.bases = [];
+                for (var i = 0; i < object.bases.length; ++i) {
+                    if (typeof object.bases[i] !== "object")
+                        throw TypeError(".typingwars.Space.bases: object expected");
+                    message.bases[i] = $root.typingwars.Base.fromObject(object.bases[i]);
+                }
+            }
+            if (object.units) {
+                if (!Array.isArray(object.units))
+                    throw TypeError(".typingwars.Space.units: array expected");
+                message.units = [];
+                for (var i = 0; i < object.units.length; ++i) {
+                    if (typeof object.units[i] !== "object")
+                        throw TypeError(".typingwars.Space.units: object expected");
+                    message.units[i] = $root.typingwars.Unit.fromObject(object.units[i]);
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Space message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof typingwars.Space
+         * @static
+         * @param {typingwars.Space} message Space
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Space.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults) {
+                object.bases = [];
+                object.units = [];
+            }
+            if (message.bases && message.bases.length) {
+                object.bases = [];
+                for (var j = 0; j < message.bases.length; ++j)
+                    object.bases[j] = $root.typingwars.Base.toObject(message.bases[j], options);
+            }
+            if (message.units && message.units.length) {
+                object.units = [];
+                for (var j = 0; j < message.units.length; ++j)
+                    object.units[j] = $root.typingwars.Unit.toObject(message.units[j], options);
+            }
+            return object;
+        };
+
+        /**
+         * Converts this Space to JSON.
+         * @function toJSON
+         * @memberof typingwars.Space
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Space.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Space;
+    })();
+
     typingwars.UserMessage = (function() {
 
         /**
          * Properties of a UserMessage.
          * @memberof typingwars
          * @interface IUserMessage
+         * @property {typingwars.ISpace|null} [space] UserMessage space
          * @property {typingwars.IUserAction|null} [userAction] UserMessage userAction
          * @property {typingwars.IRegisterPlayer|null} [registerPlayer] UserMessage registerPlayer
          * @property {typingwars.ICreateRoomRequest|null} [createRoomRequest] UserMessage createRoomRequest
@@ -2265,6 +3317,14 @@ $root.typingwars = (function() {
                     if (properties[keys[i]] != null)
                         this[keys[i]] = properties[keys[i]];
         }
+
+        /**
+         * UserMessage space.
+         * @member {typingwars.ISpace|null|undefined} space
+         * @memberof typingwars.UserMessage
+         * @instance
+         */
+        UserMessage.prototype.space = null;
 
         /**
          * UserMessage userAction.
@@ -2343,12 +3403,12 @@ $root.typingwars = (function() {
 
         /**
          * UserMessage content.
-         * @member {"userAction"|"registerPlayer"|"createRoomRequest"|"joinRoomRequest"|"joinRoomAck"|"updateRoom"|"updatePlayerReady"|"startGameRequest"|"startGameAck"|undefined} content
+         * @member {"space"|"userAction"|"registerPlayer"|"createRoomRequest"|"joinRoomRequest"|"joinRoomAck"|"updateRoom"|"updatePlayerReady"|"startGameRequest"|"startGameAck"|undefined} content
          * @memberof typingwars.UserMessage
          * @instance
          */
         Object.defineProperty(UserMessage.prototype, "content", {
-            get: $util.oneOfGetter($oneOfFields = ["userAction", "registerPlayer", "createRoomRequest", "joinRoomRequest", "joinRoomAck", "updateRoom", "updatePlayerReady", "startGameRequest", "startGameAck"]),
+            get: $util.oneOfGetter($oneOfFields = ["space", "userAction", "registerPlayer", "createRoomRequest", "joinRoomRequest", "joinRoomAck", "updateRoom", "updatePlayerReady", "startGameRequest", "startGameAck"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -2376,24 +3436,26 @@ $root.typingwars = (function() {
         UserMessage.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
+            if (message.space != null && message.hasOwnProperty("space"))
+                $root.typingwars.Space.encode(message.space, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             if (message.userAction != null && message.hasOwnProperty("userAction"))
-                $root.typingwars.UserAction.encode(message.userAction, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                $root.typingwars.UserAction.encode(message.userAction, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
             if (message.registerPlayer != null && message.hasOwnProperty("registerPlayer"))
-                $root.typingwars.RegisterPlayer.encode(message.registerPlayer, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                $root.typingwars.RegisterPlayer.encode(message.registerPlayer, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
             if (message.createRoomRequest != null && message.hasOwnProperty("createRoomRequest"))
-                $root.typingwars.CreateRoomRequest.encode(message.createRoomRequest, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.typingwars.CreateRoomRequest.encode(message.createRoomRequest, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
             if (message.joinRoomRequest != null && message.hasOwnProperty("joinRoomRequest"))
-                $root.typingwars.JoinRoomRequest.encode(message.joinRoomRequest, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                $root.typingwars.JoinRoomRequest.encode(message.joinRoomRequest, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
             if (message.joinRoomAck != null && message.hasOwnProperty("joinRoomAck"))
-                $root.typingwars.JoinRoomAck.encode(message.joinRoomAck, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                $root.typingwars.JoinRoomAck.encode(message.joinRoomAck, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
             if (message.updateRoom != null && message.hasOwnProperty("updateRoom"))
-                $root.typingwars.UpdateRoom.encode(message.updateRoom, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                $root.typingwars.UpdateRoom.encode(message.updateRoom, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
             if (message.updatePlayerReady != null && message.hasOwnProperty("updatePlayerReady"))
-                $root.typingwars.UpdatePlayerReady.encode(message.updatePlayerReady, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                $root.typingwars.UpdatePlayerReady.encode(message.updatePlayerReady, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
             if (message.startGameRequest != null && message.hasOwnProperty("startGameRequest"))
-                $root.typingwars.StartGameRequest.encode(message.startGameRequest, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                $root.typingwars.StartGameRequest.encode(message.startGameRequest, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
             if (message.startGameAck != null && message.hasOwnProperty("startGameAck"))
-                $root.typingwars.StartGameAck.encode(message.startGameAck, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+                $root.typingwars.StartGameAck.encode(message.startGameAck, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
             return writer;
         };
 
@@ -2429,30 +3491,33 @@ $root.typingwars = (function() {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.userAction = $root.typingwars.UserAction.decode(reader, reader.uint32());
+                    message.space = $root.typingwars.Space.decode(reader, reader.uint32());
                     break;
                 case 2:
-                    message.registerPlayer = $root.typingwars.RegisterPlayer.decode(reader, reader.uint32());
+                    message.userAction = $root.typingwars.UserAction.decode(reader, reader.uint32());
                     break;
                 case 3:
-                    message.createRoomRequest = $root.typingwars.CreateRoomRequest.decode(reader, reader.uint32());
+                    message.registerPlayer = $root.typingwars.RegisterPlayer.decode(reader, reader.uint32());
                     break;
                 case 4:
-                    message.joinRoomRequest = $root.typingwars.JoinRoomRequest.decode(reader, reader.uint32());
+                    message.createRoomRequest = $root.typingwars.CreateRoomRequest.decode(reader, reader.uint32());
                     break;
                 case 5:
-                    message.joinRoomAck = $root.typingwars.JoinRoomAck.decode(reader, reader.uint32());
+                    message.joinRoomRequest = $root.typingwars.JoinRoomRequest.decode(reader, reader.uint32());
                     break;
                 case 6:
-                    message.updateRoom = $root.typingwars.UpdateRoom.decode(reader, reader.uint32());
+                    message.joinRoomAck = $root.typingwars.JoinRoomAck.decode(reader, reader.uint32());
                     break;
                 case 7:
-                    message.updatePlayerReady = $root.typingwars.UpdatePlayerReady.decode(reader, reader.uint32());
+                    message.updateRoom = $root.typingwars.UpdateRoom.decode(reader, reader.uint32());
                     break;
                 case 8:
-                    message.startGameRequest = $root.typingwars.StartGameRequest.decode(reader, reader.uint32());
+                    message.updatePlayerReady = $root.typingwars.UpdatePlayerReady.decode(reader, reader.uint32());
                     break;
                 case 9:
+                    message.startGameRequest = $root.typingwars.StartGameRequest.decode(reader, reader.uint32());
+                    break;
+                case 10:
                     message.startGameAck = $root.typingwars.StartGameAck.decode(reader, reader.uint32());
                     break;
                 default:
@@ -2491,7 +3556,17 @@ $root.typingwars = (function() {
             if (typeof message !== "object" || message === null)
                 return "object expected";
             var properties = {};
+            if (message.space != null && message.hasOwnProperty("space")) {
+                properties.content = 1;
+                {
+                    var error = $root.typingwars.Space.verify(message.space);
+                    if (error)
+                        return "space." + error;
+                }
+            }
             if (message.userAction != null && message.hasOwnProperty("userAction")) {
+                if (properties.content === 1)
+                    return "content: multiple values";
                 properties.content = 1;
                 {
                     var error = $root.typingwars.UserAction.verify(message.userAction);
@@ -2594,6 +3669,11 @@ $root.typingwars = (function() {
             if (object instanceof $root.typingwars.UserMessage)
                 return object;
             var message = new $root.typingwars.UserMessage();
+            if (object.space != null) {
+                if (typeof object.space !== "object")
+                    throw TypeError(".typingwars.UserMessage.space: object expected");
+                message.space = $root.typingwars.Space.fromObject(object.space);
+            }
             if (object.userAction != null) {
                 if (typeof object.userAction !== "object")
                     throw TypeError(".typingwars.UserMessage.userAction: object expected");
@@ -2655,6 +3735,11 @@ $root.typingwars = (function() {
             if (!options)
                 options = {};
             var object = {};
+            if (message.space != null && message.hasOwnProperty("space")) {
+                object.space = $root.typingwars.Space.toObject(message.space, options);
+                if (options.oneofs)
+                    object.content = "space";
+            }
             if (message.userAction != null && message.hasOwnProperty("userAction")) {
                 object.userAction = $root.typingwars.UserAction.toObject(message.userAction, options);
                 if (options.oneofs)
