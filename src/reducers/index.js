@@ -61,6 +61,9 @@ const game = (state = {}, action) => {
             gameStatus = true;
             bases = action.data.Bases;
             return {...state, gameStatus, bases}
+        case types.SOCKET_CLOSED:
+            state = {};
+            return { ...state };
         default:
             return state;
     }
