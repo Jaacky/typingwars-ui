@@ -68,6 +68,10 @@ class App extends Component {
             });
         }
 
+        let testBase = { owner: "me", position: { x: 50, y: 50}, hp: 1000 }
+        let testUnit = { owner: "me", position: { x: 50, y: 25}, word: "fabooolus", typed: 3}
+        let testSpace = { bases: [testBase], units: [testUnit] };
+        let testProps = { space: testSpace }
         return (
             <div>
                 <Nav />
@@ -95,7 +99,7 @@ class App extends Component {
                 {/* testing purposes */}
                 <div className={styles.Display}>
                     <GameMap
-                        bases={this.props.bases}
+                        space={testSpace}
                     />
                 </div>
                 {/* end testing purposes */}

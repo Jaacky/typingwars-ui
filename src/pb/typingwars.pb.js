@@ -2820,7 +2820,7 @@ $root.typingwars = (function() {
             if (message.typed != null && message.hasOwnProperty("typed"))
                 writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.typed);
             if (message.speed != null && message.hasOwnProperty("speed"))
-                writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.speed);
+                writer.uint32(/* id 4, wireType 5 =*/37).float(message.speed);
             if (message.position != null && message.hasOwnProperty("position"))
                 $root.typingwars.Point.encode(message.position, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
             if (message.size != null && message.hasOwnProperty("size"))
@@ -2871,7 +2871,7 @@ $root.typingwars = (function() {
                     message.typed = reader.uint32();
                     break;
                 case 4:
-                    message.speed = reader.uint32();
+                    message.speed = reader.float();
                     break;
                 case 5:
                     message.position = $root.typingwars.Point.decode(reader, reader.uint32());
@@ -2927,8 +2927,8 @@ $root.typingwars = (function() {
                 if (!$util.isInteger(message.typed))
                     return "typed: integer expected";
             if (message.speed != null && message.hasOwnProperty("speed"))
-                if (!$util.isInteger(message.speed))
-                    return "speed: integer expected";
+                if (typeof message.speed !== "number")
+                    return "speed: number expected";
             if (message.position != null && message.hasOwnProperty("position")) {
                 var error = $root.typingwars.Point.verify(message.position);
                 if (error)
@@ -2964,7 +2964,7 @@ $root.typingwars = (function() {
             if (object.typed != null)
                 message.typed = object.typed >>> 0;
             if (object.speed != null)
-                message.speed = object.speed >>> 0;
+                message.speed = Number(object.speed);
             if (object.position != null) {
                 if (typeof object.position !== "object")
                     throw TypeError(".typingwars.Unit.position: object expected");
@@ -3009,7 +3009,7 @@ $root.typingwars = (function() {
             if (message.typed != null && message.hasOwnProperty("typed"))
                 object.typed = message.typed;
             if (message.speed != null && message.hasOwnProperty("speed"))
-                object.speed = message.speed;
+                object.speed = options.json && !isFinite(message.speed) ? String(message.speed) : message.speed;
             if (message.position != null && message.hasOwnProperty("position"))
                 object.position = $root.typingwars.Point.toObject(message.position, options);
             if (message.size != null && message.hasOwnProperty("size"))
