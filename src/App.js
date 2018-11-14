@@ -24,9 +24,8 @@ class App extends Component {
     }
     
     render() {
-        // this.props.gameStatus = true;
         let _this = this;
-        if (true) {
+        if (_this.props.gameStatus) {
             document.addEventListener('keyup', function(event) {
                 if (event.defaultPrevented) {
                     return;
@@ -111,14 +110,14 @@ const mapStateToProps = (state, ownProps) => {
         roomId: state.game.roomId,
         clientId: state.game.clientId,
         players: state.game.players,
-        readyStatus: state.game.readyStatus,
+        // readyStatus: state.game.readyStatus,
         playerStatuses: state.game.playerStatuses,
         startFlag: state.game.startFlag,
         gameStatus: state.game.gameStatus,
-        location: state.router.location,
         roomNumber: state.game.roomNumber,
-        bases: state.game.bases,
         space: state.game.space,
+
+        location: state.router.location,
     }
 }
 
@@ -131,14 +130,12 @@ const mapDispatchToProps = dispatch => {
             dispatch(enterRoom(state.username, state.roomId))
         },
         playerReady: readyFlag => {
-            // console.log("Player ready action dispatched!", playerReadyAction(readyFlag));
             dispatch(playerReadyAction(readyFlag))
         },
         startGame: () => {
             dispatch(startGameAction());
         },
         sendUserAction: (action) => {
-            // console.log("dispatcher senc action", action);
             dispatch(sendUserAction(action));
         },
     }

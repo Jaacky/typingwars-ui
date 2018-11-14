@@ -6,10 +6,6 @@ import { ConnectedRouter } from 'react-router-redux';
 import App from "App";
 import configureStore from 'store';
 import sagas from 'sagas';
-import * as actions from 'actions';
-import * as types from 'actions/types';
-
-import setupSocket, { createGameSocket } from 'sockets';
 
 import normalizeStyles from 'styles/normalize';
 import globalStyles from 'styles/global';

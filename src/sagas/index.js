@@ -13,8 +13,6 @@ const websocketPath = "ws://localhost:8080/connect";
 function watchIncomingMessages(socket) {
     return eventChannel(emit => {
         socket.onmessage = function(event) {
-            // console.log("on message", event);
-            // console.log(Object.keys(pb.typingwars));
             receiveWebSocketMessage(emit, event);
         }
 
@@ -45,15 +43,12 @@ function receiveWebSocketMessage(emit, event) {
 
 function handleProtobufMessage(emit, protobufMessage) {
     const msg = pb.typingwars.UserMessage.decode(new Uint8Array(protobufMessage));
-    // console.log("received pb message", msg);
     emit({ type: msg.content, data: msg[msg.content] });
 }
 
 function* propagteIncomingMessages(socketChannel) {
     while (true) {
-        // console.log("before yielding take socket channel");
         const action = yield take(socketChannel);
-        // console.log("after yielding socket channel socket", action);
         yield put(action);
     }
 }
@@ -61,8 +56,6 @@ function* propagteIncomingMessages(socketChannel) {
 function* sendOutgoingMessages(socket) {
     while (true) {
         const action = yield take(types.MESSAGE_TO_SERVER);
-        console.log("Sending out going messages", createServerMessage(action.data.type, action.data.data));
-        // socket.send(JSON.stringify(createServerMessage(action.data.type, action.data.data)));
         socket.send(createServerMessage(action.data.type, action.data.data));
     }
 }
@@ -71,7 +64,6 @@ const createServerMessage = (type, data) => {
     let encoded, msg;
     switch(type) {
         case types.PLAYER_READY:
-            console.log("Player ready msg to server");
             let updatePlayerReady = pb.typingwars.UpdatePlayerReady.create({
                 "readyStatus": data.readyFlag
             })
@@ -83,7 +75,6 @@ const createServerMessage = (type, data) => {
             encoded = pb.typingwars.UserMessage.encode(msg)
             break;
         case types.START_GAME:
-            console.log("Start game request to server");
             msg = pb.typingwars.UserMessage.create({
                 "startGameRequest": pb.typingwars.StartGameRequest.create({})
             })
@@ -105,10 +96,6 @@ const createServerMessage = (type, data) => {
             break;
     }
     return encoded.finish();
-    // return {
-    //     MessageType: type,
-    //     Data: data
-    // };
 }
 
 function* createRoomHandler() {
@@ -122,7 +109,6 @@ function* createRoomHandler() {
             let msg = pb.typingwars.UserMessage.create({"createRoomRequest": createRoomRequest});
             let encoded = pb.typingwars.UserMessage.encode(msg);
             socket.send(encoded.finish());
-            console.log("create game socket connection USING CHANNEL established", event);
         }
 
         const socketChannel = yield call(watchIncomingMessages, socket);
@@ -136,7 +122,6 @@ function* createRoomHandler() {
         });
 
         if (cancel) {
-            console.log('channel cancelled');
             socketChannel.close();
             yield put(push('/'));
         }
@@ -154,7 +139,6 @@ function* joinRoomHandler() {
             let msg = pb.typingwars.UserMessage.create({"joinRoomRequest": joinRoomRequest});
             let encoded = pb.typingwars.UserMessage.encode(msg);
             socket.send(encoded.finish());
-            console.log("join game socket connection USING CHANNEL established", event);
         }
 
         const socketChannel = yield call(watchIncomingMessages, socket);
@@ -168,7 +152,6 @@ function* joinRoomHandler() {
         });
 
         if (cancel) {
-            console.log('channel cancelled');
             socketChannel.close();
             yield put(push('/'));
         }
@@ -210,23 +193,6 @@ function* updateSpace(action) {
 function* watchSpace() {
     yield takeEvery(types.SPACE_MESSAGE, updateSpace);
 }
-
-// function* watchSuccessfulGameRoomCreation() {
-//     yield takeEvery(types.CREATE_GAME_ROOM_SUCCESS, redirectToRoom);
-// }
-
-// function* watchSuccessfulGameRoomEnter() {
-//     yield takeEvery(types.ENTER_ROOM_SUCCESS, redirectToRoom);
-// }
-
-// function* otherPlayersReady(action) {
-//     console.log("Other player ready toggle", action);
-
-// }
-
-// function* watchOtherPlayersReady() {
-//     yield takeLatest(types.OTHER_PLAYERS_READY, otherPlayersReady);
-// }
 
 export default function* rootSaga() {
     yield all([

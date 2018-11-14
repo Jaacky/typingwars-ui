@@ -31,6 +31,7 @@ export const updateRoom = (data) => {
     }
 }
 
+// Called by saga
 export const startGame = (data) => {
     console.log("Start game action");
     return {
@@ -53,6 +54,7 @@ export const playerReadyAction = (readyFlag) => {
     })
 }
 
+// Sent by client
 export const startGameAction = () => {
     console.log("start game action firing")
     return messageToServerWrapper({
