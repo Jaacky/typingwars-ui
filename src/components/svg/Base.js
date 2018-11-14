@@ -1,23 +1,25 @@
 import React from 'react';
 
+import styles from 'styles/GameMap';
+
 const Base = (props) => {
-    // console.log("base: ", props.adjustRatioWidth, props.adjustRatioHeight);
-    const baseSize = 60;
+    const baseSize = props.size;
+    const baseWidth = baseSize * props.adjustRatioWidth;
     const x = props.x * props.adjustRatioWidth;
     const y = props.y * props.adjustRatioHeight;
-    const path = `M${x - baseSize/2} ${y - baseSize/2} h ${baseSize} v ${baseSize} h ${-baseSize} Z`;
-    // console.log(props.hp);
+    // const you = props.you 
+    // const path = `M${x - baseWidth/2} ${y - baseHeight/2} h ${baseWidth} v ${baseHeight} h ${-baseWidth} Z`;
     return (
-        <g>
-            <path
+        <g className={styles.Base}>
+            {/* <path
                 d={path} fill="transparent" stroke="black" strokeWidth="4" strokeLinejoin="round"
-            />  
+            />   */}
+            <rect x={x-baseWidth/2} y={0} width={baseWidth} height={props.adjustRatioHeight * 100}/>
             <text x={x} y={y} textAnchor="middle">
                 <tspan>{props.hp}</tspan>
                 <tspan x={x} y={y + 15}>{props.user}</tspan>
             </text>
         </g>
-        // <circle cx={props.x * props.adjustRatioWidth} cy={props.y * props.adjustRatioHeight} r={5} />
     )
 }
 

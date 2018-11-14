@@ -60,11 +60,11 @@ export const startGameAction = () => {
     })
 }
 
-export const sendGameEventAction = (action) => {
-    console.log("action", action, types.GAME_EVENT);
+export const sendUserAction = (key) => {
+    // console.log("sendUserAction - key: ", key);
     return messageToServerWrapper({
-        type: types.GAME_EVENT,
-        data: action
+        type: types.USER_ACTION,
+        data: key
     })
 }
 

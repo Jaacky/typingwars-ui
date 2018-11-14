@@ -5,17 +5,36 @@
 }
 
 .GameMap svg {
-    border: 1px solid red;
-    background-color: azure;
+    /* background-color: azure; */
+    background-color: rgb(255, 253, 228);
+}
+
+.Base {
+    stroke: rgb(23, 144, 153);
+    fill: rgb(23, 144, 153);
+}
+
+.Base rect {
+    /* stroke: rgb(23, 144, 153); */
+    fill: transparent;
+    stroke-width: 4;
+    stroke-linejoin: round;
 }
 
 .Unit {
     font-weight: 700;
     letter-spacing: 0.5px;
-    /* fill: white;
-    text-shadow: 0 0 3px black; */
+    stroke: rgb(23, 144, 153);
+    fill: rgb(23, 144, 153);
+}
+
+.Unit rect {
+    fill: transparent;
+    stroke-width: 2; 
 }
 
 .Typed {
-    fill: red;
+    /* fill: red; */
+    fill: rgba(23, 144, 153, 0.25);
+    stroke: rgba(23, 144, 153, 0.25);
 }

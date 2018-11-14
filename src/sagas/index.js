@@ -45,15 +45,15 @@ function receiveWebSocketMessage(emit, event) {
 
 function handleProtobufMessage(emit, protobufMessage) {
     const msg = pb.typingwars.UserMessage.decode(new Uint8Array(protobufMessage));
-    console.log("received pb message", msg);
+    // console.log("received pb message", msg);
     emit({ type: msg.content, data: msg[msg.content] });
 }
 
 function* propagteIncomingMessages(socketChannel) {
     while (true) {
-        console.log("before yielding take socket channel");
+        // console.log("before yielding take socket channel");
         const action = yield take(socketChannel);
-        console.log("after yielding socket channel socket", action);
+        // console.log("after yielding socket channel socket", action);
         yield put(action);
     }
 }
@@ -86,6 +86,20 @@ const createServerMessage = (type, data) => {
             console.log("Start game request to server");
             msg = pb.typingwars.UserMessage.create({
                 "startGameRequest": pb.typingwars.StartGameRequest.create({})
+            })
+            encoded = pb.typingwars.UserMessage.encode(msg)
+            break;
+        case types.USER_ACTION:
+            console.log("User action msg to server", data);
+            let userInput = pb.typingwars.UserInput.create({
+                "key": data.key
+            });
+            let userAction = pb.typingwars.UserAction.create({
+                "userInput": userInput
+            });
+
+            msg = pb.typingwars.UserMessage.create({
+                "userAction": userAction
             })
             encoded = pb.typingwars.UserMessage.encode(msg)
             break;

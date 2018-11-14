@@ -8,7 +8,7 @@ import RouteWrapper from 'helpers/RouteWrapper';
 import Nav from 'components/Nav';
 import GameRoom from 'components/GameRoom';
 import GameRoomForm from 'components/GameRoomForm';
-import { createRoom, enterRoom , playerReadyAction, startGameAction, sendGameEventAction } from 'actions';
+import { createRoom, enterRoom , playerReadyAction, startGameAction, sendUserAction } from 'actions';
 import * as types from 'actions/types';
 
 const MAX_NUM_PLAYERS = 2;
@@ -35,11 +35,8 @@ class App extends Component {
                 let letterRegex = RegExp(/[a-z]/i);
 
                 if (key.length == 1 && letterRegex.test(key)) {
-                    console.log("Letter!", key);
-                    // _this.props.sendGameEvent({
-                    //     type: types.KEY_PRESS,
-                    //     key: key
-                    // })
+                    // console.log("Letter!", key);
+                    _this.props.sendUserAction({ key })
                 }
                 event.preventDefault();
 
@@ -68,8 +65,8 @@ class App extends Component {
             });
         }
 
-        let testBase = { owner: "me", position: { x: 50, y: 50}, hp: 1000 }
-        let testUnit = { owner: "me", position: { x: 50, y: 25}, word: "fabooolus", typed: 3}
+        let testBase = { owner: "me", position: { x: 50, y: 50}, hp: 100, size: 6 }
+        let testUnit = { owner: "me", position: { x: 50, y: 25}, word: "fabooolus", typed: 3, size: 2 }
         let testSpace = { bases: [testBase], units: [testUnit] };
         let testProps = { space: testSpace }
         return (
@@ -91,7 +88,6 @@ class App extends Component {
                         startFlag={this.props.startFlag}
                         startGame={this.props.startGame}
                         gameStatus={this.props.gameStatus}
-                        bases={this.props.bases}
                         space={this.props.space}
                         roomSize={MAX_NUM_PLAYERS}
                     />
@@ -135,15 +131,15 @@ const mapDispatchToProps = dispatch => {
             dispatch(enterRoom(state.username, state.roomId))
         },
         playerReady: readyFlag => {
-            console.log("Player ready action dispatched!", playerReadyAction(readyFlag));
+            // console.log("Player ready action dispatched!", playerReadyAction(readyFlag));
             dispatch(playerReadyAction(readyFlag))
         },
         startGame: () => {
             dispatch(startGameAction());
         },
-        sendGameEvent: (action) => {
-            console.log("dispatcher", action);
-            dispatch(sendGameEventAction(action));
+        sendUserAction: (action) => {
+            // console.log("dispatcher senc action", action);
+            dispatch(sendUserAction(action));
         },
     }
 }

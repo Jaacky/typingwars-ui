@@ -7,6 +7,7 @@ export const START_GAME_ACK_MESSAGE = "startGameAck";
 
 export const SPACE_UPDATE = "SPACE_UPDATE";
 export const UPDATE_ROOM = 'UPDATE_ROOM';
+export const USER_ACTION = 'USER_ACTION';
 
 export const ENTER_ROOM = 'ENTER_ROOM';
 export const ENTER_ROOM_SUCCESS = 'ENTER_ROOM_SUCCESS';
@@ -23,7 +24,7 @@ export const OTHER_PLAYERS_READY = 'OTHER_PLAYERS_READY';
 
 export const START_GAME = 'START_GAME';
 export const GAME_BEGIN = 'GAME_BEGIN';
-export const GAME_EVENT = 'GAME_EVENT';
-export const KEY_PRESS = 'KEY_PRESS';
+// export const GAME_EVENT = 'GAME_EVENT';
+// export const KEY_PRESS = 'KEY_PRESS';
 
 export const MESSAGE_TO_SERVER = 'MESSAGE_TO_SERVER';
