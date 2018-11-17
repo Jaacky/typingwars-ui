@@ -16,20 +16,30 @@ class GameRoomForm extends Component {
         this.setState({username: event.target.value})
     }
 
-    handleOnChange = event => {
+    handleRoomIdChange = event => {
         this.setState({roomId: event.target.value})
+    }
+
+    validUserName = () => {
+        return this.state.username.length > 0;
+    }
+
+    validRoomId = () => {
+        return this.state.roomId.length > 0
     }
 
     handleCreateGameRoom = (event) => {
         event.preventDefault();
-
-        this.props.createRoom(this.state);
+        if (this.validUserName()) {
+            this.props.createRoom(this.state);
+        }
     }
 
     handleEnterGameRoom = (event) => {
         event.preventDefault();
-
-        this.props.enterRoom(this.state);
+        if (this.validUserName() && this.validRoomId()) {
+            this.props.enterRoom(this.state);
+        }
     }
 
     render() {
@@ -49,7 +59,7 @@ class GameRoomForm extends Component {
                     </form>
                     {/* <span>/</span> */}
                     <form onSubmit={this.handleEnterGameRoom} >
-                        <input className={styles.Field} placeholder="Room ID" onChange={this.handleOnChange} value={this.state.roomId} />
+                        <input className={styles.Field} placeholder="Room ID" onChange={this.handleRoomIdChange} value={this.state.roomId} />
                         <input type="submit" value="Join Game Room" />
                     </form>
                 </div>
