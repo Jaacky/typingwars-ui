@@ -1,7 +1,9 @@
+@value primary, primary_fade from "./colours.css";
+
 .GameMap {
     height: calc(100vh - 50px);
     width: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .GameMap svg {
@@ -10,22 +12,22 @@
 }
 
 .Base {
-    stroke: rgb(23, 144, 153);
-    fill: rgb(23, 144, 153);
+    stroke: primary;
+    fill: primary;
 }
 
 .Base rect {
-    /* stroke: rgb(23, 144, 153); */
+    /* stroke: primary; */
     fill: transparent;
     stroke-width: 4;
     stroke-linejoin: round;
 }
 
 .Unit {
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    stroke: rgb(23, 144, 153);
-    fill: rgb(23, 144, 153);
+    /* font-weight: 700;
+    letter-spacing: 0.5px; */
+    stroke: primary;
+    fill: primary;
 }
 
 .Unit rect {
@@ -33,8 +35,24 @@
     stroke-width: 2; 
 }
 
+.Word {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    stroke: primary;
+    fill: primary;
+}
+
 .Typed {
     /* fill: red; */
-    fill: rgba(23, 144, 153, 0.25);
-    stroke: rgba(23, 144, 153, 0.25);
+    fill: primary_fade;
+    stroke: primary_fade;
+}
+
+.Target {
+    font-size: 3rem;
+}
+
+.Target rect {
+    fill: rgba(100%, 100%, 100%, 1);
+    box-shadow: 1px 1px 1px black;
 }

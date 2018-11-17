@@ -59,3 +59,12 @@
 }
 
 @value cyant: #2aa198;
+
+
+
+
+
+
+/* fresh */
+@value primary: rgb(23, 144, 153);
+@value primary_fade: rgba(23, 144, 153, 0.25);

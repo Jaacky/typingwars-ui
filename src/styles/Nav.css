@@ -1,10 +1,13 @@
 @value nav_height, side_padding from "./layout.css";
+@value primary from "./colours.css";
 
 .Nav {
     height: nav_height;
     display: flex;
     align-items: center;
     padding: 0px side_padding;
+
+    border-top: 4px solid primary;
 }
 
 .Nav p {

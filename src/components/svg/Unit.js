@@ -11,10 +11,10 @@ const Unit = (props) => {
     const y = props.y * props.adjustRatioHeight;
 
     return (
-        <g className={styles.Unit}>
+        <g className={`${styles.Unit} ${props.owned ? styles.Owned : ''}`}>
             <rect
                 x={x - unitWidth/2} y={y - unitHeight/2} width={unitWidth} height={unitHeight} />  
-            <text x={x} y={y-12} textAnchor="middle">
+            <text className={styles.Word} x={x} y={y-12} textAnchor="middle">
                 <tspan className={styles.Typed}>{props.word.substring(0, props.typed)}</tspan>
                 <tspan>{props.word.substring(props.typed)}</tspan>
             </text>

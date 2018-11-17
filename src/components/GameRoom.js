@@ -27,8 +27,8 @@ class GameRoom extends Component {
             )
         }
 
-        console.log("this.props.playerStatuses", this.props.playerStatuses, this.props.clientId);
-        console.log("this.props.playerStatues[this.props.clientId]", this.props.playerStatuses[this.props.clientId])
+        // console.log("this.props.playerStatuses", this.props.playerStatuses, this.props.clientId);
+        // console.log("this.props.playerStatues[this.props.clientId]", this.props.playerStatuses[this.props.clientId])
         if (this.props.playerStatuses[this.props.clientId].ready) {
             console.log("YA READY")
         } else {
@@ -64,6 +64,7 @@ class GameRoom extends Component {
             ? 
                 <div className={styles.Display}>
                     <GameMap
+                        clientId={this.props.clientId}
                         space={this.props.space}
                     />
                 </div>

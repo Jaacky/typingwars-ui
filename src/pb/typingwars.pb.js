@@ -3235,6 +3235,7 @@ $root.typingwars = (function() {
          * @interface ISpace
          * @property {Array.<typingwars.IBase>|null} [bases] Space bases
          * @property {Array.<typingwars.IUnit>|null} [units] Space units
+         * @property {Object.<string,typingwars.IUnit>|null} [targets] Space targets
          */
 
         /**
@@ -3248,6 +3249,7 @@ $root.typingwars = (function() {
         function Space(properties) {
             this.bases = [];
             this.units = [];
+            this.targets = {};
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -3269,6 +3271,14 @@ $root.typingwars = (function() {
          * @instance
          */
         Space.prototype.units = $util.emptyArray;
+
+        /**
+         * Space targets.
+         * @member {Object.<string,typingwars.IUnit>} targets
+         * @memberof typingwars.Space
+         * @instance
+         */
+        Space.prototype.targets = $util.emptyObject;
 
         /**
          * Creates a new Space instance using the specified properties.
@@ -3300,6 +3310,11 @@ $root.typingwars = (function() {
             if (message.units != null && message.units.length)
                 for (var i = 0; i < message.units.length; ++i)
                     $root.typingwars.Unit.encode(message.units[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            if (message.targets != null && message.hasOwnProperty("targets"))
+                for (var keys = Object.keys(message.targets), i = 0; i < keys.length; ++i) {
+                    writer.uint32(/* id 3, wireType 2 =*/26).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]);
+                    $root.typingwars.Unit.encode(message.targets[keys[i]], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim().ldelim();
+                }
             return writer;
         };
 
@@ -3330,7 +3345,7 @@ $root.typingwars = (function() {
         Space.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.Space();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.Space(), key;
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
@@ -3343,6 +3358,14 @@ $root.typingwars = (function() {
                     if (!(message.units && message.units.length))
                         message.units = [];
                     message.units.push($root.typingwars.Unit.decode(reader, reader.uint32()));
+                    break;
+                case 3:
+                    reader.skip().pos++;
+                    if (message.targets === $util.emptyObject)
+                        message.targets = {};
+                    key = reader.string();
+                    reader.pos++;
+                    message.targets[key] = $root.typingwars.Unit.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -3397,6 +3420,16 @@ $root.typingwars = (function() {
                         return "units." + error;
                 }
             }
+            if (message.targets != null && message.hasOwnProperty("targets")) {
+                if (!$util.isObject(message.targets))
+                    return "targets: object expected";
+                var key = Object.keys(message.targets);
+                for (var i = 0; i < key.length; ++i) {
+                    var error = $root.typingwars.Unit.verify(message.targets[key[i]]);
+                    if (error)
+                        return "targets." + error;
+                }
+            }
             return null;
         };
 
@@ -3432,6 +3465,16 @@ $root.typingwars = (function() {
                     message.units[i] = $root.typingwars.Unit.fromObject(object.units[i]);
                 }
             }
+            if (object.targets) {
+                if (typeof object.targets !== "object")
+                    throw TypeError(".typingwars.Space.targets: object expected");
+                message.targets = {};
+                for (var keys = Object.keys(object.targets), i = 0; i < keys.length; ++i) {
+                    if (typeof object.targets[keys[i]] !== "object")
+                        throw TypeError(".typingwars.Space.targets: object expected");
+                    message.targets[keys[i]] = $root.typingwars.Unit.fromObject(object.targets[keys[i]]);
+                }
+            }
             return message;
         };
 
@@ -3452,6 +3495,8 @@ $root.typingwars = (function() {
                 object.bases = [];
                 object.units = [];
             }
+            if (options.objects || options.defaults)
+                object.targets = {};
             if (message.bases && message.bases.length) {
                 object.bases = [];
                 for (var j = 0; j < message.bases.length; ++j)
@@ -3461,6 +3506,12 @@ $root.typingwars = (function() {
                 object.units = [];
                 for (var j = 0; j < message.units.length; ++j)
                     object.units[j] = $root.typingwars.Unit.toObject(message.units[j], options);
+            }
+            var keys2;
+            if (message.targets && (keys2 = Object.keys(message.targets)).length) {
+                object.targets = {};
+                for (var j = 0; j < keys2.length; ++j)
+                    object.targets[keys2[j]] = $root.typingwars.Unit.toObject(message.targets[keys2[j]], options);
             }
             return object;
         };
