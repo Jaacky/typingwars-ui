@@ -7,7 +7,8 @@ const Nav = () => {
     return (
         <div className={styles.Nav}>
             <Link to="/">
-                <p>T<span>yping</span> W<span>ars</span></p>
+                {/* <p>T<span>yping</span> W<span>ars</span></p> */}
+                <p>Typing Wars</p>
             </Link>
         </div>
     )

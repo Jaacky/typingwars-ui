@@ -36,6 +36,7 @@ class GameRoomForm extends Component {
         return (
             <div className={styles.Container}>
                 <div className={styles.GameRoomForm}>
+                    <h1 className={styles.Headline}>TYPING WARS</h1>
                     <div>
                         <input className={styles.Field} type="text" placeholder="Username" 
                             onChange={this.handleUsernameChange} 
