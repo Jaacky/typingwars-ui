@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import { withRouter } from 'react-router-dom'
@@ -10,11 +10,13 @@ import GameRoom from 'components/GameRoom';
 import GameRoomForm from 'components/GameRoomForm';
 import { createRoom, enterRoom , playerReadyAction, startGameAction, sendUserAction } from 'actions';
 
+import styles from 'styles/App';
+
 const MAX_NUM_PLAYERS = 2;
 
 // testing purposes
 import GameMap from 'components/GameMap';
-import styles from 'styles/GameRoom';
+import stylesTest from 'styles/GameRoom';
 // end testing purposes
 
 class App extends Component {
@@ -71,33 +73,35 @@ class App extends Component {
         return (
             <div>
                 <Nav />
-                <Switch>
-                    <RouteWrapper exact path="/" component={GameRoomForm} 
-                        createRoom={this.props.createRoom}
-                        enterRoom={this.props.enterRoom}
-                    />
-                    <RouteWrapper path="/gameroom" component={GameRoom}
-                        loading={this.props.loading}
-                        roomId={this.props.roomId} 
-                        clientId={this.props.clientId} 
-                        players={this.props.players} 
-                        playerReady={this.props.playerReady}
-                        readyStatus={this.props.readyStatus}
-                        playerStatuses={this.props.playerStatuses}
-                        startFlag={this.props.startFlag}
-                        startGame={this.props.startGame}
-                        gameStatus={this.props.gameStatus}
-                        space={this.props.space}
-                        roomSize={MAX_NUM_PLAYERS}
-                    />
-                </Switch>
+                <div class={styles.Main}>
+                    <Switch>
+                        <RouteWrapper exact path="/" component={GameRoomForm} 
+                            createRoom={this.props.createRoom}
+                            enterRoom={this.props.enterRoom}
+                        />
+                        <RouteWrapper path="/gameroom" component={GameRoom}
+                            loading={this.props.loading}
+                            roomId={this.props.roomId} 
+                            clientId={this.props.clientId} 
+                            players={this.props.players} 
+                            playerReady={this.props.playerReady}
+                            readyStatus={this.props.readyStatus}
+                            playerStatuses={this.props.playerStatuses}
+                            startFlag={this.props.startFlag}
+                            startGame={this.props.startGame}
+                            gameStatus={this.props.gameStatus}
+                            space={this.props.space}
+                            roomSize={MAX_NUM_PLAYERS}
+                        />
+                    </Switch>
+                </div>
                 {/* testing purposes */}
-                <div className={styles.Display}>
+                {/* <div className={stylesTest.Display}>
                     <GameMap
                         clientId="me"
                         space={testSpace}
                     />
-                </div>
+                </div> */}
                 {/* end testing purposes */}
             </div>
         )

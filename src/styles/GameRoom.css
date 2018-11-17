@@ -1,7 +1,7 @@
 @value nav_height, subnav_height, element_padding, shadow_border from "./layout.css";
 
 .GameRoom {
-    height: 100vh;
+    height: calc(100vh - nav_height);
 }
 
 .Header {
@@ -16,7 +16,7 @@
 
     text-align: center;
 
-    height: calc(100vh - nav_height);
+    height: calc(100vh - nav_height - subnav_height);
 }
 
 /* ul {

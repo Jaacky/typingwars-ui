@@ -66,5 +66,9 @@
 
 
 /* fresh */
-@value primary: rgb(23, 144, 153);
-@value primary_fade: rgba(23, 144, 153, 0.25);
+/* @value primary: rgb(23, 144, 153); */
+/* @value primary_fade: rgba(23, 144, 153, 0.25); */
+
+@value primary: hsl(184, 73.9%, 34.5%);
+@value primary_saturated: hsl(184, 73.9%, 24.5%);
+@value primary_fade: hsla(184, 73.9%, 34.5%, 25%);

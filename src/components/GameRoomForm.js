@@ -34,22 +34,24 @@ class GameRoomForm extends Component {
 
     render() {
         return (
-            <div className={styles.GameRoomForm}>
-                <div>
-                    <input type="text" placeholder="Username" 
-                        onChange={this.handleUsernameChange} 
-                        value={this.state.username}
-                    />
+            <div className={styles.Container}>
+                <div className={styles.GameRoomForm}>
+                    <div>
+                        <input className={styles.Field} type="text" placeholder="Username" 
+                            onChange={this.handleUsernameChange} 
+                            value={this.state.username}
+                        />
+                    </div>
+                    {/* <span>/</span> */}
+                    <form onSubmit={this.handleCreateGameRoom} >
+                        <input type="submit" value="Create Game Room" />
+                    </form>
+                    {/* <span>/</span> */}
+                    <form onSubmit={this.handleEnterGameRoom} >
+                        <input className={styles.Field} placeholder="Room ID" onChange={this.handleOnChange} value={this.state.roomId} />
+                        <input type="submit" value="Join Game Room" />
+                    </form>
                 </div>
-                <span>/</span>
-                <form onSubmit={this.handleCreateGameRoom} >
-                    <input type="submit" value="Create game room" />
-                </form>
-                <span>/</span>
-                <form onSubmit={this.handleEnterGameRoom} >
-                    <input placeholder="Room ID" onChange={this.handleOnChange} value={this.state.roomId} />
-                    <input type="submit" value="Enter" />
-                </form>
             </div>
         )
     }
