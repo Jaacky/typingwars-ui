@@ -41,7 +41,12 @@ const GameMap = (props) => {
         )
     }
     console.log(space, space.targets)
-    let target = space.targets[props.clientId];
+    let target;
+    if (space.targets[props.clientId]) {
+        let targetUnit = space.targets[props.clientId]
+        target = <Target adjustRatioWidth={adjustRatioWidth} adjustRatioHeight={adjustRatioHeight} x={50*adjustRatioWidth} y={height - 20*adjustRatioHeight} word={targetUnit.word} typed={targetUnit.typed}/>
+    }
+    // let target = space.targets[props.clientId];
 
     return (
         <div className={styles.GameMap}>
@@ -50,7 +55,8 @@ const GameMap = (props) => {
                 viewBox={viewBox}>
                 {bases}
                 {units}
-                <Target adjustRatioWidth={adjustRatioWidth} adjustRatioHeight={adjustRatioHeight} x={50*adjustRatioWidth} y={height - 20*adjustRatioHeight} word={target.word} typed={target.typed}/>
+                {target}
+                {/* <Target adjustRatioWidth={adjustRatioWidth} adjustRatioHeight={adjustRatioHeight} x={50*adjustRatioWidth} y={height - 20*adjustRatioHeight} word={target.word} typed={target.typed}/> */}
             </svg>
         </div>
     )

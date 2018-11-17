@@ -9,7 +9,6 @@ import Nav from 'components/Nav';
 import GameRoom from 'components/GameRoom';
 import GameRoomForm from 'components/GameRoomForm';
 import { createRoom, enterRoom , playerReadyAction, startGameAction, sendUserAction } from 'actions';
-import * as types from 'actions/types';
 
 const MAX_NUM_PLAYERS = 2;
 
