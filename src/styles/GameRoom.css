@@ -1,4 +1,5 @@
-@value nav_height, subnav_height, element_padding, shadow_border from "./layout.css";
+@value nav_height, subnav_height, element_padding, side_padding, shadow_border from "./layout.css";
+@value primary, primary_fade, primary_saturated from "./colours.css";
 
 .GameRoom {
     height: calc(100vh - nav_height);
@@ -6,7 +7,19 @@
 
 .Header {
     height: subnav_height;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    padding: 0px side_padding;
+    background-color: primary_fade;
+}
+
+.Header h1 {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: primary_saturated;
+    font-weight: 400;
+    font-size: 1.5rem;
 }
 
 .Display {
@@ -30,15 +43,30 @@
     padding: element_padding;
     padding: 18px 12px;
     margin: 8px;
+    min-width: 225px;
 }
 
-.Ready {
+.Player.You {
+    border-left: 10px solid primary;
+}
+
+.Button {
     padding: element_padding;
-    /* background-color: lightgoldenrodyellow; */
-    background-color: lightseagreen;
+    border-radius: 2px;
+    background-color: primary;
     margin-top: 8px;
+    color: white;
+}
+
+.Button:hover {
+    background-color: primary_saturated;
+}
+
+.Button:disabled {
+    background-color: primary_fade;
 }
 
 .PlayerReady {
-    background-color: yellowgreen;
+    /* background-color: yellowgreen; */
+    background-color: primary_fade;
 }

@@ -53,9 +53,10 @@ class GameRoom extends Component {
             playersDisplay[playerStatus.index] = (
             <li className={`
                 ${styles.Player}
+                ${this.props.clientId === player.id ? styles.You : ''}
                 ${playerStatus.ready ? styles.PlayerReady : ''}
             `}>
-                {player.username} {this.props.clientId === player.id ? '(You)' : ''}
+                {player.username}
             </li>
             )
         })
@@ -72,10 +73,10 @@ class GameRoom extends Component {
                 <ul>
                     {playersDisplay}
                     <li>
-                        <button className={`${styles.Ready} ${this.props.playerStatuses[this.props.clientId].ready ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
+                        <button className={`${styles.Button} ${this.props.playerStatuses[this.props.clientId].ready ? styles.readyButton : ''}`} onClick={this.handleReadyToggle}>Ready</button>
                     </li>
                     <li>
-                        <button className={styles.Ready} onClick={this.props.startGame} disabled={!this.props.startFlag}>Start</button>
+                        <button className={styles.Button} onClick={this.props.startGame} disabled={!this.props.startFlag}>Start</button>
                     </li>
                 </ul>
             </div>
@@ -83,7 +84,7 @@ class GameRoom extends Component {
         return (
             <div className={styles.GameRoom}>
                 <div className={styles.Header}>
-                    <h1>Game room - {this.props.roomId}</h1>
+                    <h1>Room ID: {this.props.roomId}</h1>
                 </div>
                 {display}
                 {/* <GameMap /> */}

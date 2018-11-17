@@ -1,4 +1,4 @@
-@value nav_height from './layout.css';
+@value nav_height, element_padding from './layout.css';
 @value primary, primary_fade, primary_saturated from "./colours.css";
 
 .Container {
@@ -39,7 +39,8 @@
 .GameRoomForm input {
     font-family: 'Enriqueta';
     margin: 0;
-    padding: 8px 12px;
+    /* padding: 8px 12px; */
+    padding: element_padding;
     width: 100%;
     text-align: left;
     /* border: 1px solid hsla(0, 0%, 0%, 0.2); */
