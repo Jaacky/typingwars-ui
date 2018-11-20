@@ -46,7 +46,7 @@ function handleProtobufMessage(emit, protobufMessage) {
     emit({ type: msg.content, data: msg[msg.content] });
 }
 
-function* propagteIncomingMessages(socketChannel) {
+function* propagateIncomingMessages(socketChannel) {
     while (true) {
         const action = yield take(socketChannel);
         yield put(action);
@@ -115,7 +115,7 @@ function* createRoomHandler() {
 
         const { cancel } = yield race({
             task: all([
-                call(propagteIncomingMessages, socketChannel),
+                call(propagateIncomingMessages, socketChannel),
                 call(sendOutgoingMessages, socket)
             ]),
             cancel: take(types.SOCKET_CLOSED)
@@ -139,19 +139,21 @@ function* joinRoomHandler() {
             let msg = pb.typingwars.UserMessage.create({"joinRoomRequest": joinRoomRequest});
             let encoded = pb.typingwars.UserMessage.encode(msg);
             socket.send(encoded.finish());
+            console.log("Sent join room request");
         }
 
         const socketChannel = yield call(watchIncomingMessages, socket);
 
         const { cancel } = yield race({
             task: all([
-                call(propagteIncomingMessages, socketChannel),
+                call(propagateIncomingMessages, socketChannel),
                 call(sendOutgoingMessages, socket)
             ]),
             cancel: take(types.SOCKET_CLOSED)
         });
 
         if (cancel) {
+            console.log("Cancel is true");
             socketChannel.close();
             yield put(push('/'));
         }
