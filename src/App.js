@@ -73,7 +73,7 @@ class App extends Component {
         return (
             <div>
                 <Nav />
-                <div class={styles.Main}>
+                <div className={styles.Main}>
                     <Switch>
                         <RouteWrapper exact path="/" component={GameRoomForm} 
                             createRoom={this.props.createRoom}

@@ -397,193 +397,6 @@ $root.typingwars = (function() {
         return UserAction;
     })();
 
-    typingwars.RegisterPlayer = (function() {
-
-        /**
-         * Properties of a RegisterPlayer.
-         * @memberof typingwars
-         * @interface IRegisterPlayer
-         * @property {string|null} [username] RegisterPlayer username
-         */
-
-        /**
-         * Constructs a new RegisterPlayer.
-         * @memberof typingwars
-         * @classdesc Represents a RegisterPlayer.
-         * @implements IRegisterPlayer
-         * @constructor
-         * @param {typingwars.IRegisterPlayer=} [properties] Properties to set
-         */
-        function RegisterPlayer(properties) {
-            if (properties)
-                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                    if (properties[keys[i]] != null)
-                        this[keys[i]] = properties[keys[i]];
-        }
-
-        /**
-         * RegisterPlayer username.
-         * @member {string} username
-         * @memberof typingwars.RegisterPlayer
-         * @instance
-         */
-        RegisterPlayer.prototype.username = "";
-
-        /**
-         * Creates a new RegisterPlayer instance using the specified properties.
-         * @function create
-         * @memberof typingwars.RegisterPlayer
-         * @static
-         * @param {typingwars.IRegisterPlayer=} [properties] Properties to set
-         * @returns {typingwars.RegisterPlayer} RegisterPlayer instance
-         */
-        RegisterPlayer.create = function create(properties) {
-            return new RegisterPlayer(properties);
-        };
-
-        /**
-         * Encodes the specified RegisterPlayer message. Does not implicitly {@link typingwars.RegisterPlayer.verify|verify} messages.
-         * @function encode
-         * @memberof typingwars.RegisterPlayer
-         * @static
-         * @param {typingwars.IRegisterPlayer} message RegisterPlayer message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        RegisterPlayer.encode = function encode(message, writer) {
-            if (!writer)
-                writer = $Writer.create();
-            if (message.username != null && message.hasOwnProperty("username"))
-                writer.uint32(/* id 1, wireType 2 =*/10).string(message.username);
-            return writer;
-        };
-
-        /**
-         * Encodes the specified RegisterPlayer message, length delimited. Does not implicitly {@link typingwars.RegisterPlayer.verify|verify} messages.
-         * @function encodeDelimited
-         * @memberof typingwars.RegisterPlayer
-         * @static
-         * @param {typingwars.IRegisterPlayer} message RegisterPlayer message or plain object to encode
-         * @param {$protobuf.Writer} [writer] Writer to encode to
-         * @returns {$protobuf.Writer} Writer
-         */
-        RegisterPlayer.encodeDelimited = function encodeDelimited(message, writer) {
-            return this.encode(message, writer).ldelim();
-        };
-
-        /**
-         * Decodes a RegisterPlayer message from the specified reader or buffer.
-         * @function decode
-         * @memberof typingwars.RegisterPlayer
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @param {number} [length] Message length if known beforehand
-         * @returns {typingwars.RegisterPlayer} RegisterPlayer
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        RegisterPlayer.decode = function decode(reader, length) {
-            if (!(reader instanceof $Reader))
-                reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.RegisterPlayer();
-            while (reader.pos < end) {
-                var tag = reader.uint32();
-                switch (tag >>> 3) {
-                case 1:
-                    message.username = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-                }
-            }
-            return message;
-        };
-
-        /**
-         * Decodes a RegisterPlayer message from the specified reader or buffer, length delimited.
-         * @function decodeDelimited
-         * @memberof typingwars.RegisterPlayer
-         * @static
-         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {typingwars.RegisterPlayer} RegisterPlayer
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        RegisterPlayer.decodeDelimited = function decodeDelimited(reader) {
-            if (!(reader instanceof $Reader))
-                reader = new $Reader(reader);
-            return this.decode(reader, reader.uint32());
-        };
-
-        /**
-         * Verifies a RegisterPlayer message.
-         * @function verify
-         * @memberof typingwars.RegisterPlayer
-         * @static
-         * @param {Object.<string,*>} message Plain object to verify
-         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-         */
-        RegisterPlayer.verify = function verify(message) {
-            if (typeof message !== "object" || message === null)
-                return "object expected";
-            if (message.username != null && message.hasOwnProperty("username"))
-                if (!$util.isString(message.username))
-                    return "username: string expected";
-            return null;
-        };
-
-        /**
-         * Creates a RegisterPlayer message from a plain object. Also converts values to their respective internal types.
-         * @function fromObject
-         * @memberof typingwars.RegisterPlayer
-         * @static
-         * @param {Object.<string,*>} object Plain object
-         * @returns {typingwars.RegisterPlayer} RegisterPlayer
-         */
-        RegisterPlayer.fromObject = function fromObject(object) {
-            if (object instanceof $root.typingwars.RegisterPlayer)
-                return object;
-            var message = new $root.typingwars.RegisterPlayer();
-            if (object.username != null)
-                message.username = String(object.username);
-            return message;
-        };
-
-        /**
-         * Creates a plain object from a RegisterPlayer message. Also converts values to other types if specified.
-         * @function toObject
-         * @memberof typingwars.RegisterPlayer
-         * @static
-         * @param {typingwars.RegisterPlayer} message RegisterPlayer
-         * @param {$protobuf.IConversionOptions} [options] Conversion options
-         * @returns {Object.<string,*>} Plain object
-         */
-        RegisterPlayer.toObject = function toObject(message, options) {
-            if (!options)
-                options = {};
-            var object = {};
-            if (options.defaults)
-                object.username = "";
-            if (message.username != null && message.hasOwnProperty("username"))
-                object.username = message.username;
-            return object;
-        };
-
-        /**
-         * Converts this RegisterPlayer to JSON.
-         * @function toJSON
-         * @memberof typingwars.RegisterPlayer
-         * @instance
-         * @returns {Object.<string,*>} JSON object
-         */
-        RegisterPlayer.prototype.toJSON = function toJSON() {
-            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-        };
-
-        return RegisterPlayer;
-    })();
-
     typingwars.CreateRoomRequest = (function() {
 
         /**
@@ -3530,6 +3343,198 @@ $root.typingwars = (function() {
         return Space;
     })();
 
+    typingwars.GameOver = (function() {
+
+        /**
+         * Properties of a GameOver.
+         * @memberof typingwars
+         * @interface IGameOver
+         * @property {typingwars.IPlayer|null} [defeated] GameOver defeated
+         */
+
+        /**
+         * Constructs a new GameOver.
+         * @memberof typingwars
+         * @classdesc Represents a GameOver.
+         * @implements IGameOver
+         * @constructor
+         * @param {typingwars.IGameOver=} [properties] Properties to set
+         */
+        function GameOver(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * GameOver defeated.
+         * @member {typingwars.IPlayer|null|undefined} defeated
+         * @memberof typingwars.GameOver
+         * @instance
+         */
+        GameOver.prototype.defeated = null;
+
+        /**
+         * Creates a new GameOver instance using the specified properties.
+         * @function create
+         * @memberof typingwars.GameOver
+         * @static
+         * @param {typingwars.IGameOver=} [properties] Properties to set
+         * @returns {typingwars.GameOver} GameOver instance
+         */
+        GameOver.create = function create(properties) {
+            return new GameOver(properties);
+        };
+
+        /**
+         * Encodes the specified GameOver message. Does not implicitly {@link typingwars.GameOver.verify|verify} messages.
+         * @function encode
+         * @memberof typingwars.GameOver
+         * @static
+         * @param {typingwars.IGameOver} message GameOver message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GameOver.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.defeated != null && message.hasOwnProperty("defeated"))
+                $root.typingwars.Player.encode(message.defeated, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified GameOver message, length delimited. Does not implicitly {@link typingwars.GameOver.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof typingwars.GameOver
+         * @static
+         * @param {typingwars.IGameOver} message GameOver message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        GameOver.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a GameOver message from the specified reader or buffer.
+         * @function decode
+         * @memberof typingwars.GameOver
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {typingwars.GameOver} GameOver
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GameOver.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.GameOver();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.defeated = $root.typingwars.Player.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a GameOver message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof typingwars.GameOver
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {typingwars.GameOver} GameOver
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        GameOver.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a GameOver message.
+         * @function verify
+         * @memberof typingwars.GameOver
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        GameOver.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.defeated != null && message.hasOwnProperty("defeated")) {
+                var error = $root.typingwars.Player.verify(message.defeated);
+                if (error)
+                    return "defeated." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a GameOver message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof typingwars.GameOver
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {typingwars.GameOver} GameOver
+         */
+        GameOver.fromObject = function fromObject(object) {
+            if (object instanceof $root.typingwars.GameOver)
+                return object;
+            var message = new $root.typingwars.GameOver();
+            if (object.defeated != null) {
+                if (typeof object.defeated !== "object")
+                    throw TypeError(".typingwars.GameOver.defeated: object expected");
+                message.defeated = $root.typingwars.Player.fromObject(object.defeated);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a GameOver message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof typingwars.GameOver
+         * @static
+         * @param {typingwars.GameOver} message GameOver
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        GameOver.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.defeated = null;
+            if (message.defeated != null && message.hasOwnProperty("defeated"))
+                object.defeated = $root.typingwars.Player.toObject(message.defeated, options);
+            return object;
+        };
+
+        /**
+         * Converts this GameOver to JSON.
+         * @function toJSON
+         * @memberof typingwars.GameOver
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        GameOver.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return GameOver;
+    })();
+
     typingwars.UserMessage = (function() {
 
         /**
@@ -3538,7 +3543,6 @@ $root.typingwars = (function() {
          * @interface IUserMessage
          * @property {typingwars.ISpace|null} [space] UserMessage space
          * @property {typingwars.IUserAction|null} [userAction] UserMessage userAction
-         * @property {typingwars.IRegisterPlayer|null} [registerPlayer] UserMessage registerPlayer
          * @property {typingwars.ICreateRoomRequest|null} [createRoomRequest] UserMessage createRoomRequest
          * @property {typingwars.IJoinRoomRequest|null} [joinRoomRequest] UserMessage joinRoomRequest
          * @property {typingwars.IJoinRoomAck|null} [joinRoomAck] UserMessage joinRoomAck
@@ -3546,6 +3550,7 @@ $root.typingwars = (function() {
          * @property {typingwars.IUpdatePlayerReady|null} [updatePlayerReady] UserMessage updatePlayerReady
          * @property {typingwars.IStartGameRequest|null} [startGameRequest] UserMessage startGameRequest
          * @property {typingwars.IStartGameAck|null} [startGameAck] UserMessage startGameAck
+         * @property {typingwars.IGameOver|null} [gameOver] UserMessage gameOver
          */
 
         /**
@@ -3578,14 +3583,6 @@ $root.typingwars = (function() {
          * @instance
          */
         UserMessage.prototype.userAction = null;
-
-        /**
-         * UserMessage registerPlayer.
-         * @member {typingwars.IRegisterPlayer|null|undefined} registerPlayer
-         * @memberof typingwars.UserMessage
-         * @instance
-         */
-        UserMessage.prototype.registerPlayer = null;
 
         /**
          * UserMessage createRoomRequest.
@@ -3643,17 +3640,25 @@ $root.typingwars = (function() {
          */
         UserMessage.prototype.startGameAck = null;
 
+        /**
+         * UserMessage gameOver.
+         * @member {typingwars.IGameOver|null|undefined} gameOver
+         * @memberof typingwars.UserMessage
+         * @instance
+         */
+        UserMessage.prototype.gameOver = null;
+
         // OneOf field names bound to virtual getters and setters
         var $oneOfFields;
 
         /**
          * UserMessage content.
-         * @member {"space"|"userAction"|"registerPlayer"|"createRoomRequest"|"joinRoomRequest"|"joinRoomAck"|"updateRoom"|"updatePlayerReady"|"startGameRequest"|"startGameAck"|undefined} content
+         * @member {"space"|"userAction"|"createRoomRequest"|"joinRoomRequest"|"joinRoomAck"|"updateRoom"|"updatePlayerReady"|"startGameRequest"|"startGameAck"|"gameOver"|undefined} content
          * @memberof typingwars.UserMessage
          * @instance
          */
         Object.defineProperty(UserMessage.prototype, "content", {
-            get: $util.oneOfGetter($oneOfFields = ["space", "userAction", "registerPlayer", "createRoomRequest", "joinRoomRequest", "joinRoomAck", "updateRoom", "updatePlayerReady", "startGameRequest", "startGameAck"]),
+            get: $util.oneOfGetter($oneOfFields = ["space", "userAction", "createRoomRequest", "joinRoomRequest", "joinRoomAck", "updateRoom", "updatePlayerReady", "startGameRequest", "startGameAck", "gameOver"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -3685,8 +3690,6 @@ $root.typingwars = (function() {
                 $root.typingwars.Space.encode(message.space, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             if (message.userAction != null && message.hasOwnProperty("userAction"))
                 $root.typingwars.UserAction.encode(message.userAction, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-            if (message.registerPlayer != null && message.hasOwnProperty("registerPlayer"))
-                $root.typingwars.RegisterPlayer.encode(message.registerPlayer, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
             if (message.createRoomRequest != null && message.hasOwnProperty("createRoomRequest"))
                 $root.typingwars.CreateRoomRequest.encode(message.createRoomRequest, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
             if (message.joinRoomRequest != null && message.hasOwnProperty("joinRoomRequest"))
@@ -3701,6 +3704,8 @@ $root.typingwars = (function() {
                 $root.typingwars.StartGameRequest.encode(message.startGameRequest, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
             if (message.startGameAck != null && message.hasOwnProperty("startGameAck"))
                 $root.typingwars.StartGameAck.encode(message.startGameAck, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+            if (message.gameOver != null && message.hasOwnProperty("gameOver"))
+                $root.typingwars.GameOver.encode(message.gameOver, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
             return writer;
         };
 
@@ -3741,9 +3746,6 @@ $root.typingwars = (function() {
                 case 2:
                     message.userAction = $root.typingwars.UserAction.decode(reader, reader.uint32());
                     break;
-                case 3:
-                    message.registerPlayer = $root.typingwars.RegisterPlayer.decode(reader, reader.uint32());
-                    break;
                 case 4:
                     message.createRoomRequest = $root.typingwars.CreateRoomRequest.decode(reader, reader.uint32());
                     break;
@@ -3764,6 +3766,9 @@ $root.typingwars = (function() {
                     break;
                 case 10:
                     message.startGameAck = $root.typingwars.StartGameAck.decode(reader, reader.uint32());
+                    break;
+                case 11:
+                    message.gameOver = $root.typingwars.GameOver.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -3817,16 +3822,6 @@ $root.typingwars = (function() {
                     var error = $root.typingwars.UserAction.verify(message.userAction);
                     if (error)
                         return "userAction." + error;
-                }
-            }
-            if (message.registerPlayer != null && message.hasOwnProperty("registerPlayer")) {
-                if (properties.content === 1)
-                    return "content: multiple values";
-                properties.content = 1;
-                {
-                    var error = $root.typingwars.RegisterPlayer.verify(message.registerPlayer);
-                    if (error)
-                        return "registerPlayer." + error;
                 }
             }
             if (message.createRoomRequest != null && message.hasOwnProperty("createRoomRequest")) {
@@ -3899,6 +3894,16 @@ $root.typingwars = (function() {
                         return "startGameAck." + error;
                 }
             }
+            if (message.gameOver != null && message.hasOwnProperty("gameOver")) {
+                if (properties.content === 1)
+                    return "content: multiple values";
+                properties.content = 1;
+                {
+                    var error = $root.typingwars.GameOver.verify(message.gameOver);
+                    if (error)
+                        return "gameOver." + error;
+                }
+            }
             return null;
         };
 
@@ -3923,11 +3928,6 @@ $root.typingwars = (function() {
                 if (typeof object.userAction !== "object")
                     throw TypeError(".typingwars.UserMessage.userAction: object expected");
                 message.userAction = $root.typingwars.UserAction.fromObject(object.userAction);
-            }
-            if (object.registerPlayer != null) {
-                if (typeof object.registerPlayer !== "object")
-                    throw TypeError(".typingwars.UserMessage.registerPlayer: object expected");
-                message.registerPlayer = $root.typingwars.RegisterPlayer.fromObject(object.registerPlayer);
             }
             if (object.createRoomRequest != null) {
                 if (typeof object.createRoomRequest !== "object")
@@ -3964,6 +3964,11 @@ $root.typingwars = (function() {
                     throw TypeError(".typingwars.UserMessage.startGameAck: object expected");
                 message.startGameAck = $root.typingwars.StartGameAck.fromObject(object.startGameAck);
             }
+            if (object.gameOver != null) {
+                if (typeof object.gameOver !== "object")
+                    throw TypeError(".typingwars.UserMessage.gameOver: object expected");
+                message.gameOver = $root.typingwars.GameOver.fromObject(object.gameOver);
+            }
             return message;
         };
 
@@ -3989,11 +3994,6 @@ $root.typingwars = (function() {
                 object.userAction = $root.typingwars.UserAction.toObject(message.userAction, options);
                 if (options.oneofs)
                     object.content = "userAction";
-            }
-            if (message.registerPlayer != null && message.hasOwnProperty("registerPlayer")) {
-                object.registerPlayer = $root.typingwars.RegisterPlayer.toObject(message.registerPlayer, options);
-                if (options.oneofs)
-                    object.content = "registerPlayer";
             }
             if (message.createRoomRequest != null && message.hasOwnProperty("createRoomRequest")) {
                 object.createRoomRequest = $root.typingwars.CreateRoomRequest.toObject(message.createRoomRequest, options);
@@ -4029,6 +4029,11 @@ $root.typingwars = (function() {
                 object.startGameAck = $root.typingwars.StartGameAck.toObject(message.startGameAck, options);
                 if (options.oneofs)
                     object.content = "startGameAck";
+            }
+            if (message.gameOver != null && message.hasOwnProperty("gameOver")) {
+                object.gameOver = $root.typingwars.GameOver.toObject(message.gameOver, options);
+                if (options.oneofs)
+                    object.content = "gameOver";
             }
             return object;
         };
