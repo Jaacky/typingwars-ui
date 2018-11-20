@@ -20,12 +20,13 @@ const GameMap = (props) => {
     for (let i=0; i<space.bases.length; i++) {
         console.log("Base: ", space.bases[i]);
         let base = space.bases[i];
+        let username = props.players[base.owner].username;
         let owned = false;
         if (props.clientId === base.owner) {
             owned = true;
         }
         bases.push(
-            <Base adjustRatioWidth={adjustRatioWidth} adjustRatioHeight={adjustRatioHeight} x={base.position.x} y={base.position.y} hp={base.hp} size={base.size} user={base.owner} owned={owned}/>
+            <Base adjustRatioWidth={adjustRatioWidth} adjustRatioHeight={adjustRatioHeight} x={base.position.x} y={base.position.y} hp={base.hp} size={base.size} user={base.owner} username={username} owned={owned}/>
         )
     }
 

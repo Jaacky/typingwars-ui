@@ -196,6 +196,14 @@ function* watchSpace() {
     yield takeEvery(types.SPACE_MESSAGE, updateSpace);
 }
 
+function* endGame(action) {
+    yield put(actions.endGame(action.data));
+}
+
+function* watchGameOver() {
+    yield takeEvery(types.GAME_OVER_MESSAGE, endGame)
+}
+
 export default function* rootSaga() {
     yield all([
         createRoomHandler(),
@@ -204,6 +212,7 @@ export default function* rootSaga() {
         watchUpdateRoom(),
         watchStartGameAck(),
         watchSpace(),
+        watchGameOver(),
         // watchSuccessfulGameRoomCreation(),
         // watchSuccessfulGameRoomEnter(),
         // watchOtherPlayersReady(),

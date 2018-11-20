@@ -47,6 +47,14 @@ export const updateSpace = (data) => {
     }
 }
 
+export const endGame = (data) => {
+    return {
+        type: types.END_GAME,
+        defeated: data
+    }
+}
+
+// Sent by client
 export const playerReadyAction = (readyFlag) => {
     return messageToServerWrapper({
         type: types.PLAYER_READY,
@@ -54,7 +62,6 @@ export const playerReadyAction = (readyFlag) => {
     })
 }
 
-// Sent by client
 export const startGameAction = () => {
     console.log("start game action firing")
     return messageToServerWrapper({

@@ -66,6 +66,7 @@ class GameRoom extends Component {
                 <div className={styles.Display}>
                     <GameMap
                         clientId={this.props.clientId}
+                        players={players}
                         space={this.props.space}
                     />
                 </div>

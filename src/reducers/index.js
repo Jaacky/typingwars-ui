@@ -16,9 +16,8 @@ import * as types from 'actions/types';
 const game = (state = {}, action) => {
     let loading;
     let roomId, clientId, players, startFlag, gameStatus;
-
     let playerStatuses, space;
-    let bases;
+
     switch (action.type) {
         case types.SPACE_UPDATE:
             console.log("Space reducer received", action);
@@ -41,6 +40,11 @@ const game = (state = {}, action) => {
             console.log("Start game ack");
             gameStatus = true;
             return { ...state, gameStatus }
+        case types.END_GAME:
+            gameStatus = false;
+            let defeated = action.defeated;
+            console.log("END GAME, defeated: ", defeated);
+            return { ...state, gameStatus, defeated }
         case types.SOCKET_CLOSED:
             state = {};
             return { ...state };
