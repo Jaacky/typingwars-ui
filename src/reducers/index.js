@@ -20,16 +20,15 @@ const game = (state = {}, action) => {
 
     switch (action.type) {
         case types.SPACE_UPDATE:
-            console.log("Space reducer received", action);
+            // console.log("Space reducer received", action);
             space = action.space;
             return {...state, space }
         case types.ENTERED_ROOM:
-            console.log("Entered game room, reducer handling", action);
             clientId = action.clientId;
             loading = action.loading;
             return { ...state, clientId, loading };
         case types.UPDATE_ROOM:
-            console.log("UPDATE ROOM ACTION")
+            // console.log("Update room", action);
             loading = action.loading;
             roomId = action.roomId;
             players = action.players;
@@ -37,14 +36,16 @@ const game = (state = {}, action) => {
             startFlag = action.startFlag
             return { ...state, loading, roomId, players, playerStatuses, startFlag };
         case types.START_GAME:
-            console.log("Start game ack");
             gameStatus = true;
             return { ...state, gameStatus }
         case types.END_GAME:
+            console.log("types.END_GAME reducer")
             gameStatus = false;
-            let defeated = action.defeated;
-            console.log("END GAME, defeated: ", defeated);
-            return { ...state, gameStatus, defeated }
+            let message = action.message;
+            loading = action.loading;
+            space = undefined;
+            console.log("END GAME, action.message: ", message);
+            return { ...state, gameStatus, space, message }
         case types.SOCKET_CLOSED:
             state = {};
             return { ...state };

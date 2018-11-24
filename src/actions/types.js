@@ -3,7 +3,7 @@ export const SPACE_MESSAGE = "space";
 export const JOIN_ROOM_ACK_MESSAGE = "joinRoomAck";
 export const UPDATE_ROOM_MESSAGE = "updateRoom";
 export const START_GAME_ACK_MESSAGE = "startGameAck";
-export const GAME_OVER_MESSAGE = "gameOver";
+export const END_GAME_MESSAGE = 'endGame';
 
 // Protobuf transformed into action type for reducer
 export const SPACE_UPDATE = "SPACE_UPDATE";

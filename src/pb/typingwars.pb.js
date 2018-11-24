@@ -3343,24 +3343,24 @@ $root.typingwars = (function() {
         return Space;
     })();
 
-    typingwars.GameOver = (function() {
+    typingwars.EndGame = (function() {
 
         /**
-         * Properties of a GameOver.
+         * Properties of an EndGame.
          * @memberof typingwars
-         * @interface IGameOver
-         * @property {typingwars.IPlayer|null} [defeated] GameOver defeated
+         * @interface IEndGame
+         * @property {string|null} [message] EndGame message
          */
 
         /**
-         * Constructs a new GameOver.
+         * Constructs a new EndGame.
          * @memberof typingwars
-         * @classdesc Represents a GameOver.
-         * @implements IGameOver
+         * @classdesc Represents an EndGame.
+         * @implements IEndGame
          * @constructor
-         * @param {typingwars.IGameOver=} [properties] Properties to set
+         * @param {typingwars.IEndGame=} [properties] Properties to set
          */
-        function GameOver(properties) {
+        function EndGame(properties) {
             if (properties)
                 for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                     if (properties[keys[i]] != null)
@@ -3368,75 +3368,75 @@ $root.typingwars = (function() {
         }
 
         /**
-         * GameOver defeated.
-         * @member {typingwars.IPlayer|null|undefined} defeated
-         * @memberof typingwars.GameOver
+         * EndGame message.
+         * @member {string} message
+         * @memberof typingwars.EndGame
          * @instance
          */
-        GameOver.prototype.defeated = null;
+        EndGame.prototype.message = "";
 
         /**
-         * Creates a new GameOver instance using the specified properties.
+         * Creates a new EndGame instance using the specified properties.
          * @function create
-         * @memberof typingwars.GameOver
+         * @memberof typingwars.EndGame
          * @static
-         * @param {typingwars.IGameOver=} [properties] Properties to set
-         * @returns {typingwars.GameOver} GameOver instance
+         * @param {typingwars.IEndGame=} [properties] Properties to set
+         * @returns {typingwars.EndGame} EndGame instance
          */
-        GameOver.create = function create(properties) {
-            return new GameOver(properties);
+        EndGame.create = function create(properties) {
+            return new EndGame(properties);
         };
 
         /**
-         * Encodes the specified GameOver message. Does not implicitly {@link typingwars.GameOver.verify|verify} messages.
+         * Encodes the specified EndGame message. Does not implicitly {@link typingwars.EndGame.verify|verify} messages.
          * @function encode
-         * @memberof typingwars.GameOver
+         * @memberof typingwars.EndGame
          * @static
-         * @param {typingwars.IGameOver} message GameOver message or plain object to encode
+         * @param {typingwars.IEndGame} message EndGame message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GameOver.encode = function encode(message, writer) {
+        EndGame.encode = function encode(message, writer) {
             if (!writer)
                 writer = $Writer.create();
-            if (message.defeated != null && message.hasOwnProperty("defeated"))
-                $root.typingwars.Player.encode(message.defeated, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+            if (message.message != null && message.hasOwnProperty("message"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.message);
             return writer;
         };
 
         /**
-         * Encodes the specified GameOver message, length delimited. Does not implicitly {@link typingwars.GameOver.verify|verify} messages.
+         * Encodes the specified EndGame message, length delimited. Does not implicitly {@link typingwars.EndGame.verify|verify} messages.
          * @function encodeDelimited
-         * @memberof typingwars.GameOver
+         * @memberof typingwars.EndGame
          * @static
-         * @param {typingwars.IGameOver} message GameOver message or plain object to encode
+         * @param {typingwars.IEndGame} message EndGame message or plain object to encode
          * @param {$protobuf.Writer} [writer] Writer to encode to
          * @returns {$protobuf.Writer} Writer
          */
-        GameOver.encodeDelimited = function encodeDelimited(message, writer) {
+        EndGame.encodeDelimited = function encodeDelimited(message, writer) {
             return this.encode(message, writer).ldelim();
         };
 
         /**
-         * Decodes a GameOver message from the specified reader or buffer.
+         * Decodes an EndGame message from the specified reader or buffer.
          * @function decode
-         * @memberof typingwars.GameOver
+         * @memberof typingwars.EndGame
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
          * @param {number} [length] Message length if known beforehand
-         * @returns {typingwars.GameOver} GameOver
+         * @returns {typingwars.EndGame} EndGame
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GameOver.decode = function decode(reader, length) {
+        EndGame.decode = function decode(reader, length) {
             if (!(reader instanceof $Reader))
                 reader = $Reader.create(reader);
-            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.GameOver();
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.EndGame();
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
                 case 1:
-                    message.defeated = $root.typingwars.Player.decode(reader, reader.uint32());
+                    message.message = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -3447,92 +3447,87 @@ $root.typingwars = (function() {
         };
 
         /**
-         * Decodes a GameOver message from the specified reader or buffer, length delimited.
+         * Decodes an EndGame message from the specified reader or buffer, length delimited.
          * @function decodeDelimited
-         * @memberof typingwars.GameOver
+         * @memberof typingwars.EndGame
          * @static
          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-         * @returns {typingwars.GameOver} GameOver
+         * @returns {typingwars.EndGame} EndGame
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        GameOver.decodeDelimited = function decodeDelimited(reader) {
+        EndGame.decodeDelimited = function decodeDelimited(reader) {
             if (!(reader instanceof $Reader))
                 reader = new $Reader(reader);
             return this.decode(reader, reader.uint32());
         };
 
         /**
-         * Verifies a GameOver message.
+         * Verifies an EndGame message.
          * @function verify
-         * @memberof typingwars.GameOver
+         * @memberof typingwars.EndGame
          * @static
          * @param {Object.<string,*>} message Plain object to verify
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
-        GameOver.verify = function verify(message) {
+        EndGame.verify = function verify(message) {
             if (typeof message !== "object" || message === null)
                 return "object expected";
-            if (message.defeated != null && message.hasOwnProperty("defeated")) {
-                var error = $root.typingwars.Player.verify(message.defeated);
-                if (error)
-                    return "defeated." + error;
-            }
+            if (message.message != null && message.hasOwnProperty("message"))
+                if (!$util.isString(message.message))
+                    return "message: string expected";
             return null;
         };
 
         /**
-         * Creates a GameOver message from a plain object. Also converts values to their respective internal types.
+         * Creates an EndGame message from a plain object. Also converts values to their respective internal types.
          * @function fromObject
-         * @memberof typingwars.GameOver
+         * @memberof typingwars.EndGame
          * @static
          * @param {Object.<string,*>} object Plain object
-         * @returns {typingwars.GameOver} GameOver
+         * @returns {typingwars.EndGame} EndGame
          */
-        GameOver.fromObject = function fromObject(object) {
-            if (object instanceof $root.typingwars.GameOver)
+        EndGame.fromObject = function fromObject(object) {
+            if (object instanceof $root.typingwars.EndGame)
                 return object;
-            var message = new $root.typingwars.GameOver();
-            if (object.defeated != null) {
-                if (typeof object.defeated !== "object")
-                    throw TypeError(".typingwars.GameOver.defeated: object expected");
-                message.defeated = $root.typingwars.Player.fromObject(object.defeated);
-            }
+            var message = new $root.typingwars.EndGame();
+            if (object.message != null)
+                message.message = String(object.message);
             return message;
         };
 
         /**
-         * Creates a plain object from a GameOver message. Also converts values to other types if specified.
+         * Creates a plain object from an EndGame message. Also converts values to other types if specified.
          * @function toObject
-         * @memberof typingwars.GameOver
+         * @memberof typingwars.EndGame
          * @static
-         * @param {typingwars.GameOver} message GameOver
+         * @param {typingwars.EndGame} message EndGame
          * @param {$protobuf.IConversionOptions} [options] Conversion options
          * @returns {Object.<string,*>} Plain object
          */
-        GameOver.toObject = function toObject(message, options) {
+        EndGame.toObject = function toObject(message, options) {
             if (!options)
                 options = {};
             var object = {};
             if (options.defaults)
-                object.defeated = null;
-            if (message.defeated != null && message.hasOwnProperty("defeated"))
-                object.defeated = $root.typingwars.Player.toObject(message.defeated, options);
+                object.message = "";
+            if (message.message != null && message.hasOwnProperty("message"))
+                object.message = message.message;
             return object;
         };
 
         /**
-         * Converts this GameOver to JSON.
+         * Converts this EndGame to JSON.
          * @function toJSON
-         * @memberof typingwars.GameOver
+         * @memberof typingwars.EndGame
          * @instance
          * @returns {Object.<string,*>} JSON object
          */
-        GameOver.prototype.toJSON = function toJSON() {
+        EndGame.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
         };
 
-        return GameOver;
+        return EndGame;
     })();
 
     typingwars.UserMessage = (function() {
@@ -3550,7 +3545,7 @@ $root.typingwars = (function() {
          * @property {typingwars.IUpdatePlayerReady|null} [updatePlayerReady] UserMessage updatePlayerReady
          * @property {typingwars.IStartGameRequest|null} [startGameRequest] UserMessage startGameRequest
          * @property {typingwars.IStartGameAck|null} [startGameAck] UserMessage startGameAck
-         * @property {typingwars.IGameOver|null} [gameOver] UserMessage gameOver
+         * @property {typingwars.IEndGame|null} [endGame] UserMessage endGame
          */
 
         /**
@@ -3641,24 +3636,24 @@ $root.typingwars = (function() {
         UserMessage.prototype.startGameAck = null;
 
         /**
-         * UserMessage gameOver.
-         * @member {typingwars.IGameOver|null|undefined} gameOver
+         * UserMessage endGame.
+         * @member {typingwars.IEndGame|null|undefined} endGame
          * @memberof typingwars.UserMessage
          * @instance
          */
-        UserMessage.prototype.gameOver = null;
+        UserMessage.prototype.endGame = null;
 
         // OneOf field names bound to virtual getters and setters
         var $oneOfFields;
 
         /**
          * UserMessage content.
-         * @member {"space"|"userAction"|"createRoomRequest"|"joinRoomRequest"|"joinRoomAck"|"updateRoom"|"updatePlayerReady"|"startGameRequest"|"startGameAck"|"gameOver"|undefined} content
+         * @member {"space"|"userAction"|"createRoomRequest"|"joinRoomRequest"|"joinRoomAck"|"updateRoom"|"updatePlayerReady"|"startGameRequest"|"startGameAck"|"endGame"|undefined} content
          * @memberof typingwars.UserMessage
          * @instance
          */
         Object.defineProperty(UserMessage.prototype, "content", {
-            get: $util.oneOfGetter($oneOfFields = ["space", "userAction", "createRoomRequest", "joinRoomRequest", "joinRoomAck", "updateRoom", "updatePlayerReady", "startGameRequest", "startGameAck", "gameOver"]),
+            get: $util.oneOfGetter($oneOfFields = ["space", "userAction", "createRoomRequest", "joinRoomRequest", "joinRoomAck", "updateRoom", "updatePlayerReady", "startGameRequest", "startGameAck", "endGame"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -3704,8 +3699,8 @@ $root.typingwars = (function() {
                 $root.typingwars.StartGameRequest.encode(message.startGameRequest, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
             if (message.startGameAck != null && message.hasOwnProperty("startGameAck"))
                 $root.typingwars.StartGameAck.encode(message.startGameAck, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
-            if (message.gameOver != null && message.hasOwnProperty("gameOver"))
-                $root.typingwars.GameOver.encode(message.gameOver, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
+            if (message.endGame != null && message.hasOwnProperty("endGame"))
+                $root.typingwars.EndGame.encode(message.endGame, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
             return writer;
         };
 
@@ -3768,7 +3763,7 @@ $root.typingwars = (function() {
                     message.startGameAck = $root.typingwars.StartGameAck.decode(reader, reader.uint32());
                     break;
                 case 11:
-                    message.gameOver = $root.typingwars.GameOver.decode(reader, reader.uint32());
+                    message.endGame = $root.typingwars.EndGame.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -3894,14 +3889,14 @@ $root.typingwars = (function() {
                         return "startGameAck." + error;
                 }
             }
-            if (message.gameOver != null && message.hasOwnProperty("gameOver")) {
+            if (message.endGame != null && message.hasOwnProperty("endGame")) {
                 if (properties.content === 1)
                     return "content: multiple values";
                 properties.content = 1;
                 {
-                    var error = $root.typingwars.GameOver.verify(message.gameOver);
+                    var error = $root.typingwars.EndGame.verify(message.endGame);
                     if (error)
-                        return "gameOver." + error;
+                        return "endGame." + error;
                 }
             }
             return null;
@@ -3964,10 +3959,10 @@ $root.typingwars = (function() {
                     throw TypeError(".typingwars.UserMessage.startGameAck: object expected");
                 message.startGameAck = $root.typingwars.StartGameAck.fromObject(object.startGameAck);
             }
-            if (object.gameOver != null) {
-                if (typeof object.gameOver !== "object")
-                    throw TypeError(".typingwars.UserMessage.gameOver: object expected");
-                message.gameOver = $root.typingwars.GameOver.fromObject(object.gameOver);
+            if (object.endGame != null) {
+                if (typeof object.endGame !== "object")
+                    throw TypeError(".typingwars.UserMessage.endGame: object expected");
+                message.endGame = $root.typingwars.EndGame.fromObject(object.endGame);
             }
             return message;
         };
@@ -4030,10 +4025,10 @@ $root.typingwars = (function() {
                 if (options.oneofs)
                     object.content = "startGameAck";
             }
-            if (message.gameOver != null && message.hasOwnProperty("gameOver")) {
-                object.gameOver = $root.typingwars.GameOver.toObject(message.gameOver, options);
+            if (message.endGame != null && message.hasOwnProperty("endGame")) {
+                object.endGame = $root.typingwars.EndGame.toObject(message.endGame, options);
                 if (options.oneofs)
-                    object.content = "gameOver";
+                    object.content = "endGame";
             }
             return object;
         };

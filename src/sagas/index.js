@@ -81,7 +81,6 @@ const createServerMessage = (type, data) => {
             encoded = pb.typingwars.UserMessage.encode(msg)
             break;
         case types.USER_ACTION:
-            console.log("User action msg to server", data);
             let userInput = pb.typingwars.UserInput.create({
                 "key": data.key
             });
@@ -162,7 +161,7 @@ function* joinRoomHandler() {
 }
 
 function* redirectToRoom(action) {
-    console.log("Redirecting to room", action);
+    // console.log("Redirecting to room", action);
     // yield put(actions.enteredRoom(action.data.roomID, action.data.playerID, action.data.players));
     yield put(actions.enteredRoom(action.data));
     yield put(push('/gameroom'));
@@ -200,8 +199,8 @@ function* endGame(action) {
     yield put(actions.endGame(action.data));
 }
 
-function* watchGameOver() {
-    yield takeEvery(types.GAME_OVER_MESSAGE, endGame)
+function* watchEndGame() {
+    yield takeEvery(types.END_GAME_MESSAGE, endGame)
 }
 
 export default function* rootSaga() {
@@ -212,7 +211,7 @@ export default function* rootSaga() {
         watchUpdateRoom(),
         watchStartGameAck(),
         watchSpace(),
-        watchGameOver(),
+        watchEndGame(),
         // watchSuccessfulGameRoomCreation(),
         // watchSuccessfulGameRoomEnter(),
         // watchOtherPlayersReady(),

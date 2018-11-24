@@ -3,7 +3,6 @@ import React from 'react';
 import styles from 'styles/GameMap';
 
 const Unit = (props) => {
-    // console.log("Unit: ", props.adjustRatioWidth, props.adjustRatioHeight);
     const unitSize = props.size;
     const unitHeight = unitSize * props.adjustRatioHeight;
     const unitWidth = unitSize * props.adjustRatioWidth;

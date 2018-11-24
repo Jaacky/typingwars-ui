@@ -33,7 +33,6 @@ export const updateRoom = (data) => {
 
 // Called by saga
 export const startGame = (data) => {
-    console.log("Start game action");
     return {
         type: types.START_GAME,
         ...data
@@ -50,7 +49,8 @@ export const updateSpace = (data) => {
 export const endGame = (data) => {
     return {
         type: types.END_GAME,
-        defeated: data
+        loading: true,
+        ...data
     }
 }
 
@@ -63,7 +63,6 @@ export const playerReadyAction = (readyFlag) => {
 }
 
 export const startGameAction = () => {
-    console.log("start game action firing")
     return messageToServerWrapper({
         type: types.START_GAME
     })

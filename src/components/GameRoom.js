@@ -27,13 +27,6 @@ class GameRoom extends Component {
             )
         }
 
-        // console.log("this.props.playerStatuses", this.props.playerStatuses, this.props.clientId);
-        // console.log("this.props.playerStatues[this.props.clientId]", this.props.playerStatuses[this.props.clientId])
-        if (this.props.playerStatuses[this.props.clientId].ready) {
-            console.log("YA READY")
-        } else {
-            console.log("NA NO RDY")
-        }
         players = this.props.players;
 
         let playersDisplay = []
@@ -49,7 +42,7 @@ class GameRoom extends Component {
         Object.keys(players).map((clientId) => {
             let player = players[clientId];
             let playerStatus = this.props.playerStatuses[player.id];
-            console.log("Generating player display: ", player)
+            // console.log("Generating player display: ", player)
             playersDisplay[playerStatus.index] = (
             <li className={`
                 ${styles.Player}

@@ -13,12 +13,10 @@ const GameMap = (props) => {
     const adjustRatioWidth = width / 100;
     const adjustRatioHeight = height / 100;
     const viewBox = [0, 0, width, height];
-    console.log(props)
     let space = props.space || { bases: [], units: [], targets: {} };
 
     let bases = []
     for (let i=0; i<space.bases.length; i++) {
-        console.log("Base: ", space.bases[i]);
         let base = space.bases[i];
         let username = props.players[base.owner].username;
         let owned = false;
@@ -41,7 +39,7 @@ const GameMap = (props) => {
             <Unit adjustRatioWidth={adjustRatioWidth} adjustRatioHeight={adjustRatioHeight} x={unit.position.x} y={unit.position.y} word={unit.word} typed={unit.typed} size={unit.size} owned={owned}/>
         )
     }
-    console.log(space, space.targets)
+    
     let target;
     if (space.targets[props.clientId]) {
         let targetUnit = space.targets[props.clientId]

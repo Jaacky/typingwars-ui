@@ -10,8 +10,7 @@ const Base = (props) => {
     // const you = props.you 
     // const path = `M${x - baseWidth/2} ${y - baseHeight/2} h ${baseWidth} v ${baseHeight} h ${-baseWidth} Z`;
     const owned = props.owned ? "(You)" : '';
-    console.log("props username: ", props.username);
-    console.log("props you", owned);
+    
     return (
         <g className={styles.Base}>
             {/* <path
