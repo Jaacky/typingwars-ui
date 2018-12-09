@@ -203,6 +203,14 @@ function* watchEndGame() {
     yield takeEvery(types.END_GAME_MESSAGE, endGame)
 }
 
+function* handleClientError(action) {
+    yield put(actions.handleClientError(action.data));
+}
+
+function* watchClientErrorMessages() {
+    yield takeEvery(types.CLIENT_ERROR_MESSAGE, handleClientError)
+}
+
 export default function* rootSaga() {
     yield all([
         createRoomHandler(),
@@ -212,6 +220,7 @@ export default function* rootSaga() {
         watchStartGameAck(),
         watchSpace(),
         watchEndGame(),
+        watchClientErrorMessages(),
         // watchSuccessfulGameRoomCreation(),
         // watchSuccessfulGameRoomEnter(),
         // watchOtherPlayersReady(),

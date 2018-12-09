@@ -54,6 +54,13 @@ export const endGame = (data) => {
     }
 }
 
+export const handleClientError = (data) => {
+    return {
+        type: types.CLIENT_ERROR,
+        ...data,
+    }
+}
+
 // Sent by client
 export const playerReadyAction = (readyFlag) => {
     return messageToServerWrapper({

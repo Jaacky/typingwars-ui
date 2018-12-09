@@ -397,6 +397,193 @@ $root.typingwars = (function() {
         return UserAction;
     })();
 
+    typingwars.ClientError = (function() {
+
+        /**
+         * Properties of a ClientError.
+         * @memberof typingwars
+         * @interface IClientError
+         * @property {string|null} [message] ClientError message
+         */
+
+        /**
+         * Constructs a new ClientError.
+         * @memberof typingwars
+         * @classdesc Represents a ClientError.
+         * @implements IClientError
+         * @constructor
+         * @param {typingwars.IClientError=} [properties] Properties to set
+         */
+        function ClientError(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * ClientError message.
+         * @member {string} message
+         * @memberof typingwars.ClientError
+         * @instance
+         */
+        ClientError.prototype.message = "";
+
+        /**
+         * Creates a new ClientError instance using the specified properties.
+         * @function create
+         * @memberof typingwars.ClientError
+         * @static
+         * @param {typingwars.IClientError=} [properties] Properties to set
+         * @returns {typingwars.ClientError} ClientError instance
+         */
+        ClientError.create = function create(properties) {
+            return new ClientError(properties);
+        };
+
+        /**
+         * Encodes the specified ClientError message. Does not implicitly {@link typingwars.ClientError.verify|verify} messages.
+         * @function encode
+         * @memberof typingwars.ClientError
+         * @static
+         * @param {typingwars.IClientError} message ClientError message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ClientError.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.message != null && message.hasOwnProperty("message"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.message);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified ClientError message, length delimited. Does not implicitly {@link typingwars.ClientError.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof typingwars.ClientError
+         * @static
+         * @param {typingwars.IClientError} message ClientError message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ClientError.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a ClientError message from the specified reader or buffer.
+         * @function decode
+         * @memberof typingwars.ClientError
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {typingwars.ClientError} ClientError
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ClientError.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.typingwars.ClientError();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.message = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a ClientError message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof typingwars.ClientError
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {typingwars.ClientError} ClientError
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ClientError.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a ClientError message.
+         * @function verify
+         * @memberof typingwars.ClientError
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        ClientError.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.message != null && message.hasOwnProperty("message"))
+                if (!$util.isString(message.message))
+                    return "message: string expected";
+            return null;
+        };
+
+        /**
+         * Creates a ClientError message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof typingwars.ClientError
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {typingwars.ClientError} ClientError
+         */
+        ClientError.fromObject = function fromObject(object) {
+            if (object instanceof $root.typingwars.ClientError)
+                return object;
+            var message = new $root.typingwars.ClientError();
+            if (object.message != null)
+                message.message = String(object.message);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a ClientError message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof typingwars.ClientError
+         * @static
+         * @param {typingwars.ClientError} message ClientError
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        ClientError.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults)
+                object.message = "";
+            if (message.message != null && message.hasOwnProperty("message"))
+                object.message = message.message;
+            return object;
+        };
+
+        /**
+         * Converts this ClientError to JSON.
+         * @function toJSON
+         * @memberof typingwars.ClientError
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        ClientError.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return ClientError;
+    })();
+
     typingwars.CreateRoomRequest = (function() {
 
         /**
@@ -3538,6 +3725,7 @@ $root.typingwars = (function() {
          * @interface IUserMessage
          * @property {typingwars.ISpace|null} [space] UserMessage space
          * @property {typingwars.IUserAction|null} [userAction] UserMessage userAction
+         * @property {typingwars.IClientError|null} [clientError] UserMessage clientError
          * @property {typingwars.ICreateRoomRequest|null} [createRoomRequest] UserMessage createRoomRequest
          * @property {typingwars.IJoinRoomRequest|null} [joinRoomRequest] UserMessage joinRoomRequest
          * @property {typingwars.IJoinRoomAck|null} [joinRoomAck] UserMessage joinRoomAck
@@ -3578,6 +3766,14 @@ $root.typingwars = (function() {
          * @instance
          */
         UserMessage.prototype.userAction = null;
+
+        /**
+         * UserMessage clientError.
+         * @member {typingwars.IClientError|null|undefined} clientError
+         * @memberof typingwars.UserMessage
+         * @instance
+         */
+        UserMessage.prototype.clientError = null;
 
         /**
          * UserMessage createRoomRequest.
@@ -3648,12 +3844,12 @@ $root.typingwars = (function() {
 
         /**
          * UserMessage content.
-         * @member {"space"|"userAction"|"createRoomRequest"|"joinRoomRequest"|"joinRoomAck"|"updateRoom"|"updatePlayerReady"|"startGameRequest"|"startGameAck"|"endGame"|undefined} content
+         * @member {"space"|"userAction"|"clientError"|"createRoomRequest"|"joinRoomRequest"|"joinRoomAck"|"updateRoom"|"updatePlayerReady"|"startGameRequest"|"startGameAck"|"endGame"|undefined} content
          * @memberof typingwars.UserMessage
          * @instance
          */
         Object.defineProperty(UserMessage.prototype, "content", {
-            get: $util.oneOfGetter($oneOfFields = ["space", "userAction", "createRoomRequest", "joinRoomRequest", "joinRoomAck", "updateRoom", "updatePlayerReady", "startGameRequest", "startGameAck", "endGame"]),
+            get: $util.oneOfGetter($oneOfFields = ["space", "userAction", "clientError", "createRoomRequest", "joinRoomRequest", "joinRoomAck", "updateRoom", "updatePlayerReady", "startGameRequest", "startGameAck", "endGame"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -3685,6 +3881,8 @@ $root.typingwars = (function() {
                 $root.typingwars.Space.encode(message.space, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
             if (message.userAction != null && message.hasOwnProperty("userAction"))
                 $root.typingwars.UserAction.encode(message.userAction, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+            if (message.clientError != null && message.hasOwnProperty("clientError"))
+                $root.typingwars.ClientError.encode(message.clientError, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
             if (message.createRoomRequest != null && message.hasOwnProperty("createRoomRequest"))
                 $root.typingwars.CreateRoomRequest.encode(message.createRoomRequest, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
             if (message.joinRoomRequest != null && message.hasOwnProperty("joinRoomRequest"))
@@ -3740,6 +3938,9 @@ $root.typingwars = (function() {
                     break;
                 case 2:
                     message.userAction = $root.typingwars.UserAction.decode(reader, reader.uint32());
+                    break;
+                case 3:
+                    message.clientError = $root.typingwars.ClientError.decode(reader, reader.uint32());
                     break;
                 case 4:
                     message.createRoomRequest = $root.typingwars.CreateRoomRequest.decode(reader, reader.uint32());
@@ -3817,6 +4018,16 @@ $root.typingwars = (function() {
                     var error = $root.typingwars.UserAction.verify(message.userAction);
                     if (error)
                         return "userAction." + error;
+                }
+            }
+            if (message.clientError != null && message.hasOwnProperty("clientError")) {
+                if (properties.content === 1)
+                    return "content: multiple values";
+                properties.content = 1;
+                {
+                    var error = $root.typingwars.ClientError.verify(message.clientError);
+                    if (error)
+                        return "clientError." + error;
                 }
             }
             if (message.createRoomRequest != null && message.hasOwnProperty("createRoomRequest")) {
@@ -3924,6 +4135,11 @@ $root.typingwars = (function() {
                     throw TypeError(".typingwars.UserMessage.userAction: object expected");
                 message.userAction = $root.typingwars.UserAction.fromObject(object.userAction);
             }
+            if (object.clientError != null) {
+                if (typeof object.clientError !== "object")
+                    throw TypeError(".typingwars.UserMessage.clientError: object expected");
+                message.clientError = $root.typingwars.ClientError.fromObject(object.clientError);
+            }
             if (object.createRoomRequest != null) {
                 if (typeof object.createRoomRequest !== "object")
                     throw TypeError(".typingwars.UserMessage.createRoomRequest: object expected");
@@ -3989,6 +4205,11 @@ $root.typingwars = (function() {
                 object.userAction = $root.typingwars.UserAction.toObject(message.userAction, options);
                 if (options.oneofs)
                     object.content = "userAction";
+            }
+            if (message.clientError != null && message.hasOwnProperty("clientError")) {
+                object.clientError = $root.typingwars.ClientError.toObject(message.clientError, options);
+                if (options.oneofs)
+                    object.content = "clientError";
             }
             if (message.createRoomRequest != null && message.hasOwnProperty("createRoomRequest")) {
                 object.createRoomRequest = $root.typingwars.CreateRoomRequest.toObject(message.createRoomRequest, options);

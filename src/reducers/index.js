@@ -47,15 +47,30 @@ const game = (state = {}, action) => {
             console.log("END GAME, action.message: ", message);
             return { ...state, gameStatus, space, message }
         case types.SOCKET_CLOSED:
-            state = {};
-            return { ...state };
+            return {};
         default:
             return state;
     }
 };
 
+const page = (state = {}, action) => {
+    let clientError;
+
+    switch (action.type) {
+        case types.CLIENT_ERROR:
+            console.log("Client error!");
+            clientError = action.message;
+            return { ...state, clientError };
+        case types.SOCKET_CLOSED:
+            return {};
+        default:
+            return state;
+    }
+}
+
 const reducers = combineReducers({
     game,
+    page,
     router: routerReducer,
 });
 

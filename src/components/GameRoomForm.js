@@ -63,6 +63,12 @@ class GameRoomForm extends Component {
                         <input type="submit" value="Join Game Room" />
                     </form>
                 </div>
+                <div className={`
+                    ${styles.ClientErrorDisplay}
+                    ${this.props.clientError ? styles.active : ''}
+                `}>
+                    <p className={styles.ClientError}>{this.props.clientError}</p>
+                </div>
             </div>
         )
     }

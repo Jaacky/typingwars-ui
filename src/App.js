@@ -78,6 +78,7 @@ class App extends Component {
                         <RouteWrapper exact path="/" component={GameRoomForm} 
                             createRoom={this.props.createRoom}
                             enterRoom={this.props.enterRoom}
+                            clientError={this.props.clientError}
                         />
                         <RouteWrapper path="/gameroom" component={GameRoom}
                             loading={this.props.loading}
@@ -119,6 +120,8 @@ const mapStateToProps = (state, ownProps) => {
         gameStatus: state.game.gameStatus,
         roomNumber: state.game.roomNumber,
         space: state.game.space,
+
+        clientError: state.page.clientError,
 
         location: state.router.location,
     }

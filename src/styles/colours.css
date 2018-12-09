@@ -72,3 +72,6 @@
 @value primary: hsl(184, 73.9%, 34.5%);
 @value primary_saturated: hsl(184, 73.9%, 24.5%);
 @value primary_fade: hsla(184, 73.9%, 34.5%, 25%);
+
+/* rgb(239, 99, 101) */
+@value error: hsl(359, 81.4%, 66.3%);
