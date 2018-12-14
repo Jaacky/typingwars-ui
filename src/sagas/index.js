@@ -221,8 +221,5 @@ export default function* rootSaga() {
         watchSpace(),
         watchEndGame(),
         watchClientErrorMessages(),
-        // watchSuccessfulGameRoomCreation(),
-        // watchSuccessfulGameRoomEnter(),
-        // watchOtherPlayersReady(),
     ])
 };

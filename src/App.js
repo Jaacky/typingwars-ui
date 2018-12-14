@@ -70,6 +70,7 @@ class App extends Component {
         let testTargets = { "me": testUnit }
         let testSpace = { bases: [testBase], units: [testUnit], targets: testTargets };
         // let testProps = { space: testSpace }
+        let testMessage = "Player 2 has been defeated";
         return (
             <div>
                 <Nav />
@@ -90,6 +91,7 @@ class App extends Component {
                             startFlag={this.props.startFlag}
                             startGame={this.props.startGame}
                             gameStatus={this.props.gameStatus}
+                            message={testMessage}
                             space={this.props.space}
                             roomSize={MAX_NUM_PLAYERS}
                         />
@@ -119,6 +121,7 @@ const mapStateToProps = (state, ownProps) => {
         startFlag: state.game.startFlag,
         gameStatus: state.game.gameStatus,
         roomNumber: state.game.roomNumber,
+        message: state.game.message,
         space: state.game.space,
 
         clientError: state.page.clientError,

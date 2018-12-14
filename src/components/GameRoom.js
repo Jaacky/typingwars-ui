@@ -54,6 +54,18 @@ class GameRoom extends Component {
             )
         })
 
+        let message;
+        if (this.props.message) {
+            console.log("Prop message:", this.props.message);
+            message = <div className={styles.Message}>
+                <h3>{this.props.message}</h3>
+                <span className={styles.Close}>
+                    <div></div>
+                    <div></div>
+                </span>
+            </div>
+        }
+
         let display = this.props.gameStatus
             ? 
                 <div className={styles.Display}>
@@ -80,6 +92,7 @@ class GameRoom extends Component {
                 <div className={styles.Header}>
                     <h1>Room ID: {this.props.roomId}</h1>
                 </div>
+                {message}
                 {display}
                 {/* <GameMap /> */}
             </div>
