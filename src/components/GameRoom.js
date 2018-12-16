@@ -92,7 +92,7 @@ class GameRoom extends Component {
                 <div className={styles.Header}>
                     <h1>Room ID: {this.props.roomId}</h1>
                 </div>
-                {message}
+                {/* {message} */}
                 {display}
                 {/* <GameMap /> */}
             </div>
